@@ -4,25 +4,11 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import Icon from '@/components/ui/icon'
+import { allCountries, type Country } from '@/data/countries'
 
-interface Country {
-  id: string
-  name: string
-  nameEn: string
-  continent: string
-  destinations: number
-  flag: string
-  description: string
-  coordinates: { x: number; y: number }
-  popularDestinations: string[]
-  climate: string
-  bestTime: string
-  currency: string
-  language: string
-  visaRequired: boolean
-}
+const countries = allCountries.slice(0, 15) // Показываем первые 15 стран для лучшей производительности
 
-const countries: Country[] = [
+const allCountriesForGrid: Country[] = [
   {
     id: 'switzerland',
     name: 'Швейцария',
@@ -289,7 +275,7 @@ export default function WorldMap() {
 
           {/* Countries Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {countries.map((country) => (
+            {allCountries.map((country) => (
               <Dialog key={`card-${country.id}`}>
                 <DialogTrigger asChild>
                   <Card className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105">

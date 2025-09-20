@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Icon from '@/components/ui/icon'
 import WorldMap from '@/components/WorldMap'
+import About from '@/components/About'
 
 interface Destination {
   id: string
@@ -106,7 +107,12 @@ export default function Index() {
                   Карта
                 </button>
                 <a href="#" className="text-foreground hover:text-primary transition-colors">Страны</a>
-                <a href="#" className="text-foreground hover:text-primary transition-colors">О проекте</a>
+                <button 
+                  onClick={() => setActiveSection('about')} 
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  О проекте
+                </button>
               </div>
               <Button variant="outline" size="sm">
                 <Icon name="Route" size={16} className="mr-2" />
@@ -116,6 +122,50 @@ export default function Index() {
           </div>
         </nav>
         <WorldMap />
+      </div>
+    )
+  }
+
+  if (activeSection === 'about') {
+    return (
+      <div className="min-h-screen bg-background">
+        {/* Navigation */}
+        <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <Icon name="Compass" size={28} className="text-vintage-gold" />
+                <h1 className="text-2xl font-bold text-foreground">Странник</h1>
+              </div>
+              <div className="hidden md:flex items-center space-x-6">
+                <button 
+                  onClick={() => setActiveSection('home')} 
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  Главная
+                </button>
+                <button 
+                  onClick={() => setActiveSection('map')} 
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  Карта
+                </button>
+                <a href="#" className="text-foreground hover:text-primary transition-colors">Страны</a>
+                <button 
+                  onClick={() => setActiveSection('about')} 
+                  className="text-primary transition-colors"
+                >
+                  О проекте
+                </button>
+              </div>
+              <Button variant="outline" size="sm">
+                <Icon name="Route" size={16} className="mr-2" />
+                Мой маршрут
+              </Button>
+            </div>
+          </div>
+        </nav>
+        <About />
       </div>
     )
   }
@@ -144,7 +194,12 @@ export default function Index() {
                 Карта
               </button>
               <a href="#" className="text-foreground hover:text-primary transition-colors">Страны</a>
-              <a href="#" className="text-foreground hover:text-primary transition-colors">О проекте</a>
+              <button 
+                onClick={() => setActiveSection('about')} 
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                О проекте
+              </button>
             </div>
             <Button variant="outline" size="sm">
               <Icon name="Route" size={16} className="mr-2" />
