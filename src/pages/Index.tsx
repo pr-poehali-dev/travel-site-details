@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Icon from '@/components/ui/icon'
-import WorldMap from '@/components/WorldMap'
+import ImprovedWorldMap from '@/components/ImprovedWorldMap'
 import About from '@/components/About'
 
 interface Destination {
@@ -121,7 +121,7 @@ export default function Index() {
             </div>
           </div>
         </nav>
-        <WorldMap />
+        <ImprovedWorldMap />
       </div>
     )
   }
