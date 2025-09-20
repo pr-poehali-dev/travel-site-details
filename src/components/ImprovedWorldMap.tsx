@@ -8,130 +8,130 @@ import { Input } from '@/components/ui/input'
 import Icon from '@/components/ui/icon'
 import { allCountries, type Country } from '@/data/countries'
 
-// Улучшенные координаты с большим расстоянием между странами
+// Оптимальные координаты с максимальным разделением стран
 const improvedCountries: Country[] = [
   // Европа - левый верх
   {
-    ...allCountries.find(c => c.id === 'switzerland')!,
-    coordinates: { x: 15, y: 15 }
-  },
-  {
     ...allCountries.find(c => c.id === 'iceland')!,
-    coordinates: { x: 8, y: 8 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'italy')!,
-    coordinates: { x: 18, y: 20 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'france')!,
-    coordinates: { x: 12, y: 18 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'spain')!,
-    coordinates: { x: 10, y: 22 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'greece')!,
-    coordinates: { x: 20, y: 24 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'germany')!,
-    coordinates: { x: 14, y: 16 }
+    coordinates: { x: 5, y: 5 }
   },
   {
     ...allCountries.find(c => c.id === 'norway')!,
-    coordinates: { x: 14, y: 10 }
+    coordinates: { x: 15, y: 8 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'germany')!,
+    coordinates: { x: 17, y: 13 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'switzerland')!,
+    coordinates: { x: 16, y: 17 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'france')!,
+    coordinates: { x: 12, y: 19 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'spain')!,
+    coordinates: { x: 8, y: 23 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'italy')!,
+    coordinates: { x: 19, y: 22 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'greece')!,
+    coordinates: { x: 23, y: 26 }
   },
 
-  // Азия - центр и правый верх
-  {
-    ...allCountries.find(c => c.id === 'japan')!,
-    coordinates: { x: 85, y: 20 }
-  },
+  // Азия - центр и правый верх (больше разброс)
   {
     ...allCountries.find(c => c.id === 'china')!,
-    coordinates: { x: 75, y: 18 }
+    coordinates: { x: 72, y: 15 }
   },
   {
-    ...allCountries.find(c => c.id === 'india')!,
-    coordinates: { x: 65, y: 25 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'thailand')!,
-    coordinates: { x: 70, y: 30 }
+    ...allCountries.find(c => c.id === 'japan')!,
+    coordinates: { x: 87, y: 18 }
   },
   {
     ...allCountries.find(c => c.id === 'southkorea')!,
-    coordinates: { x: 80, y: 22 }
+    coordinates: { x: 82, y: 22 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'india')!,
+    coordinates: { x: 60, y: 28 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'thailand')!,
+    coordinates: { x: 68, y: 32 }
   },
   {
     ...allCountries.find(c => c.id === 'maldives')!,
-    coordinates: { x: 62, y: 38 }
+    coordinates: { x: 58, y: 40 }
   },
 
-  // Африка - центр
-  {
-    ...allCountries.find(c => c.id === 'egypt')!,
-    coordinates: { x: 25, y: 35 }
-  },
+  // Африка - центральная левая область
   {
     ...allCountries.find(c => c.id === 'morocco')!,
-    coordinates: { x: 8, y: 30 }
+    coordinates: { x: 6, y: 32 }
   },
   {
-    ...allCountries.find(c => c.id === 'southafrica')!,
-    coordinates: { x: 22, y: 55 }
+    ...allCountries.find(c => c.id === 'egypt')!,
+    coordinates: { x: 27, y: 35 }
   },
   {
     ...allCountries.find(c => c.id === 'kenya')!,
-    coordinates: { x: 28, y: 45 }
+    coordinates: { x: 30, y: 45 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'southafrica')!,
+    coordinates: { x: 24, y: 58 }
   },
 
-  // Северная Америка - левый центр
-  {
-    ...allCountries.find(c => c.id === 'usa')!,
-    coordinates: { x: 35, y: 25 }
-  },
+  // Северная Америка - левая центральная область
   {
     ...allCountries.find(c => c.id === 'canada')!,
-    coordinates: { x: 30, y: 15 }
+    coordinates: { x: 38, y: 12 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'usa')!,
+    coordinates: { x: 42, y: 22 }
   },
   {
     ...allCountries.find(c => c.id === 'mexico')!,
-    coordinates: { x: 32, y: 35 }
+    coordinates: { x: 38, y: 32 }
   },
 
-  // Южная Америка - левый низ
-  {
-    ...allCountries.find(c => c.id === 'brazil')!,
-    coordinates: { x: 40, y: 50 }
-  },
+  // Южная Америка - левая нижняя область
   {
     ...allCountries.find(c => c.id === 'peru')!,
-    coordinates: { x: 35, y: 48 }
+    coordinates: { x: 44, y: 42 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'brazil')!,
+    coordinates: { x: 48, y: 48 }
   },
   {
     ...allCountries.find(c => c.id === 'argentina')!,
-    coordinates: { x: 38, y: 58 }
+    coordinates: { x: 46, y: 55 }
   },
   {
     ...allCountries.find(c => c.id === 'chile')!,
-    coordinates: { x: 35, y: 60 }
+    coordinates: { x: 42, y: 60 }
   },
 
-  // Океания - правый низ
+  // Океания - правая нижняя область
+  {
+    ...allCountries.find(c => c.id === 'fiji')!,
+    coordinates: { x: 92, y: 42 }
+  },
   {
     ...allCountries.find(c => c.id === 'australia')!,
-    coordinates: { x: 80, y: 55 }
+    coordinates: { x: 78, y: 52 }
   },
   {
     ...allCountries.find(c => c.id === 'newzealand')!,
-    coordinates: { x: 85, y: 62 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'fiji')!,
-    coordinates: { x: 90, y: 50 }
+    coordinates: { x: 85, y: 60 }
   }
 ]
 
