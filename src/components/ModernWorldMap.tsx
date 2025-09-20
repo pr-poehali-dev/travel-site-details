@@ -8,129 +8,134 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Icon from '@/components/ui/icon'
 import { allCountries, type Country } from '@/data/countries'
 
+// Упорядоченное размещение стран по столбикам с увеличенным пространством
 const modernCountries: Country[] = [
-  // Топ направления - крупнее и ярче
-  {
-    ...allCountries.find(c => c.id === 'japan')!,
-    coordinates: { x: 85, y: 25 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'italy')!,
-    coordinates: { x: 20, y: 22 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'france')!,
-    coordinates: { x: 15, y: 19 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'thailand')!,
-    coordinates: { x: 70, y: 32 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'usa')!,
-    coordinates: { x: 40, y: 25 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'australia')!,
-    coordinates: { x: 82, y: 55 }
-  },
-
-  // Европа
+  // Столбик 1 - Европа (левый край)
   {
     ...allCountries.find(c => c.id === 'iceland')!,
-    coordinates: { x: 8, y: 8 }
+    coordinates: { x: 12, y: 10 }
   },
   {
     ...allCountries.find(c => c.id === 'norway')!,
-    coordinates: { x: 18, y: 12 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'switzerland')!,
-    coordinates: { x: 19, y: 17 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'spain')!,
-    coordinates: { x: 12, y: 25 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'greece')!,
-    coordinates: { x: 25, y: 28 }
+    coordinates: { x: 12, y: 20 }
   },
   {
     ...allCountries.find(c => c.id === 'germany')!,
-    coordinates: { x: 17, y: 15 }
-  },
-
-  // Азия
-  {
-    ...allCountries.find(c => c.id === 'china')!,
-    coordinates: { x: 75, y: 20 }
+    coordinates: { x: 12, y: 30 }
   },
   {
-    ...allCountries.find(c => c.id === 'india')!,
-    coordinates: { x: 62, y: 30 }
+    ...allCountries.find(c => c.id === 'france')!,
+    coordinates: { x: 12, y: 40 }
   },
   {
-    ...allCountries.find(c => c.id === 'southkorea')!,
-    coordinates: { x: 80, y: 28 }
+    ...allCountries.find(c => c.id === 'spain')!,
+    coordinates: { x: 12, y: 50 }
   },
-  {
-    ...allCountries.find(c => c.id === 'maldives')!,
-    coordinates: { x: 58, y: 42 }
-  },
-
-  // Африка
   {
     ...allCountries.find(c => c.id === 'morocco')!,
-    coordinates: { x: 8, y: 35 }
+    coordinates: { x: 12, y: 60 }
+  },
+
+  // Столбик 2 - Европа продолжение
+  {
+    ...allCountries.find(c => c.id === 'switzerland')!,
+    coordinates: { x: 26, y: 10 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'italy')!,
+    coordinates: { x: 26, y: 20 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'greece')!,
+    coordinates: { x: 26, y: 30 }
   },
   {
     ...allCountries.find(c => c.id === 'egypt')!,
-    coordinates: { x: 28, y: 38 }
+    coordinates: { x: 26, y: 40 }
   },
   {
     ...allCountries.find(c => c.id === 'kenya')!,
-    coordinates: { x: 32, y: 48 }
+    coordinates: { x: 26, y: 50 }
   },
   {
     ...allCountries.find(c => c.id === 'southafrica')!,
-    coordinates: { x: 26, y: 58 }
+    coordinates: { x: 26, y: 60 }
   },
 
-  // Америки
+  // Столбик 3 - Северная Америка
   {
     ...allCountries.find(c => c.id === 'canada')!,
-    coordinates: { x: 35, y: 15 }
+    coordinates: { x: 40, y: 10 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'usa')!,
+    coordinates: { x: 40, y: 20 }
   },
   {
     ...allCountries.find(c => c.id === 'mexico')!,
-    coordinates: { x: 35, y: 35 }
+    coordinates: { x: 40, y: 30 }
+  },
+
+  // Столбик 4 - Южная Америка
+  {
+    ...allCountries.find(c => c.id === 'peru')!,
+    coordinates: { x: 54, y: 10 }
   },
   {
     ...allCountries.find(c => c.id === 'brazil')!,
-    coordinates: { x: 48, y: 50 }
-  },
-  {
-    ...allCountries.find(c => c.id === 'peru')!,
-    coordinates: { x: 42, y: 45 }
+    coordinates: { x: 54, y: 20 }
   },
   {
     ...allCountries.find(c => c.id === 'argentina')!,
-    coordinates: { x: 45, y: 58 }
+    coordinates: { x: 54, y: 30 }
   },
   {
     ...allCountries.find(c => c.id === 'chile')!,
-    coordinates: { x: 40, y: 62 }
+    coordinates: { x: 54, y: 40 }
   },
 
-  // Океания
+  // Столбик 5 - Азия запад
   {
-    ...allCountries.find(c => c.id === 'newzealand')!,
-    coordinates: { x: 88, y: 62 }
+    ...allCountries.find(c => c.id === 'india')!,
+    coordinates: { x: 68, y: 10 }
   },
   {
+    ...allCountries.find(c => c.id === 'maldives')!,
+    coordinates: { x: 68, y: 20 }
+  },
+
+  // Столбик 6 - Азия центр
+  {
+    ...allCountries.find(c => c.id === 'china')!,
+    coordinates: { x: 82, y: 10 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'thailand')!,
+    coordinates: { x: 82, y: 20 }
+  },
+
+  // Столбик 7 - Азия восток
+  {
+    ...allCountries.find(c => c.id === 'southkorea')!,
+    coordinates: { x: 96, y: 10 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'japan')!,
+    coordinates: { x: 96, y: 20 }
+  },
+
+  // Столбик 8 - Океания
+  {
     ...allCountries.find(c => c.id === 'fiji')!,
-    coordinates: { x: 92, y: 45 }
+    coordinates: { x: 110, y: 10 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'australia')!,
+    coordinates: { x: 110, y: 20 }
+  },
+  {
+    ...allCountries.find(c => c.id === 'newzealand')!,
+    coordinates: { x: 110, y: 30 }
   }
 ]
 
@@ -247,8 +252,8 @@ export default function ModernWorldMap() {
               <div className="max-w-7xl mx-auto">
                 <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl">
                   <svg
-                    viewBox="0 0 100 70"
-                    className="w-full h-auto max-h-[600px] transition-all duration-1000 ease-out"
+                    viewBox="0 0 125 75"
+                    className="w-full h-auto max-h-[700px] transition-all duration-1000 ease-out"
                     style={{ 
                       filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))',
                       transform: animationStarted ? 'scale(1)' : 'scale(0.8)',
@@ -276,15 +281,15 @@ export default function ModernWorldMap() {
                     </defs>
 
                     {/* World Background */}
-                    <rect x="0" y="0" width="100" height="70" fill="url(#worldGrad)" rx="8" />
+                    <rect x="0" y="0" width="125" height="75" fill="url(#worldGrad)" rx="8" />
                     
                     {/* Glowing Grid */}
                     <g opacity="0.1">
-                      {[...Array(20)].map((_, i) => (
-                        <line key={`v${i}`} x1={i * 5} y1="0" x2={i * 5} y2="70" stroke="#3b82f6" strokeWidth="0.2" />
+                      {[...Array(25)].map((_, i) => (
+                        <line key={`v${i}`} x1={i * 5} y1="0" x2={i * 5} y2="75" stroke="#3b82f6" strokeWidth="0.2" />
                       ))}
-                      {[...Array(14)].map((_, i) => (
-                        <line key={`h${i}`} x1="0" y1={i * 5} x2="100" y2={i * 5} stroke="#3b82f6" strokeWidth="0.2" />
+                      {[...Array(15)].map((_, i) => (
+                        <line key={`h${i}`} x1="0" y1={i * 5} x2="125" y2={i * 5} stroke="#3b82f6" strokeWidth="0.2" />
                       ))}
                     </g>
 
@@ -492,8 +497,8 @@ export default function ModernWorldMap() {
                     })}
 
                     {/* Enhanced Legend */}
-                    <g transform="translate(5, 55)">
-                      <rect x="0" y="0" width="35" height="12" fill="rgba(0,0,0,0.8)" rx="6" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+                    <g transform="translate(5, 65)">
+                      <rect x="0" y="0" width="40" height="12" fill="rgba(0,0,0,0.8)" rx="6" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
                       <circle cx="4" cy="6" r="2" fill="#3b82f6" />
                       <text x="8" y="7" className="text-xs fill-white font-medium">Страны для путешествий</text>
                       <circle cx="4" cy="9" r="1.5" fill="#fbbf24" />
