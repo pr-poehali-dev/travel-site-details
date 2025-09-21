@@ -525,7 +525,11 @@ export default function Index() {
             Планируйте и сохраняйте персональные туристические маршруты 
             с помощью интерактивных инструментов
           </p>
-          <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-14 px-8 text-lg font-semibold">
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-14 px-8 text-lg font-semibold"
+            onClick={() => window.open('https://www.utair.ru', '_blank')}
+          >
             <Icon name="MapPin" size={24} className="mr-3" />
             Начать планирование
           </Button>
