@@ -364,19 +364,7 @@ export default function ModernWorldMap() {
                                   }}
                                 />
 
-                                {/* Country label with better positioning */}
-                                <text
-                                  x={country.coordinates.x}
-                                  y={country.coordinates.y - 6}
-                                  textAnchor="middle"
-                                  className="text-xs font-semibold fill-white pointer-events-none"
-                                  style={{ 
-                                    fontSize: isTop ? '0.8rem' : '0.6rem',
-                                    filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))'
-                                  }}
-                                >
-                                  {country.name}
-                                </text>
+
 
                                 {/* Top destination badge */}
                                 {isTop && (
