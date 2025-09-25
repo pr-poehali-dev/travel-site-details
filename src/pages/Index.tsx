@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
 import Icon from '@/components/ui/icon'
 import ModernWorldMap from '@/components/ModernWorldMap'
 import About from '@/components/About'
@@ -126,6 +128,17 @@ export default function Index() {
   const [isRouteModalOpen, setIsRouteModalOpen] = useState(false)
   const [selectedFromCity, setSelectedFromCity] = useState('')
   const [selectedToCountry, setSelectedToCountry] = useState('')
+  const [departureDate, setDepartureDate] = useState('')
+  const [returnDate, setReturnDate] = useState('')
+  const [isRoundTrip, setIsRoundTrip] = useState(false)
+  
+  // Устанавливаем дату отправления по умолчанию (через 30 дней)
+  useEffect(() => {
+    const today = new Date()
+    const defaultDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
+    const dateString = defaultDate.toISOString().split('T')[0]
+    setDepartureDate(dateString)
+  }, [])
 
   if (activeSection === 'map') {
     return (
@@ -217,26 +230,70 @@ export default function Index() {
                         </SelectContent>
                       </Select>
                     </div>
+
+                    <div className="space-y-3">
+                      <label className="text-white font-medium">Дата отправления</label>
+                      <Input
+                        type="date"
+                        value={departureDate}
+                        onChange={(e) => setDepartureDate(e.target.value)}
+                        className="bg-white/10 border-white/20 text-white [&::-webkit-calendar-picker-indicator]:invert"
+                        min={new Date().toISOString().split('T')[0]}
+                      />
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <Checkbox
+                        id="roundTrip"
+                        checked={isRoundTrip}
+                        onCheckedChange={(checked) => {
+                          setIsRoundTrip(checked as boolean)
+                          if (!checked) {
+                            setReturnDate('')
+                          }
+                        }}
+                        className="border-white/20 data-[state=checked]:bg-blue-500"
+                      />
+                      <label htmlFor="roundTrip" className="text-white font-medium cursor-pointer">
+                        Обратный билет
+                      </label>
+                    </div>
+
+                    {isRoundTrip && (
+                      <div className="space-y-3">
+                        <label className="text-white font-medium">Дата возврата</label>
+                        <Input
+                          type="date"
+                          value={returnDate}
+                          onChange={(e) => setReturnDate(e.target.value)}
+                          className="bg-white/10 border-white/20 text-white [&::-webkit-calendar-picker-indicator]:invert"
+                          min={departureDate || new Date().toISOString().split('T')[0]}
+                        />
+                      </div>
+                    )}
                     
                     <Button 
                       onClick={() => {
-                        if (selectedFromCity && selectedToCountry) {
+                        if (selectedFromCity && selectedToCountry && departureDate) {
                           const selectedCountry = countries.find(c => c.code === selectedToCountry)
                           const destinationAirport = selectedCountry?.airport || selectedToCountry
                           
                           // Формат URL для Aeroflot с предзаполненными полями
-                          const today = new Date()
-                          const departureDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000) // +30 дней
-                          const dateString = departureDate.toISOString().split('T')[0]
+                          let aeroflotUrl = `https://www.aeroflot.ru/sb/booking?from=${selectedFromCity}&to=${destinationAirport}&departure=${departureDate}&passengers=1&class=economy&direct=false`
                           
-                          const aeroflotUrl = `https://www.aeroflot.ru/sb/booking?from=${selectedFromCity}&to=${destinationAirport}&departure=${dateString}&passengers=1&class=economy&direct=false`
+                          // Если выбран обратный билет и указана дата возврата
+                          if (isRoundTrip && returnDate) {
+                            aeroflotUrl += `&return=${returnDate}&tripType=round`
+                          } else {
+                            aeroflotUrl += `&tripType=one-way`
+                          }
                           
                           window.open(aeroflotUrl, '_blank')
                           setIsRouteModalOpen(false)
                         }
                       }}
                       className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-12 text-lg font-semibold"
-                      disabled={!selectedFromCity || !selectedToCountry}
+                      disabled={!selectedFromCity || !selectedToCountry || !departureDate || (isRoundTrip && !returnDate)}
                     >
                       <Icon name="Plane" size={20} className="mr-2" />
                       Найти рейсы на Аэрофлот
@@ -342,26 +399,70 @@ export default function Index() {
                         </SelectContent>
                       </Select>
                     </div>
+
+                    <div className="space-y-3">
+                      <label className="text-white font-medium">Дата отправления</label>
+                      <Input
+                        type="date"
+                        value={departureDate}
+                        onChange={(e) => setDepartureDate(e.target.value)}
+                        className="bg-white/10 border-white/20 text-white [&::-webkit-calendar-picker-indicator]:invert"
+                        min={new Date().toISOString().split('T')[0]}
+                      />
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <Checkbox
+                        id="roundTrip"
+                        checked={isRoundTrip}
+                        onCheckedChange={(checked) => {
+                          setIsRoundTrip(checked as boolean)
+                          if (!checked) {
+                            setReturnDate('')
+                          }
+                        }}
+                        className="border-white/20 data-[state=checked]:bg-blue-500"
+                      />
+                      <label htmlFor="roundTrip" className="text-white font-medium cursor-pointer">
+                        Обратный билет
+                      </label>
+                    </div>
+
+                    {isRoundTrip && (
+                      <div className="space-y-3">
+                        <label className="text-white font-medium">Дата возврата</label>
+                        <Input
+                          type="date"
+                          value={returnDate}
+                          onChange={(e) => setReturnDate(e.target.value)}
+                          className="bg-white/10 border-white/20 text-white [&::-webkit-calendar-picker-indicator]:invert"
+                          min={departureDate || new Date().toISOString().split('T')[0]}
+                        />
+                      </div>
+                    )}
                     
                     <Button 
                       onClick={() => {
-                        if (selectedFromCity && selectedToCountry) {
+                        if (selectedFromCity && selectedToCountry && departureDate) {
                           const selectedCountry = countries.find(c => c.code === selectedToCountry)
                           const destinationAirport = selectedCountry?.airport || selectedToCountry
                           
                           // Формат URL для Aeroflot с предзаполненными полями
-                          const today = new Date()
-                          const departureDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000) // +30 дней
-                          const dateString = departureDate.toISOString().split('T')[0]
+                          let aeroflotUrl = `https://www.aeroflot.ru/sb/booking?from=${selectedFromCity}&to=${destinationAirport}&departure=${departureDate}&passengers=1&class=economy&direct=false`
                           
-                          const aeroflotUrl = `https://www.aeroflot.ru/sb/booking?from=${selectedFromCity}&to=${destinationAirport}&departure=${dateString}&passengers=1&class=economy&direct=false`
+                          // Если выбран обратный билет и указана дата возврата
+                          if (isRoundTrip && returnDate) {
+                            aeroflotUrl += `&return=${returnDate}&tripType=round`
+                          } else {
+                            aeroflotUrl += `&tripType=one-way`
+                          }
                           
                           window.open(aeroflotUrl, '_blank')
                           setIsRouteModalOpen(false)
                         }
                       }}
                       className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-12 text-lg font-semibold"
-                      disabled={!selectedFromCity || !selectedToCountry}
+                      disabled={!selectedFromCity || !selectedToCountry || !departureDate || (isRoundTrip && !returnDate)}
                     >
                       <Icon name="Plane" size={20} className="mr-2" />
                       Найти рейсы на Аэрофлот
