@@ -80,31 +80,31 @@ const destinations: Destination[] = [
 ]
 
 const countries = [
-  { name: 'Швейцария', flag: '🇨🇭', code: 'CH' },
-  { name: 'Мальдивы', flag: '🇲🇻', code: 'MV' },
-  { name: 'Япония', flag: '🇯🇵', code: 'JP' },
-  { name: 'Исландия', flag: '🇮🇸', code: 'IS' },
-  { name: 'Италия', flag: '🇮🇹', code: 'IT' },
-  { name: 'Франция', flag: '🇫🇷', code: 'FR' },
-  { name: 'Испания', flag: '🇪🇸', code: 'ES' },
-  { name: 'Германия', flag: '🇩🇪', code: 'DE' },
-  { name: 'Великобритания', flag: '🇬🇧', code: 'GB' },
-  { name: 'США', flag: '🇺🇸', code: 'US' },
-  { name: 'Канада', flag: '🇨🇦', code: 'CA' },
-  { name: 'Австралия', flag: '🇦🇺', code: 'AU' },
-  { name: 'Новая Зеландия', flag: '🇳🇿', code: 'NZ' },
-  { name: 'Бразилия', flag: '🇧🇷', code: 'BR' },
-  { name: 'Аргентина', flag: '🇦🇷', code: 'AR' },
-  { name: 'ОАЭ', flag: '🇦🇪', code: 'AE' },
-  { name: 'Турция', flag: '🇹🇷', code: 'TR' },
-  { name: 'Таиланд', flag: '🇹🇭', code: 'TH' },
-  { name: 'Южная Корея', flag: '🇰🇷', code: 'KR' },
-  { name: 'Китай', flag: '🇨🇳', code: 'CN' },
-  { name: 'Индия', flag: '🇮🇳', code: 'IN' },
-  { name: 'Сингапур', flag: '🇸🇬', code: 'SG' },
-  { name: 'Мексика', flag: '🇲🇽', code: 'MX' },
-  { name: 'Египет', flag: '🇪🇬', code: 'EG' },
-  { name: 'Марокко', flag: '🇲🇦', code: 'MA' }
+  { name: 'Швейцария', flag: '🇨🇭', code: 'CH', airport: 'ZUR' },
+  { name: 'Мальдивы', flag: '🇲🇻', code: 'MV', airport: 'MLE' },
+  { name: 'Япония', flag: '🇯🇵', code: 'JP', airport: 'NRT' },
+  { name: 'Исландия', flag: '🇮🇸', code: 'IS', airport: 'KEF' },
+  { name: 'Италия', flag: '🇮🇹', code: 'IT', airport: 'FCO' },
+  { name: 'Франция', flag: '🇫🇷', code: 'FR', airport: 'CDG' },
+  { name: 'Испания', flag: '🇪🇸', code: 'ES', airport: 'MAD' },
+  { name: 'Германия', flag: '🇩🇪', code: 'DE', airport: 'FRA' },
+  { name: 'Великобритания', flag: '🇬🇧', code: 'GB', airport: 'LHR' },
+  { name: 'США', flag: '🇺🇸', code: 'US', airport: 'JFK' },
+  { name: 'Канада', flag: '🇨🇦', code: 'CA', airport: 'YYZ' },
+  { name: 'Австралия', flag: '🇦🇺', code: 'AU', airport: 'SYD' },
+  { name: 'Новая Зеландия', flag: '🇳🇿', code: 'NZ', airport: 'AKL' },
+  { name: 'Бразилия', flag: '🇧🇷', code: 'BR', airport: 'GRU' },
+  { name: 'Аргентина', flag: '🇦🇷', code: 'AR', airport: 'EZE' },
+  { name: 'ОАЭ', flag: '🇦🇪', code: 'AE', airport: 'DXB' },
+  { name: 'Турция', flag: '🇹🇷', code: 'TR', airport: 'IST' },
+  { name: 'Таиланд', flag: '🇹🇭', code: 'TH', airport: 'BKK' },
+  { name: 'Южная Корея', flag: '🇰🇷', code: 'KR', airport: 'ICN' },
+  { name: 'Китай', flag: '🇨🇳', code: 'CN', airport: 'PEK' },
+  { name: 'Индия', flag: '🇮🇳', code: 'IN', airport: 'DEL' },
+  { name: 'Сингапур', flag: '🇸🇬', code: 'SG', airport: 'SIN' },
+  { name: 'Мексика', flag: '🇲🇽', code: 'MX', airport: 'MEX' },
+  { name: 'Египет', flag: '🇪🇬', code: 'EG', airport: 'CAI' },
+  { name: 'Марокко', flag: '🇲🇦', code: 'MA', airport: 'CMN' }
 ]
 
 const russianCities = [
@@ -221,7 +221,17 @@ export default function Index() {
                     <Button 
                       onClick={() => {
                         if (selectedFromCity && selectedToCountry) {
-                          window.open('https://www.aeroflot.ru', '_blank')
+                          const selectedCountry = countries.find(c => c.code === selectedToCountry)
+                          const destinationAirport = selectedCountry?.airport || selectedToCountry
+                          
+                          // Формат URL для Aeroflot с предзаполненными полями
+                          const today = new Date()
+                          const departureDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000) // +30 дней
+                          const dateString = departureDate.toISOString().split('T')[0]
+                          
+                          const aeroflotUrl = `https://www.aeroflot.ru/sb/booking?from=${selectedFromCity}&to=${destinationAirport}&departure=${dateString}&passengers=1&class=economy&direct=false`
+                          
+                          window.open(aeroflotUrl, '_blank')
                           setIsRouteModalOpen(false)
                         }
                       }}
@@ -336,7 +346,17 @@ export default function Index() {
                     <Button 
                       onClick={() => {
                         if (selectedFromCity && selectedToCountry) {
-                          window.open('https://www.aeroflot.ru', '_blank')
+                          const selectedCountry = countries.find(c => c.code === selectedToCountry)
+                          const destinationAirport = selectedCountry?.airport || selectedToCountry
+                          
+                          // Формат URL для Aeroflot с предзаполненными полями
+                          const today = new Date()
+                          const departureDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000) // +30 дней
+                          const dateString = departureDate.toISOString().split('T')[0]
+                          
+                          const aeroflotUrl = `https://www.aeroflot.ru/sb/booking?from=${selectedFromCity}&to=${destinationAirport}&departure=${dateString}&passengers=1&class=economy&direct=false`
+                          
+                          window.open(aeroflotUrl, '_blank')
                           setIsRouteModalOpen(false)
                         }
                       }}
