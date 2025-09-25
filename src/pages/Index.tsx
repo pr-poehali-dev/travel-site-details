@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import Icon from '@/components/ui/icon'
 import ModernWorldMap from '@/components/ModernWorldMap'
 import About from '@/components/About'
@@ -78,9 +79,53 @@ const destinations: Destination[] = [
   }
 ]
 
+const countries = [
+  { name: 'Швейцария', flag: '🇨🇭', code: 'CH' },
+  { name: 'Мальдивы', flag: '🇲🇻', code: 'MV' },
+  { name: 'Япония', flag: '🇯🇵', code: 'JP' },
+  { name: 'Исландия', flag: '🇮🇸', code: 'IS' },
+  { name: 'Италия', flag: '🇮🇹', code: 'IT' },
+  { name: 'Франция', flag: '🇫🇷', code: 'FR' },
+  { name: 'Испания', flag: '🇪🇸', code: 'ES' },
+  { name: 'Германия', flag: '🇩🇪', code: 'DE' },
+  { name: 'Великобритания', flag: '🇬🇧', code: 'GB' },
+  { name: 'США', flag: '🇺🇸', code: 'US' },
+  { name: 'Канада', flag: '🇨🇦', code: 'CA' },
+  { name: 'Австралия', flag: '🇦🇺', code: 'AU' },
+  { name: 'Новая Зеландия', flag: '🇳🇿', code: 'NZ' },
+  { name: 'Бразилия', flag: '🇧🇷', code: 'BR' },
+  { name: 'Аргентина', flag: '🇦🇷', code: 'AR' },
+  { name: 'ОАЭ', flag: '🇦🇪', code: 'AE' },
+  { name: 'Турция', flag: '🇹🇷', code: 'TR' },
+  { name: 'Таиланд', flag: '🇹🇭', code: 'TH' },
+  { name: 'Южная Корея', flag: '🇰🇷', code: 'KR' },
+  { name: 'Китай', flag: '🇨🇳', code: 'CN' },
+  { name: 'Индия', flag: '🇮🇳', code: 'IN' },
+  { name: 'Сингапур', flag: '🇸🇬', code: 'SG' },
+  { name: 'Мексика', flag: '🇲🇽', code: 'MX' },
+  { name: 'Египет', flag: '🇪🇬', code: 'EG' },
+  { name: 'Марокко', flag: '🇲🇦', code: 'MA' }
+]
+
+const russianCities = [
+  { name: 'Москва', code: 'MOW' },
+  { name: 'Санкт-Петербург', code: 'LED' },
+  { name: 'Екатеринбург', code: 'SVX' },
+  { name: 'Новосибирск', code: 'OVB' },
+  { name: 'Казань', code: 'KZN' },
+  { name: 'Нижний Новгород', code: 'GOJ' },
+  { name: 'Челябинск', code: 'CEK' },
+  { name: 'Самара', code: 'KUF' },
+  { name: 'Ростов-на-Дону', code: 'ROV' },
+  { name: 'Уфа', code: 'UFA' }
+]
+
 export default function Index() {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [activeSection, setActiveSection] = useState<string>('home')
+  const [isRouteModalOpen, setIsRouteModalOpen] = useState(false)
+  const [selectedFromCity, setSelectedFromCity] = useState('')
+  const [selectedToCountry, setSelectedToCountry] = useState('')
 
   if (activeSection === 'map') {
     return (
@@ -116,10 +161,79 @@ export default function Index() {
                   О проекте
                 </button>
               </div>
-              <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
-                <Icon name="Route" size={16} className="mr-2" />
-                Мой маршрут
-              </Button>
+              <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
+                <DialogTrigger asChild>
+                  <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
+                    <Icon name="Route" size={16} className="mr-2" />
+                    Мой маршрут
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px] bg-slate-800/95 backdrop-blur-xl border border-white/10">
+                  <DialogHeader>
+                    <DialogTitle className="text-white text-xl font-semibold">Выберите маршрут</DialogTitle>
+                    <DialogDescription className="text-white/70">
+                      Откуда и куда планируете путешествовать?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <label className="text-white font-medium">Откуда (Россия)</label>
+                      <Select value={selectedFromCity} onValueChange={setSelectedFromCity}>
+                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                          <SelectValue placeholder="Выберите город отправления" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-white/20">
+                          {russianCities.map((city) => (
+                            <SelectItem 
+                              key={city.code} 
+                              value={city.code}
+                              className="text-white hover:bg-white/10"
+                            >
+                              {city.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <label className="text-white font-medium">Куда (Направление)</label>
+                      <Select value={selectedToCountry} onValueChange={setSelectedToCountry}>
+                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                          <SelectValue placeholder="Выберите страну назначения" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-white/20 max-h-[200px]">
+                          {countries.map((country) => (
+                            <SelectItem 
+                              key={country.code} 
+                              value={country.code}
+                              className="text-white hover:bg-white/10"
+                            >
+                              <span className="flex items-center gap-2">
+                                {country.flag} {country.name}
+                              </span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <Button 
+                      onClick={() => {
+                        if (selectedFromCity && selectedToCountry) {
+                          window.open('https://www.aeroflot.ru', '_blank')
+                          setIsRouteModalOpen(false)
+                        }
+                      }}
+                      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-12 text-lg font-semibold"
+                      disabled={!selectedFromCity || !selectedToCountry}
+                    >
+                      <Icon name="Plane" size={20} className="mr-2" />
+                      Найти рейсы на Аэрофлот
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </nav>
@@ -162,10 +276,79 @@ export default function Index() {
                   О проекте
                 </button>
               </div>
-              <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
-                <Icon name="Route" size={16} className="mr-2" />
-                Мой маршрут
-              </Button>
+              <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
+                <DialogTrigger asChild>
+                  <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
+                    <Icon name="Route" size={16} className="mr-2" />
+                    Мой маршрут
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px] bg-slate-800/95 backdrop-blur-xl border border-white/10">
+                  <DialogHeader>
+                    <DialogTitle className="text-white text-xl font-semibold">Выберите маршрут</DialogTitle>
+                    <DialogDescription className="text-white/70">
+                      Откуда и куда планируете путешествовать?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <label className="text-white font-medium">Откуда (Россия)</label>
+                      <Select value={selectedFromCity} onValueChange={setSelectedFromCity}>
+                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                          <SelectValue placeholder="Выберите город отправления" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-white/20">
+                          {russianCities.map((city) => (
+                            <SelectItem 
+                              key={city.code} 
+                              value={city.code}
+                              className="text-white hover:bg-white/10"
+                            >
+                              {city.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <label className="text-white font-medium">Куда (Направление)</label>
+                      <Select value={selectedToCountry} onValueChange={setSelectedToCountry}>
+                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                          <SelectValue placeholder="Выберите страну назначения" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-white/20 max-h-[200px]">
+                          {countries.map((country) => (
+                            <SelectItem 
+                              key={country.code} 
+                              value={country.code}
+                              className="text-white hover:bg-white/10"
+                            >
+                              <span className="flex items-center gap-2">
+                                {country.flag} {country.name}
+                              </span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <Button 
+                      onClick={() => {
+                        if (selectedFromCity && selectedToCountry) {
+                          window.open('https://www.aeroflot.ru', '_blank')
+                          setIsRouteModalOpen(false)
+                        }
+                      }}
+                      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-12 text-lg font-semibold"
+                      disabled={!selectedFromCity || !selectedToCountry}
+                    >
+                      <Icon name="Plane" size={20} className="mr-2" />
+                      Найти рейсы на Аэрофлот
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </nav>
