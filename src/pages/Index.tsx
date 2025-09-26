@@ -511,10 +511,138 @@ export default function Index() {
                 О проекте
               </button>
             </div>
-            <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
-              <Icon name="Route" size={16} className="mr-2" />
-              Мой маршрут
-            </Button>
+            <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
+                  <Icon name="Route" size={16} className="mr-2" />
+                  Мой маршрут
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[500px] bg-slate-800/95 backdrop-blur-xl border border-white/10">
+                <DialogHeader>
+                  <DialogTitle className="text-white text-xl font-semibold">Выберите маршрут</DialogTitle>
+                  <DialogDescription className="text-white/70">
+                    Планируйте свою поездку с выбором дат и направлений
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <label className="text-white font-medium">Откуда (Россия)</label>
+                    <Select value={selectedFromCity} onValueChange={setSelectedFromCity}>
+                      <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                        <SelectValue placeholder="Выберите город отправления" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-800 border-white/20">
+                        {russianCities.map((city) => (
+                          <SelectItem 
+                            key={city.code} 
+                            value={city.code}
+                            className="text-white hover:bg-white/10"
+                          >
+                            {city.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <label className="text-white font-medium">Куда (Направление)</label>
+                    <Select value={selectedToCountry} onValueChange={setSelectedToCountry}>
+                      <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                        <SelectValue placeholder="Выберите страну назначения" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-800 border-white/20 max-h-[200px]">
+                        {countries.map((country) => (
+                          <SelectItem 
+                            key={country.code} 
+                            value={country.code}
+                            className="text-white hover:bg-white/10"
+                          >
+                            <span className="flex items-center gap-2">
+                              {country.flag} {country.name}
+                            </span>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-3">
+                    <label className="text-white font-medium">Дата отправления</label>
+                    <Input
+                      type="date"
+                      value={departureDate}
+                      onChange={(e) => setDepartureDate(e.target.value)}
+                      className="bg-white/10 border-white/20 text-white [&::-webkit-calendar-picker-indicator]:invert"
+                      min={new Date().toISOString().split('T')[0]}
+                    />
+                  </div>
+
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      id="roundTrip"
+                      checked={isRoundTrip}
+                      onChange={(e) => {
+                        setIsRoundTrip(e.target.checked)
+                        if (!e.target.checked) {
+                          setReturnDate('')
+                        }
+                      }}
+                      className="w-4 h-4 rounded border-white/20 bg-white/10 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                    />
+                    <label htmlFor="roundTrip" className="text-white font-medium">
+                      Обратный билет
+                    </label>
+                  </div>
+
+                  {isRoundTrip && (
+                    <div className="space-y-3">
+                      <label className="text-white font-medium">Дата возврата</label>
+                      <Input
+                        type="date"
+                        value={returnDate}
+                        onChange={(e) => setReturnDate(e.target.value)}
+                        className="bg-white/10 border-white/20 text-white [&::-webkit-calendar-picker-indicator]:invert"
+                        min={departureDate || new Date().toISOString().split('T')[0]}
+                      />
+                    </div>
+                  )}
+                  
+                  <Button 
+                    onClick={() => {
+                      if (selectedFromCity && selectedToCountry && departureDate) {
+                        const selectedCountry = countries.find(c => c.code === selectedToCountry)
+                        const destinationAirport = selectedCountry?.airport || selectedToCountry
+                        
+                        // Формат URL для Aeroflot с предзаполненными полями
+                        let aeroflotUrl = `https://www.aeroflot.ru/sb/booking?from=${selectedFromCity}&to=${destinationAirport}&departure=${departureDate}&passengers=1&class=economy&direct=false`
+                        
+                        // Если выбран обратный билет и указана дата возврата
+                        if (isRoundTrip && returnDate) {
+                          aeroflotUrl += `&return=${returnDate}&tripType=round`
+                        } else {
+                          aeroflotUrl += `&tripType=one-way`
+                        }
+                        
+                        window.open(aeroflotUrl, '_blank')
+                        setIsRouteModalOpen(false)
+                      }
+                    }}
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-12 text-lg font-semibold"
+                    disabled={!selectedFromCity || !selectedToCountry || !departureDate || (isRoundTrip && !returnDate)}
+                  >
+                    <Icon name="ExternalLink" size={18} className="mr-2" />
+                    Найти рейсы на Аэрофлот
+                  </Button>
+                  
+                  <div className="text-center text-white/60 text-sm">
+                    Поиск авиабилетов с автоматическим заполнением маршрута и дат
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </nav>
@@ -572,6 +700,36 @@ export default function Index() {
               <Icon name="Compass" size={24} className="mr-3" />
               Начать путешествие
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners Section */}
+      <section className="py-16 px-6 relative bg-black/20 backdrop-blur-sm">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl font-semibold mb-8 text-white/90">
+              Путешествуем вместе с Аэрофлотом и ЮТэйром
+            </h3>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
+              <div className="flex items-center justify-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <img 
+                  src="/img/7ab328f5-15bd-4e05-ad14-add45d2eadcf.jpg" 
+                  alt="Аэрофлот" 
+                  className="h-16 w-auto object-contain filter brightness-90 hover:brightness-100 transition-all duration-300"
+                />
+              </div>
+              <div className="flex items-center justify-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <img 
+                  src="/img/6676ee49-7eb6-431e-b193-70d90d14d900.jpg" 
+                  alt="ЮТэйр" 
+                  className="h-16 w-auto object-contain filter brightness-90 hover:brightness-100 transition-all duration-300"
+                />
+              </div>
+            </div>
+            <p className="text-white/60 text-sm mt-6 max-w-2xl mx-auto">
+              Надёжные авиаперевозчики для комфортных путешествий по всему миру
+            </p>
           </div>
         </div>
       </section>
