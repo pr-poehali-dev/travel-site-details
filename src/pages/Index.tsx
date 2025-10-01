@@ -11,6 +11,7 @@ import Icon from '@/components/ui/icon'
 import ModernWorldMap from '@/components/ModernWorldMap'
 import About from '@/components/About'
 import NewsSection from '@/components/NewsSection'
+import AirlineAds from '@/components/AirlineAds'
 
 interface Destination {
   id: string
@@ -481,6 +482,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      <AirlineAds />
       {/* Navigation */}
       <nav className="border-b border-white/10 bg-black/20 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
@@ -657,26 +659,28 @@ export default function Index() {
           <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
         </div>
         
-        {/* Floating Elements */}
+        {/* Floating Neon Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-2 h-2 bg-blue-400/30 rounded-full animate-pulse"></div>
-          <div className="absolute top-40 right-20 w-3 h-3 bg-purple-400/30 rounded-full animate-pulse delay-1000"></div>
-          <div className="absolute bottom-32 left-1/4 w-1 h-1 bg-blue-300/40 rounded-full animate-pulse delay-500"></div>
+          <div className="absolute top-20 left-10 w-3 h-3 bg-cyan-400 rounded-full animate-pulse neon-glow-blue"></div>
+          <div className="absolute top-40 right-20 w-4 h-4 bg-purple-500 rounded-full animate-pulse neon-glow-purple"></div>
+          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
         </div>
         
         <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
           <div className="mb-8 animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-white/90">Исследуй мир интерактивно</span>
+            <div className="inline-flex items-center space-x-2 bg-black/40 backdrop-blur-md rounded-full px-6 py-3 mb-8 border border-cyan-500/30 neon-border-blue">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse neon-glow-blue"></div>
+              <span className="text-sm font-medium text-cyan-300 neon-text-cyan">Исследуй мир интерактивно</span>
             </div>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-black mb-8 leading-none">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent neon-text-blue">
               ПУТЕШЕСТВИЯ
             </span><br />
-            <span className="text-white">БЕЗ ГРАНИЦ</span>
+            <span className="text-white neon-text-purple">БЕЗ ГРАНИЦ</span>
           </h1>
           
           <p className="text-xl md:text-2xl mb-12 text-white/80 max-w-3xl mx-auto font-light">
@@ -687,16 +691,17 @@ export default function Index() {
           <div className="flex flex-col md:flex-row gap-6 justify-center">
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-14 px-8 text-lg font-semibold"
+              className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-800 text-white border-0 h-14 px-8 text-lg font-semibold neon-border-blue relative overflow-hidden group"
               onClick={() => setActiveSection('map')}
             >
-              <Icon name="Map" size={24} className="mr-3" />
-              Исследовать карту
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-600/20 animate-pulse"></div>
+              <Icon name="Map" size={24} className="mr-3 relative z-10" />
+              <span className="relative z-10">Исследовать карту</span>
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/40 h-14 px-8 text-lg font-semibold bg-white/5 backdrop-blur-sm"
+              className="border-2 border-purple-500/50 text-white hover:bg-purple-500/20 hover:border-purple-400 h-14 px-8 text-lg font-semibold bg-black/40 backdrop-blur-sm neon-border-purple"
             >
               <Icon name="Compass" size={24} className="mr-3" />
               Начать путешествие
@@ -705,11 +710,11 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Partners Section */}
-      <section className="py-16 px-6 relative bg-black/20 backdrop-blur-sm">
+      {/* Partners Section - Neon Style */}
+      <section className="py-16 px-6 relative bg-gradient-to-r from-black/40 via-purple-950/20 to-black/40 backdrop-blur-sm border-y border-purple-500/20">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h3 className="text-2xl font-semibold mb-8 text-white/90">
+            <h3 className="text-3xl font-bold mb-8 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent neon-text-purple">
               Путешествуем вместе с Аэрофлотом и ЮТэйром
             </h3>
             <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
@@ -717,42 +722,43 @@ export default function Index() {
                 href="https://www.aeroflot.ru/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer"
+                className="flex items-center justify-center p-6 bg-black/60 rounded-2xl backdrop-blur-md border-2 border-blue-500/40 hover:border-blue-400 transition-all duration-300 hover:scale-105 cursor-pointer neon-border-blue group"
               >
                 <img 
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Aeroflot_logo.svg/2560px-Aeroflot_logo.svg.png" 
                   alt="Аэрофлот" 
-                  className="h-16 w-auto object-contain filter hover:brightness-110 transition-all duration-300"
+                  className="h-16 w-auto object-contain filter group-hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-all duration-300"
                 />
               </a>
               <a 
                 href="https://www.utair.ru/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer"
+                className="flex items-center justify-center p-6 bg-black/60 rounded-2xl backdrop-blur-md border-2 border-purple-500/40 hover:border-purple-400 transition-all duration-300 hover:scale-105 cursor-pointer neon-border-purple group"
               >
                 <img 
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/UTair_Aviation_logo.svg/2560px-UTair_Aviation_logo.svg.png" 
                   alt="ЮТэйр" 
-                  className="h-16 w-auto object-contain filter hover:brightness-110 transition-all duration-300"
+                  className="h-16 w-auto object-contain filter group-hover:drop-shadow-[0_0_15px_rgba(168,85,247,0.8)] transition-all duration-300"
                 />
               </a>
             </div>
-            <p className="text-white/60 text-sm mt-6 max-w-2xl mx-auto">
+            <p className="text-cyan-300/70 text-sm mt-6 max-w-2xl mx-auto">
               Надёжные авиаперевозчики для комфортных путешествий по всему миру
             </p>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - Neon Style */}
       <section className="py-24 px-6 relative">
-        <div className="container mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-950/10 via-black/0 to-cyan-950/10 pointer-events-none"></div>
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent neon-text-blue">
               Популярные направления
             </h2>
-            <p className="text-xl text-white/70 max-w-3xl mx-auto font-light">
+            <p className="text-xl text-cyan-200/70 max-w-3xl mx-auto font-light">
               Кликните на любое место, чтобы погрузиться в его уникальную атмосферу, 
               историю и культурные особенности
             </p>
@@ -762,21 +768,21 @@ export default function Index() {
             {destinations.map((destination) => (
               <Dialog key={destination.id}>
                 <DialogTrigger asChild>
-                  <Card className="group cursor-pointer bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+                  <Card className="group cursor-pointer bg-black/60 backdrop-blur-md border-2 border-cyan-500/30 hover:border-purple-500/60 transition-all duration-500 hover:scale-105 neon-border-blue hover:neon-border-purple overflow-hidden">
                     <div className="relative overflow-hidden">
                       <img 
                         src={destination.image} 
                         alt={destination.name}
                         className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-purple-950/30 to-transparent" />
                       <div className="absolute top-6 right-6">
-                        <Badge className="bg-gradient-to-r from-blue-500 to-purple-600 text-white border-0">
+                        <Badge className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 text-white border-0 neon-border-blue">
                           {destination.category}
                         </Badge>
                       </div>
                       <div className="absolute bottom-6 left-6 right-6">
-                        <h3 className="text-2xl font-bold text-white mb-2">{destination.name}</h3>
+                        <h3 className="text-2xl font-bold text-white mb-2 neon-text-cyan group-hover:neon-text-purple transition-all">{destination.name}</h3>
                         <p className="text-white/80 text-sm flex items-center">
                           <Icon name="MapPin" size={16} className="mr-2" />
                           {destination.country}
@@ -1009,14 +1015,14 @@ export default function Index() {
         </div>
       </section>
 
-      {/* News Section */}
-      <section className="py-24 px-6 relative">
+      {/* News Section - Neon Style */}
+      <section className="py-24 px-6 relative bg-gradient-to-b from-black/0 via-purple-950/10 to-black/0">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent neon-text-purple">
               Новости РБК
             </h2>
-            <p className="text-xl text-white/70 max-w-3xl mx-auto font-light">
+            <p className="text-xl text-purple-200/70 max-w-3xl mx-auto font-light">
               Актуальные новости о путешествиях, экономике и бизнесе
             </p>
           </div>
@@ -1025,16 +1031,16 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black/20 backdrop-blur-sm border-t border-white/10 py-12">
+      {/* Footer - Neon Style */}
+      <footer className="bg-black/40 backdrop-blur-md border-t-2 border-cyan-500/30 py-12">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center space-x-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 flex items-center justify-center neon-border-blue">
               <Icon name="Compass" size={24} className="text-white" />
             </div>
-            <span className="text-2xl font-bold text-white">Странник</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent neon-text-blue">Странник</span>
           </div>
-          <p className="text-white/60 text-lg">
+          <p className="text-cyan-300/60 text-lg">
             Откройте мир через интерактивные путешествия • 2024
           </p>
         </div>

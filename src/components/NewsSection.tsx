@@ -81,7 +81,7 @@ export default function NewsSection() {
           rel="noopener noreferrer"
           className="group block h-full"
         >
-          <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group-hover:scale-105 h-full flex flex-col">
+          <Card className="bg-black/60 border-2 border-purple-500/30 backdrop-blur-md hover:border-cyan-500/60 transition-all duration-300 group-hover:scale-105 h-full flex flex-col neon-border-purple group-hover:neon-border-blue">
             {item.image && (
               <div className="relative h-48 overflow-hidden rounded-t-lg">
                 <img 
@@ -89,23 +89,23 @@ export default function NewsSection() {
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-950/80 via-black/40 to-transparent"></div>
               </div>
             )}
             <CardHeader className="flex-1">
-              <CardTitle className="text-lg text-white group-hover:text-blue-400 transition-colors line-clamp-2">
+              <CardTitle className="text-lg text-cyan-100 group-hover:text-cyan-400 transition-colors line-clamp-2">
                 {item.title}
               </CardTitle>
-              <CardDescription className="text-white/60 text-sm flex items-center gap-2">
+              <CardDescription className="text-purple-300/60 text-sm flex items-center gap-2">
                 <Icon name="Clock" size={14} />
                 {formatDate(item.pubDate)}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-white/70 text-sm line-clamp-3">
+              <p className="text-cyan-200/70 text-sm line-clamp-3">
                 {item.description}
               </p>
-              <div className="flex items-center gap-2 mt-4 text-blue-400 text-sm font-medium">
+              <div className="flex items-center gap-2 mt-4 text-cyan-400 text-sm font-medium">
                 <span>Читать далее</span>
                 <Icon name="ArrowRight" size={16} className="group-hover:translate-x-1 transition-transform" />
               </div>
