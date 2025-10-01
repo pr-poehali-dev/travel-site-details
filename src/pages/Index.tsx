@@ -10,6 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import Icon from '@/components/ui/icon'
 import ModernWorldMap from '@/components/ModernWorldMap'
 import About from '@/components/About'
+import NewsSection from '@/components/NewsSection'
 
 interface Destination {
   id: string
@@ -712,20 +713,30 @@ export default function Index() {
               Путешествуем вместе с Аэрофлотом и ЮТэйром
             </h3>
             <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
-              <div className="flex items-center justify-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+              <a 
+                href="https://www.aeroflot.ru/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center justify-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer"
+              >
                 <img 
-                  src="/img/7ab328f5-15bd-4e05-ad14-add45d2eadcf.jpg" 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Aeroflot_logo.svg/2560px-Aeroflot_logo.svg.png" 
                   alt="Аэрофлот" 
-                  className="h-16 w-auto object-contain filter brightness-90 hover:brightness-100 transition-all duration-300"
+                  className="h-16 w-auto object-contain filter hover:brightness-110 transition-all duration-300"
                 />
-              </div>
-              <div className="flex items-center justify-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+              </a>
+              <a 
+                href="https://www.utair.ru/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center justify-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer"
+              >
                 <img 
-                  src="/img/6676ee49-7eb6-431e-b193-70d90d14d900.jpg" 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/UTair_Aviation_logo.svg/2560px-UTair_Aviation_logo.svg.png" 
                   alt="ЮТэйр" 
-                  className="h-16 w-auto object-contain filter brightness-90 hover:brightness-100 transition-all duration-300"
+                  className="h-16 w-auto object-contain filter hover:brightness-110 transition-all duration-300"
                 />
-              </div>
+              </a>
             </div>
             <p className="text-white/60 text-sm mt-6 max-w-2xl mx-auto">
               Надёжные авиаперевозчики для комфортных путешествий по всему миру
@@ -995,6 +1006,22 @@ export default function Index() {
             <Icon name="MapPin" size={24} className="mr-3" />
             Начать планирование
           </Button>
+        </div>
+      </section>
+
+      {/* News Section */}
+      <section className="py-24 px-6 relative">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Новости РБК
+            </h2>
+            <p className="text-xl text-white/70 max-w-3xl mx-auto font-light">
+              Актуальные новости о путешествиях, экономике и бизнесе
+            </p>
+          </div>
+
+          <NewsSection />
         </div>
       </section>
 
