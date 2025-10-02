@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 
 interface NewsItem {
@@ -21,6 +23,17 @@ export default function News() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  const categories = [
+    { id: 'all', name: 'Все новости', icon: 'Globe' },
+    { id: 'tourism', name: 'Туризм', icon: 'Plane', keywords: ['туризм', 'туристы', 'отель', 'путешеств', 'курорт', 'отдых', 'виза'] },
+    { id: 'economy', name: 'Экономика', icon: 'TrendingUp', keywords: ['экономик', 'бизнес', 'рынок', 'компани', 'доллар', 'рубл', 'цен', 'инвести'] },
+    { id: 'world', name: 'В мире', icon: 'MapPin', keywords: ['стран', 'мир', 'сша', 'европ', 'кита', 'япони', 'международн'] },
+    { id: 'politics', name: 'Политика', icon: 'Users', keywords: ['политик', 'правительств', 'президент', 'министр', 'дума', 'закон'] },
+    { id: 'tech', name: 'Технологии', icon: 'Laptop', keywords: ['технолог', 'it', 'интернет', 'приложени', 'софт', 'цифров', 'гаджет'] }
+  ];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -57,6 +70,36 @@ export default function News() {
     });
   };
 
+  const getNewsCategory = (newsItem: NewsItem): string => {
+    const text = (newsItem.title + ' ' + newsItem.description).toLowerCase();
+    
+    for (const category of categories) {
+      if (category.id === 'all') continue;
+      if (category.keywords?.some(keyword => text.includes(keyword))) {
+        return category.id;
+      }
+    }
+    return 'other';
+  };
+
+  const filteredNews = useMemo(() => {
+    let filtered = news;
+
+    if (selectedCategory !== 'all') {
+      filtered = filtered.filter(item => getNewsCategory(item) === selectedCategory);
+    }
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(item => 
+        item.title.toLowerCase().includes(query) || 
+        item.description.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  }, [news, selectedCategory, searchQuery]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900">
       <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhjNWNkNiIgc3Ryb2tlLXdpZHRoPSIwLjUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-10"></div>
@@ -71,7 +114,7 @@ export default function News() {
             <span>Назад на главную</span>
           </Link>
 
-          <div className="text-center mb-12 sm:mb-20">
+          <div className="text-center mb-12">
             <div className="inline-block mb-6">
               <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-r from-pink-500 via-purple-600 to-cyan-500 flex items-center justify-center shadow-2xl shadow-purple-500/50">
                 <Icon name="Newspaper" size={50} className="text-white" />
@@ -81,9 +124,59 @@ export default function News() {
             <h1 className="text-5xl sm:text-7xl font-black mb-6 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
               Новости РБК
             </h1>
-            <p className="text-lg sm:text-2xl text-purple-200/80 max-w-4xl mx-auto font-light leading-relaxed">
+            <p className="text-lg sm:text-2xl text-purple-200/80 max-w-4xl mx-auto font-light leading-relaxed mb-8">
               Актуальные новости о путешествиях, туризме, экономике и мире
             </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto mb-12 space-y-6">
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Поиск новостей по заголовку или описанию..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full h-14 pl-14 pr-6 text-lg bg-slate-900/60 border-2 border-purple-500/30 text-white placeholder:text-purple-300/50 focus:border-cyan-400/60 backdrop-blur-md rounded-2xl"
+              />
+              <Icon 
+                name="Search" 
+                size={24} 
+                className="absolute left-5 top-1/2 -translate-y-1/2 text-purple-400"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-5 top-1/2 -translate-y-1/2 text-purple-400 hover:text-cyan-400 transition-colors"
+                >
+                  <Icon name="X" size={20} />
+                </button>
+              )}
+            </div>
+
+            <div className="flex flex-wrap gap-3 justify-center">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`group relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    selectedCategory === category.id
+                      ? 'bg-gradient-to-r from-pink-500 to-cyan-500 text-white shadow-lg shadow-pink-500/50'
+                      : 'bg-slate-900/60 border-2 border-purple-500/30 text-purple-200 hover:border-cyan-400/60'
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <Icon name={category.icon as any} size={18} />
+                    {category.name}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <Badge variant="outline" className="border-purple-400/40 text-purple-200 text-base px-4 py-2">
+                Найдено новостей: {filteredNews.length}
+              </Badge>
+            </div>
           </div>
 
           {loading && (
@@ -108,9 +201,9 @@ export default function News() {
             </div>
           )}
 
-          {!loading && !error && news.length > 0 && (
+          {!loading && !error && filteredNews.length > 0 && (
             <div className="space-y-8">
-              {news.map((item, index) => (
+              {filteredNews.map((item, index) => (
                 <a
                   key={index}
                   href={item.link}
@@ -168,6 +261,22 @@ export default function News() {
                   </div>
                 </a>
               ))}
+            </div>
+          )}
+
+          {!loading && !error && filteredNews.length === 0 && news.length > 0 && (
+            <div className="text-center py-20">
+              <Icon name="SearchX" size={80} className="text-purple-400/50 mx-auto mb-6" />
+              <p className="text-purple-300 text-xl mb-4">Новости по вашему запросу не найдены</p>
+              <Button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('all');
+                }}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              >
+                Сбросить фильтры
+              </Button>
             </div>
           )}
 
