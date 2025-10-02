@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Icon from '@/components/ui/icon'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import NewsSection from '@/components/NewsSection'
 
 export default function About() {
   const features = [
@@ -48,18 +50,32 @@ export default function About() {
     <div className="bg-background">
       {/* Hero Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-parchment/30 to-background">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center mb-6">
-            <Icon name="Compass" size={48} className="text-vintage-gold mr-4" />
-            <h1 className="text-5xl font-bold">О проекте Странник</h1>
+        <div className="container mx-auto">
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center mb-6">
+              <Icon name="Compass" size={48} className="text-vintage-gold mr-4" />
+              <h1 className="text-5xl font-bold">О проекте Странник</h1>
+            </div>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Мы создали этот сайт, чтобы превратить планирование путешествий в увлекательное приключение. 
+              Наша миссия — дать каждому путешественнику доступ к подробной, проверенной информации о любой 
+              точке планеты и помочь создать незабываемые маршруты.
+            </p>
           </div>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Мы создали этот сайт, чтобы превратить планирование путешествий в увлекательное приключение. 
-            Наша миссия — дать каждому путешественнику доступ к подробной, проверенной информации о любой 
-            точке планеты и помочь создать незабываемые маршруты.
-          </p>
-        </div>
-      </section>
+
+          <Tabs defaultValue="about" className="w-full">
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
+              <TabsTrigger value="about" className="text-base">
+                <Icon name="Info" size={18} className="mr-2" />
+                О проекте
+              </TabsTrigger>
+              <TabsTrigger value="news" className="text-base">
+                <Icon name="Newspaper" size={18} className="mr-2" />
+                Новости
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="about">
 
       {/* Mission Section */}
       <section className="py-16 px-4">
@@ -226,6 +242,16 @@ export default function About() {
               <Badge variant="outline" className="text-sm">Переводы</Badge>
             </div>
           </div>
+        </div>
+      </section>
+            </TabsContent>
+
+            <TabsContent value="news" className="mt-0">
+              <div className="bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 rounded-2xl p-8">
+                <NewsSection />
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
     </div>

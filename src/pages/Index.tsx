@@ -173,7 +173,7 @@ export default function Index() {
                   onClick={() => setActiveSection('about')} 
                   className="text-white/80 hover:text-white transition-colors font-medium"
                 >
-                  О проекте
+                  О проекте и Новости
                 </button>
               </div>
               <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
@@ -517,7 +517,7 @@ export default function Index() {
                 onClick={() => setActiveSection('about')} 
                 className="text-white/80 hover:text-white transition-colors font-medium"
               >
-                О проекте
+                О проекте и Новости
               </button>
             </div>
             <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
