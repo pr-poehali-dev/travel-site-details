@@ -305,184 +305,7 @@ export default function ModernWorldMap() {
                       </path>
                     </g>
 
-                    {/* Enhanced Country Points with Animations */}
-                    {filteredCountries.map((country, index) => {
-                      const isTop = topDestinations.includes(country.id)
-                      const color = continentColors[country.continent as keyof typeof continentColors] || '#64748b'
-                      const isHovered = hoveredCountry?.id === country.id
-                      
-                      return (
-                        <g key={country.id} className="cursor-pointer">
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <g>
-                                {/* Animated ripple effect */}
-                                {animationStarted && (
-                                  <circle
-                                    cx={country.coordinates.x}
-                                    cy={country.coordinates.y}
-                                    r="8"
-                                    fill={color}
-                                    opacity="0.2"
-                                    className="animate-ping"
-                                    style={{
-                                      animationDelay: `${index * 0.1}s`,
-                                      animationDuration: '2s'
-                                    }}
-                                  />
-                                )}
 
-                                {/* Glow effect for top destinations */}
-                                {isTop && (
-                                  <circle
-                                    cx={country.coordinates.x}
-                                    cy={country.coordinates.y}
-                                    r="6"
-                                    fill={color}
-                                    opacity="0.4"
-                                    filter="url(#glow)"
-                                    className="animate-pulse"
-                                  />
-                                )}
-
-                                {/* Main point */}
-                                <circle
-                                  cx={country.coordinates.x}
-                                  cy={country.coordinates.y}
-                                  r={isTop ? "4" : "3"}
-                                  fill={color}
-                                  stroke="#ffffff"
-                                  strokeWidth={isHovered ? "2" : "1"}
-                                  className="transition-all duration-300 hover:scale-150"
-                                  onMouseEnter={() => setHoveredCountry(country)}
-                                  onMouseLeave={() => setHoveredCountry(null)}
-                                  onClick={() => setSelectedCountry(country)}
-                                  style={{
-                                    transform: animationStarted ? 'scale(1)' : 'scale(0)',
-                                    transition: `transform 0.6s ease-out ${index * 0.05}s`,
-                                    transformOrigin: `${country.coordinates.x}px ${country.coordinates.y}px`
-                                  }}
-                                />
-
-
-
-                                {/* Top destination badge */}
-                                {isTop && (
-                                  <circle
-                                    cx={country.coordinates.x + 5}
-                                    cy={country.coordinates.y - 5}
-                                    r="2"
-                                    fill="#fbbf24"
-                                    stroke="#ffffff"
-                                    strokeWidth="0.5"
-                                  />
-                                )}
-                              </g>
-                            </DialogTrigger>
-                            
-                            {/* Enhanced Modal */}
-                            <DialogContent className="max-w-4xl bg-slate-900 border-slate-700 text-white">
-                              <DialogHeader>
-                                <DialogTitle className="text-3xl flex items-center gap-4">
-                                  <span className="text-4xl">{country.flag}</span>
-                                  <div>
-                                    {country.name}
-                                    <div className="flex items-center gap-2 mt-2">
-                                      <Badge 
-                                        style={{ backgroundColor: continentColors[country.continent as keyof typeof continentColors] }}
-                                        className="text-white"
-                                      >
-                                        {country.continent}
-                                      </Badge>
-                                      {topDestinations.includes(country.id) && (
-                                        <Badge className="bg-yellow-500 text-black">
-                                          <Icon name="Star" size={12} className="mr-1" />
-                                          ТОП
-                                        </Badge>
-                                      )}
-                                      <Badge variant="outline" className="border-slate-600 text-slate-300">
-                                        {country.destinations} мест
-                                      </Badge>
-                                    </div>
-                                  </div>
-                                </DialogTitle>
-                                <DialogDescription className="text-lg text-slate-300">
-                                  {country.description}
-                                </DialogDescription>
-                              </DialogHeader>
-
-                              <div className="grid md:grid-cols-2 gap-8 mt-6">
-                                <div className="space-y-6">
-                                  <div>
-                                    <h4 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                                      <Icon name="MapPin" size={20} className="text-blue-400" />
-                                      Популярные направления
-                                    </h4>
-                                    <div className="grid grid-cols-2 gap-3">
-                                      {country.popularDestinations.map((destination, i) => (
-                                        <div key={i} className="flex items-center gap-2 p-3 bg-slate-800 rounded-lg">
-                                          <Icon name="Compass" size={16} className="text-blue-400" />
-                                          <span className="text-sm">{destination}</span>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className="space-y-6">
-                                  <div className="grid grid-cols-2 gap-4">
-                                    <div className="p-4 bg-slate-800 rounded-lg">
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <Icon name="Cloud" size={16} className="text-blue-400" />
-                                        <span className="text-sm font-medium text-slate-300">Климат</span>
-                                      </div>
-                                      <p className="text-sm">{country.climate}</p>
-                                    </div>
-                                    <div className="p-4 bg-slate-800 rounded-lg">
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <Icon name="Calendar" size={16} className="text-green-400" />
-                                        <span className="text-sm font-medium text-slate-300">Лучшее время</span>
-                                      </div>
-                                      <p className="text-sm">{country.bestTime}</p>
-                                    </div>
-                                    <div className="p-4 bg-slate-800 rounded-lg">
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <Icon name="DollarSign" size={16} className="text-yellow-400" />
-                                        <span className="text-sm font-medium text-slate-300">Валюта</span>
-                                      </div>
-                                      <p className="text-sm">{country.currency}</p>
-                                    </div>
-                                    <div className="p-4 bg-slate-800 rounded-lg">
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <Icon name="Globe" size={16} className="text-purple-400" />
-                                        <span className="text-sm font-medium text-slate-300">Язык</span>
-                                      </div>
-                                      <p className="text-sm">{country.language}</p>
-                                    </div>
-                                  </div>
-
-                                  <div className="flex items-center justify-between p-4 bg-slate-800 rounded-lg">
-                                    <div className="flex items-center gap-2">
-                                      <Icon name={country.visaRequired ? "AlertCircle" : "CheckCircle"} 
-                                            size={20} 
-                                            className={country.visaRequired ? "text-orange-400" : "text-green-400"} />
-                                      <span className="font-medium">
-                                        {country.visaRequired ? "Виза требуется" : "Безвизовый въезд"}
-                                      </span>
-                                    </div>
-                                  </div>
-
-                                  <Button size="lg" className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0">
-                                    <Icon name="Plane" size={20} className="mr-2" />
-                                    Планировать путешествие
-                                  </Button>
-                                </div>
-                              </div>
-                            </DialogContent>
-                          </Dialog>
-                        </g>
-                      )
-                    })}
 
                     {/* Enhanced Legend */}
                     <g transform="translate(5, 65)">
@@ -495,33 +318,7 @@ export default function ModernWorldMap() {
                   </svg>
                 </div>
 
-                {/* Floating Info Card */}
-                {hoveredCountry && (
-                  <div className="fixed top-20 right-6 z-50 bg-slate-900/95 backdrop-blur-xl border border-slate-700 rounded-2xl p-6 shadow-2xl min-w-80 animate-in slide-in-from-right-5 duration-300">
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="text-4xl">{hoveredCountry.flag}</span>
-                      <div>
-                        <h4 className="text-xl font-bold text-white">{hoveredCountry.name}</h4>
-                        <p className="text-slate-400">{hoveredCountry.continent}</p>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <Icon name="MapPin" size={16} className="text-blue-400" />
-                        <span className="text-sm text-slate-300">{hoveredCountry.destinations} направлений</span>
-                      </div>
-                      <p className="text-sm text-slate-300 line-clamp-3">
-                        {hoveredCountry.description}
-                      </p>
-                      {topDestinations.includes(hoveredCountry.id) && (
-                        <Badge className="bg-yellow-500 text-black text-xs">
-                          <Icon name="Star" size={12} className="mr-1" />
-                          Популярное направление
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                )}
+
               </div>
             </TabsContent>
 
@@ -568,7 +365,105 @@ export default function ModernWorldMap() {
                           </CardContent>
                         </Card>
                       </DialogTrigger>
-                      {/* Same dialog content as map */}
+                      
+                      <DialogContent className="max-w-4xl bg-slate-900 border-slate-700 text-white">
+                        <DialogHeader>
+                          <DialogTitle className="text-3xl flex items-center gap-4">
+                            <span className="text-4xl">{country.flag}</span>
+                            <div>
+                              {country.name}
+                              <div className="flex items-center gap-2 mt-2">
+                                <Badge 
+                                  style={{ backgroundColor: continentColors[country.continent as keyof typeof continentColors] }}
+                                  className="text-white"
+                                >
+                                  {country.continent}
+                                </Badge>
+                                {topDestinations.includes(country.id) && (
+                                  <Badge className="bg-yellow-500 text-black">
+                                    <Icon name="Star" size={12} className="mr-1" />
+                                    ТОП
+                                  </Badge>
+                                )}
+                                <Badge variant="outline" className="border-slate-600 text-slate-300">
+                                  {country.destinations} мест
+                                </Badge>
+                              </div>
+                            </div>
+                          </DialogTitle>
+                          <DialogDescription className="text-lg text-slate-300">
+                            {country.description}
+                          </DialogDescription>
+                        </DialogHeader>
+
+                        <div className="grid md:grid-cols-2 gap-8 mt-6">
+                          <div className="space-y-6">
+                            <div>
+                              <h4 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <Icon name="MapPin" size={20} className="text-blue-400" />
+                                Популярные направления
+                              </h4>
+                              <div className="grid grid-cols-2 gap-3">
+                                {country.popularDestinations.map((destination, i) => (
+                                  <div key={i} className="flex items-center gap-2 p-3 bg-slate-800 rounded-lg">
+                                    <Icon name="Compass" size={16} className="text-blue-400" />
+                                    <span className="text-sm">{destination}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="space-y-6">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="p-4 bg-slate-800 rounded-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Icon name="Cloud" size={16} className="text-blue-400" />
+                                  <span className="text-sm font-medium text-slate-300">Климат</span>
+                                </div>
+                                <p className="text-sm">{country.climate}</p>
+                              </div>
+                              <div className="p-4 bg-slate-800 rounded-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Icon name="Calendar" size={16} className="text-green-400" />
+                                  <span className="text-sm font-medium text-slate-300">Лучшее время</span>
+                                </div>
+                                <p className="text-sm">{country.bestTime}</p>
+                              </div>
+                              <div className="p-4 bg-slate-800 rounded-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Icon name="DollarSign" size={16} className="text-yellow-400" />
+                                  <span className="text-sm font-medium text-slate-300">Валюта</span>
+                                </div>
+                                <p className="text-sm">{country.currency}</p>
+                              </div>
+                              <div className="p-4 bg-slate-800 rounded-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Icon name="Globe" size={16} className="text-purple-400" />
+                                  <span className="text-sm font-medium text-slate-300">Язык</span>
+                                </div>
+                                <p className="text-sm">{country.language}</p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between p-4 bg-slate-800 rounded-lg">
+                              <div className="flex items-center gap-2">
+                                <Icon name={country.visaRequired ? "AlertCircle" : "CheckCircle"} 
+                                      size={20} 
+                                      className={country.visaRequired ? "text-orange-400" : "text-green-400"} />
+                                <span className="font-medium">
+                                  {country.visaRequired ? "Виза требуется" : "Безвизовый въезд"}
+                                </span>
+                              </div>
+                            </div>
+
+                            <Button size="lg" className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0">
+                              <Icon name="Plane" size={20} className="mr-2" />
+                              Планировать путешествие
+                            </Button>
+                          </div>
+                        </div>
+                      </DialogContent>
                     </Dialog>
                   ))}
                 </div>

@@ -10,8 +10,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 import Icon from '@/components/ui/icon'
 import ModernWorldMap from '@/components/ModernWorldMap'
 import About from '@/components/About'
-import NewsSection from '@/components/NewsSection'
 import AirlineAds from '@/components/AirlineAds'
+import { Link } from 'react-router-dom'
 
 interface Destination {
   id: string
@@ -338,6 +338,12 @@ export default function Index() {
                   Карта
                 </button>
                 <a href="#" className="text-white/80 hover:text-white transition-colors font-medium">Страны</a>
+                <Link 
+                  to="/news" 
+                  className="text-white/80 hover:text-cyan-400 transition-colors font-medium"
+                >
+                  Новости
+                </Link>
                 <button 
                   onClick={() => setActiveSection('about')} 
                   className="text-blue-400 transition-colors font-medium"
@@ -1012,22 +1018,6 @@ export default function Index() {
             <Icon name="MapPin" size={24} className="mr-3" />
             Начать планирование
           </Button>
-        </div>
-      </section>
-
-      {/* News Section - Neon Style */}
-      <section className="py-24 px-6 relative bg-gradient-to-b from-black/0 via-purple-950/10 to-black/0">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent neon-text-purple">
-              Новости РБК
-            </h2>
-            <p className="text-xl text-purple-200/70 max-w-3xl mx-auto font-light">
-              Актуальные новости о путешествиях, экономике и бизнесе
-            </p>
-          </div>
-
-          <NewsSection />
         </div>
       </section>
 
