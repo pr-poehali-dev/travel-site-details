@@ -173,8 +173,14 @@ export default function Index() {
                   onClick={() => setActiveSection('about')} 
                   className="text-white/80 hover:text-white transition-colors font-medium"
                 >
-                  О проекте и Новости
+                  О проекте
                 </button>
+                <a 
+                  href="/news" 
+                  className="text-white/80 hover:text-white transition-colors font-medium"
+                >
+                  Новости
+                </a>
               </div>
               <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
                 <DialogTrigger asChild>
@@ -517,8 +523,14 @@ export default function Index() {
                 onClick={() => setActiveSection('about')} 
                 className="text-white/80 hover:text-white transition-colors font-medium"
               >
-                О проекте и Новости
+                О проекте
               </button>
+              <a 
+                href="/news" 
+                className="text-white/80 hover:text-white transition-colors font-medium"
+              >
+                Новости
+              </a>
             </div>
             <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
               <DialogTrigger asChild>
