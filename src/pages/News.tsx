@@ -25,6 +25,7 @@ export default function News() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'date' | 'relevance'>('date');
 
   const categories = [
     { id: 'all', name: 'Все новости', icon: 'Globe' },
@@ -48,7 +49,7 @@ export default function News() {
         }
         
         const data: NewsResponse = await response.json();
-        setNews(data.news.slice(0, 10));
+        setNews(data.news.slice(0, 20));
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Произошла ошибка');
       } finally {
@@ -57,6 +58,12 @@ export default function News() {
     };
 
     fetchNews();
+    
+    const interval = setInterval(() => {
+      fetchNews();
+    }, 6 * 60 * 60 * 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const formatDate = (dateString: string) => {
@@ -97,8 +104,23 @@ export default function News() {
       );
     }
 
+    if (sortBy === 'date') {
+      filtered = [...filtered].sort((a, b) => 
+        new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+      );
+    } else if (sortBy === 'relevance' && searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = [...filtered].sort((a, b) => {
+        const aScore = (a.title.toLowerCase().includes(query) ? 10 : 0) + 
+                       (a.description.toLowerCase().includes(query) ? 1 : 0);
+        const bScore = (b.title.toLowerCase().includes(query) ? 10 : 0) + 
+                       (b.description.toLowerCase().includes(query) ? 1 : 0);
+        return bScore - aScore;
+      });
+    }
+
     return filtered;
-  }, [news, selectedCategory, searchQuery]);
+  }, [news, selectedCategory, searchQuery, sortBy]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900">
@@ -172,10 +194,23 @@ export default function News() {
               ))}
             </div>
 
-            <div className="text-center">
+            <div className="flex flex-wrap items-center justify-center gap-4">
               <Badge variant="outline" className="border-purple-400/40 text-purple-200 text-base px-4 py-2">
                 Найдено новостей: {filteredNews.length}
               </Badge>
+
+              <div className="flex items-center gap-2 bg-slate-900/60 border-2 border-purple-500/30 rounded-xl px-4 py-2">
+                <Icon name="ArrowUpDown" size={18} className="text-purple-300" />
+                <span className="text-purple-300 text-sm font-medium">Сортировка:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'date' | 'relevance')}
+                  className="bg-transparent text-white font-semibold outline-none cursor-pointer"
+                >
+                  <option value="date" className="bg-slate-900">По дате</option>
+                  <option value="relevance" className="bg-slate-900">По релевантности</option>
+                </select>
+              </div>
             </div>
           </div>
 
