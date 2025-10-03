@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Radar() {
   const [timeLeft, setTimeLeft] = useState({
@@ -9,6 +12,9 @@ export default function Radar() {
     minutes: 0,
     seconds: 0
   });
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,6 +41,40 @@ export default function Radar() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      toast({
+        title: "Ошибка",
+        description: "Пожалуйста, введите корректный email",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSubscribing(true);
+
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Вы подписаны! 🎉",
+        description: "Мы уведомим вас, когда запустим новую функцию!",
+      });
+      
+      setEmail('');
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Что-то пошло не так. Попробуйте позже.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden flex items-center justify-center">
@@ -107,6 +147,59 @@ export default function Radar() {
                 {timeLeft.seconds}
               </div>
               <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Секунд</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-12 max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-slate-900/80 to-slate-800/80 border-2 border-cyan-500/30 rounded-3xl p-8 backdrop-blur-md shadow-2xl">
+            <div className="text-center mb-6">
+              <div className="inline-block p-4 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-2xl mb-4">
+                <Icon name="Bell" size={32} className="text-cyan-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Узнайте первыми о запуске!</h3>
+              <p className="text-purple-200/70">Введите email и мы пришлём уведомление</p>
+            </div>
+
+            <form onSubmit={handleSubscribe} className="space-y-4">
+              <div className="relative">
+                <Input
+                  type="email"
+                  placeholder="ваш@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="h-14 pl-14 pr-4 text-lg bg-slate-900/60 border-2 border-purple-500/30 text-white placeholder:text-purple-300/50 focus:border-cyan-400/60 rounded-2xl"
+                  disabled={isSubscribing}
+                />
+                <Icon 
+                  name="Mail" 
+                  size={24} 
+                  className="absolute left-5 top-1/2 -translate-y-1/2 text-purple-400"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubscribing}
+                className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 rounded-2xl shadow-lg shadow-cyan-500/25"
+              >
+                {isSubscribing ? (
+                  <>
+                    <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
+                    Подписываем...
+                  </>
+                ) : (
+                  <>
+                    <Icon name="BellRing" size={20} className="mr-2" />
+                    Уведомить меня о запуске
+                  </>
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-4 flex items-center justify-center gap-2 text-purple-300/60 text-sm">
+              <Icon name="Lock" size={14} />
+              <span>Никакого спама. Только важные уведомления.</span>
             </div>
           </div>
         </div>
