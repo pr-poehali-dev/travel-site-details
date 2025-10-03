@@ -1,10 +1,39 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 
 export default function Radar() {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const targetDate = new Date();
+    targetDate.setFullYear(targetDate.getFullYear() + 1);
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const distance = targetDate.getTime() - now;
+
+      if (distance > 0) {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -41,11 +70,48 @@ export default function Radar() {
           Интрига<br/>скоро раскроется
         </h1>
 
-        <p className="text-xl sm:text-3xl text-purple-200/80 font-light leading-relaxed mb-8 max-w-2xl mx-auto">
+        <p className="text-xl sm:text-3xl text-purple-200/80 font-light leading-relaxed mb-12 max-w-2xl mx-auto">
           Мы готовим что-то особенное для вас...
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
+        <div className="mb-12 bg-gradient-to-r from-slate-900/60 to-slate-800/60 border-2 border-purple-500/30 rounded-3xl p-8 backdrop-blur-md shadow-2xl">
+          <div className="mb-6">
+            <Icon name="Timer" size={32} className="text-cyan-400 mx-auto mb-3" />
+            <h3 className="text-2xl font-bold text-cyan-300 mb-2">До запуска осталось:</h3>
+          </div>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-2xl p-6">
+              <div className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2 tabular-nums">
+                {timeLeft.days}
+              </div>
+              <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Дней</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-2xl p-6">
+              <div className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2 tabular-nums">
+                {timeLeft.hours}
+              </div>
+              <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Часов</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-6">
+              <div className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2 tabular-nums">
+                {timeLeft.minutes}
+              </div>
+              <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Минут</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/30 rounded-2xl p-6">
+              <div className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2 tabular-nums">
+                {timeLeft.seconds}
+              </div>
+              <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Секунд</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6 backdrop-blur-sm">
             <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-blue-500/20 flex items-center justify-center">
               <Icon name="Radar" size={32} className="text-blue-400" />
