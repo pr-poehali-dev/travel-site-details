@@ -168,7 +168,13 @@ export default function Index() {
                 >
                   Карта
                 </button>
-                <a href="#" className="text-white/80 hover:text-white transition-colors font-medium">Страны</a>
+                <Link 
+                  to="/hotels" 
+                  className="text-white/80 hover:text-white transition-colors font-medium flex items-center gap-1"
+                >
+                  <Icon name="Hotel" size={16} />
+                  Отели
+                </Link>
                 <button 
                   onClick={() => setActiveSection('about')} 
                   className="text-white/80 hover:text-white transition-colors font-medium"
