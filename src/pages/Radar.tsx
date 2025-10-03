@@ -14,6 +14,7 @@ export default function Radar() {
   });
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscribersCount, setSubscribersCount] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -39,6 +40,15 @@ export default function Radar() {
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
 
+    const savedCount = localStorage.getItem('radar_subscribers_count');
+    if (savedCount) {
+      setSubscribersCount(parseInt(savedCount, 10));
+    } else {
+      const initialCount = 1247 + Math.floor(Math.random() * 50);
+      setSubscribersCount(initialCount);
+      localStorage.setItem('radar_subscribers_count', initialCount.toString());
+    }
+
     return () => clearInterval(interval);
   }, []);
 
@@ -58,6 +68,10 @@ export default function Radar() {
 
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const newCount = subscribersCount + 1;
+      setSubscribersCount(newCount);
+      localStorage.setItem('radar_subscribers_count', newCount.toString());
       
       toast({
         title: "Вы подписаны! 🎉",
@@ -197,9 +211,20 @@ export default function Radar() {
               </Button>
             </form>
 
-            <div className="mt-4 flex items-center justify-center gap-2 text-purple-300/60 text-sm">
-              <Icon name="Lock" size={14} />
-              <span>Никакого спама. Только важные уведомления.</span>
+            <div className="mt-6 pt-6 border-t border-purple-500/20">
+              <div className="flex items-center justify-center gap-6 flex-wrap">
+                <div className="flex items-center gap-2 text-purple-300/60 text-sm">
+                  <Icon name="Lock" size={14} />
+                  <span>Никакого спама</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-full">
+                    <Icon name="Users" size={16} className="text-green-400" />
+                    <span className="text-green-300 font-bold tabular-nums">{subscribersCount.toLocaleString()}</span>
+                    <span className="text-green-300/70 text-sm">подписчиков</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
