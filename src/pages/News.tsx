@@ -36,32 +36,32 @@ export default function News() {
     { id: 'tech', name: 'Технологии', icon: 'Laptop', keywords: ['технолог', 'it', 'интернет', 'приложени', 'софт', 'цифров', 'гаджет'] }
   ];
 
+  const fetchNews = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch('https://functions.poehali.dev/084472ef-27eb-4b91-825c-a6a707d8c933');
+      
+      if (!response.ok) {
+        throw new Error('Не удалось загрузить новости');
+      }
+      
+      const data: NewsResponse = await response.json();
+      setNews(data.news.slice(0, 20));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Произошла ошибка');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    
-    const fetchNews = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('https://functions.poehali.dev/084472ef-27eb-4b91-825c-a6a707d8c933');
-        
-        if (!response.ok) {
-          throw new Error('Не удалось загрузить новости');
-        }
-        
-        const data: NewsResponse = await response.json();
-        setNews(data.news.slice(0, 20));
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Произошла ошибка');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchNews();
     
     const interval = setInterval(() => {
       fetchNews();
-    }, 6 * 60 * 60 * 1000);
+    }, 4 * 60 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -146,9 +146,25 @@ export default function News() {
             <h1 className="text-5xl sm:text-7xl font-black mb-6 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
               Новости РБК
             </h1>
-            <p className="text-lg sm:text-2xl text-purple-200/80 max-w-4xl mx-auto font-light leading-relaxed mb-8">
+            <p className="text-lg sm:text-2xl text-purple-200/80 max-w-4xl mx-auto font-light leading-relaxed mb-4">
               Актуальные новости о путешествиях, туризме, экономике и мире
             </p>
+            <div className="flex items-center justify-center gap-4 text-sm text-purple-300/70">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span>Автообновление каждые 4 часа</span>
+              </div>
+              <Button
+                onClick={fetchNews}
+                variant="ghost"
+                size="sm"
+                className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10 h-8"
+                disabled={loading}
+              >
+                <Icon name={loading ? "Loader2" : "RefreshCw"} size={14} className={`mr-1 ${loading ? 'animate-spin' : ''}`} />
+                Обновить
+              </Button>
+            </div>
           </div>
 
           <div className="max-w-6xl mx-auto mb-12 space-y-6">

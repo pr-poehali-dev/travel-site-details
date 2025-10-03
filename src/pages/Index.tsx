@@ -175,12 +175,19 @@ export default function Index() {
                 >
                   О проекте
                 </button>
-                <a 
-                  href="/news" 
-                  className="text-white/80 hover:text-white transition-colors font-medium"
+                <Link 
+                  to="/news" 
+                  className="text-white/80 hover:text-cyan-400 transition-colors font-medium"
                 >
                   Новости
-                </a>
+                </Link>
+                <Link 
+                  to="/radar" 
+                  className="text-white/80 hover:text-cyan-400 transition-colors font-medium flex items-center gap-1"
+                >
+                  <Icon name="Plane" size={16} />
+                  Радар
+                </Link>
               </div>
               <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
                 <DialogTrigger asChild>
@@ -349,6 +356,13 @@ export default function Index() {
                   className="text-white/80 hover:text-cyan-400 transition-colors font-medium"
                 >
                   Новости
+                </Link>
+                <Link 
+                  to="/radar" 
+                  className="text-white/80 hover:text-cyan-400 transition-colors font-medium flex items-center gap-1"
+                >
+                  <Icon name="Plane" size={16} />
+                  Радар
                 </Link>
                 <button 
                   onClick={() => setActiveSection('about')} 
@@ -525,12 +539,19 @@ export default function Index() {
               >
                 О проекте
               </button>
-              <a 
-                href="/news" 
-                className="text-white/80 hover:text-white transition-colors font-medium"
+              <Link 
+                to="/news" 
+                className="text-white/80 hover:text-cyan-400 transition-colors font-medium"
               >
                 Новости
-              </a>
+              </Link>
+              <Link 
+                to="/radar" 
+                className="text-white/80 hover:text-cyan-400 transition-colors font-medium flex items-center gap-1"
+              >
+                <Icon name="Plane" size={16} />
+                Радар
+              </Link>
             </div>
             <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
               <DialogTrigger asChild>
