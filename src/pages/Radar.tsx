@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import confetti from 'canvas-confetti';
 
 export default function Radar() {
   const [timeLeft, setTimeLeft] = useState({
@@ -101,6 +102,33 @@ export default function Radar() {
       const newCount = subscribersCount + 1;
       setSubscribersCount(newCount);
       localStorage.setItem('radar_subscribers_count', newCount.toString());
+      
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#10b981']
+      });
+      
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#3b82f6', '#8b5cf6', '#ec4899']
+        });
+      }, 200);
+      
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#06b6d4', '#10b981', '#fbbf24']
+        });
+      }, 400);
       
       toast({
         title: "Вы подписаны! 🎉",
