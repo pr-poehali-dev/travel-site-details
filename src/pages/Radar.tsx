@@ -15,6 +15,8 @@ export default function Radar() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscribersCount, setSubscribersCount] = useState(0);
+  const [displayCount, setDisplayCount] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -42,15 +44,42 @@ export default function Radar() {
 
     const savedCount = localStorage.getItem('radar_subscribers_count');
     if (savedCount) {
-      setSubscribersCount(parseInt(savedCount, 10));
+      const count = parseInt(savedCount, 10);
+      setSubscribersCount(count);
+      setDisplayCount(count);
     } else {
       const initialCount = 1247 + Math.floor(Math.random() * 50);
       setSubscribersCount(initialCount);
+      setDisplayCount(initialCount);
       localStorage.setItem('radar_subscribers_count', initialCount.toString());
     }
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (displayCount < subscribersCount) {
+      setIsAnimating(true);
+      const duration = 800;
+      const steps = 30;
+      const increment = (subscribersCount - displayCount) / steps;
+      const stepDuration = duration / steps;
+
+      let currentStep = 0;
+      const animationInterval = setInterval(() => {
+        currentStep++;
+        if (currentStep >= steps) {
+          setDisplayCount(subscribersCount);
+          setIsAnimating(false);
+          clearInterval(animationInterval);
+        } else {
+          setDisplayCount(prev => Math.min(prev + increment, subscribersCount));
+        }
+      }, stepDuration);
+
+      return () => clearInterval(animationInterval);
+    }
+  }, [subscribersCount, displayCount]);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -218,9 +247,11 @@ export default function Radar() {
                   <span>Никакого спама</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-full">
+                  <div className={`flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-full transition-all duration-300 ${isAnimating ? 'scale-110 shadow-lg shadow-green-500/30' : 'scale-100'}`}>
                     <Icon name="Users" size={16} className="text-green-400" />
-                    <span className="text-green-300 font-bold tabular-nums">{subscribersCount.toLocaleString()}</span>
+                    <span className={`text-green-300 font-bold tabular-nums transition-all duration-300 ${isAnimating ? 'text-green-200' : ''}`}>
+                      {Math.floor(displayCount).toLocaleString()}
+                    </span>
                     <span className="text-green-300/70 text-sm">подписчиков</span>
                   </div>
                 </div>
