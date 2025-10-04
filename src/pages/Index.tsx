@@ -1004,7 +1004,6 @@ export default function Index() {
             >
               <Icon name={isMobileMenuOpen ? 'X' : 'Menu'} size={24} className="text-got-gold" />
             </button>
-            </div>
           </div>
         </div>
 
