@@ -147,14 +147,17 @@ export default function Index() {
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         {/* Navigation */}
         <nav className="border-b border-white/10 bg-black/20 backdrop-blur-md sticky top-0 z-50">
-          <div className="container mx-auto px-6 py-4">
+          <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                  <Icon name="Compass" size={24} className="text-white" />
+              <button 
+                onClick={() => setActiveSection('home')} 
+                className="flex items-center space-x-2 sm:space-x-3"
+              >
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                  <Icon name="Compass" size={20} className="text-white sm:w-6 sm:h-6" />
                 </div>
-                <h1 className="text-2xl font-bold text-white">Странник</h1>
-              </div>
+                <h1 className="text-xl sm:text-2xl font-bold text-white">Странник</h1>
+              </button>
               <div className="hidden md:flex items-center space-x-8">
                 <button 
                   onClick={() => setActiveSection('home')} 
@@ -193,6 +196,14 @@ export default function Index() {
                 >
                   <Icon name="Plane" size={16} />
                   Радар
+                </Link>
+              </div>
+              <div className="md:hidden">
+                <Link 
+                  to="/hotels" 
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-1 text-sm"
+                >
+                  <Icon name="Hotel" size={18} />
                 </Link>
               </div>
               <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>

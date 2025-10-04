@@ -48,60 +48,60 @@ export default function Hotels() {
             </Link>
 
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-3 mb-6 px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
-                <Icon name="Hotel" size={24} className="text-blue-400" />
-                <span className="text-sm font-medium">Лучшие отели мира</span>
+              <div className="inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 px-4 sm:px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+                <Icon name="Hotel" size={20} className="text-blue-400 sm:w-6 sm:h-6" />
+                <span className="text-xs sm:text-sm font-medium">Лучшие отели мира</span>
               </div>
               
-              <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4 sm:mb-6 px-4">
                 Отели Премиум-класса
               </h1>
               
-              <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
                 Коллекция отелей 4★ и 5★ в {stats.countries} странах мира. 
                 Найдите идеальное место для незабываемого отдыха.
               </p>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                  <div className="text-3xl font-bold text-blue-400 mb-2">{stats.total}</div>
-                  <div className="text-slate-300 text-sm">Отелей</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mb-6 sm:mb-8 px-4">
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
+                  <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">{stats.total}</div>
+                  <div className="text-slate-300 text-xs sm:text-sm">Отелей</div>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                  <div className="text-3xl font-bold text-purple-400 mb-2">{stats.countries}</div>
-                  <div className="text-slate-300 text-sm">Стран</div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
+                  <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2">{stats.countries}</div>
+                  <div className="text-slate-300 text-xs sm:text-sm">Стран</div>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">{stats.fiveStars}</div>
-                  <div className="text-slate-300 text-sm">5★ отелей</div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
+                  <div className="text-2xl sm:text-3xl font-bold text-yellow-400 mb-1 sm:mb-2">{stats.fiveStars}</div>
+                  <div className="text-slate-300 text-xs sm:text-sm">5★ отелей</div>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                  <div className="text-3xl font-bold text-cyan-400 mb-2">{stats.fourStars}</div>
-                  <div className="text-slate-300 text-sm">4★ отелей</div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
+                  <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1 sm:mb-2">{stats.fourStars}</div>
+                  <div className="text-slate-300 text-xs sm:text-sm">4★ отелей</div>
                 </div>
               </div>
 
-              <div className="max-w-2xl mx-auto mb-8">
+              <div className="max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
                 <div className="relative">
-                  <Icon name="Search" size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" />
+                  <Icon name="Search" size={18} className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-slate-400" />
                   <Input
-                    placeholder="Поиск отелей по названию или городу..."
+                    placeholder="Поиск отелей..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 pr-4 py-4 text-lg bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-slate-400 rounded-2xl"
+                    className="pl-10 sm:pl-12 pr-4 py-3 sm:py-4 text-base sm:text-lg bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-slate-400 rounded-xl sm:rounded-2xl"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="max-w-7xl mx-auto mb-8">
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                    <Icon name="Star" size={20} className="text-yellow-400" />
+            <div className="max-w-7xl mx-auto mb-6 sm:mb-8 px-4">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+                    <Icon name="Star" size={18} className="text-yellow-400 sm:w-5 sm:h-5" />
                     Количество звёзд
                   </h3>
-                  <div className="flex gap-3 flex-wrap">
+                  <div className="flex gap-2 sm:gap-3 flex-wrap">
                     <Button
                       onClick={() => setSelectedStars('all')}
                       variant={selectedStars === 'all' ? 'default' : 'outline'}
@@ -138,11 +138,11 @@ export default function Hotels() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                    <Icon name="Globe" size={20} className="text-blue-400" />
+                  <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+                    <Icon name="Globe" size={18} className="text-blue-400 sm:w-5 sm:h-5" />
                     Выберите страну
                   </h3>
-                  <div className="flex gap-3 flex-wrap">
+                  <div className="flex gap-2 sm:gap-3 flex-wrap">
                     <Button
                       onClick={() => setSelectedCountry('all')}
                       variant={selectedCountry === 'all' ? 'default' : 'outline'}
@@ -172,84 +172,85 @@ export default function Hotels() {
               </div>
             </div>
 
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto px-4">
               {filteredHotels.length === 0 ? (
-                <div className="text-center py-16">
-                  <Icon name="Hotel" size={64} className="mx-auto mb-4 text-slate-600" />
-                  <h3 className="text-2xl font-bold mb-2">Отели не найдены</h3>
-                  <p className="text-slate-400">Попробуйте изменить фильтры или поисковый запрос</p>
+                <div className="text-center py-12 sm:py-16">
+                  <Icon name="Hotel" size={48} className="mx-auto mb-4 text-slate-600 sm:w-16 sm:h-16" />
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2">Отели не найдены</h3>
+                  <p className="text-sm sm:text-base text-slate-400 px-4">Попробуйте изменить фильтры или поисковый запрос</p>
                 </div>
               ) : (
                 <>
-                  <div className="mb-6 text-slate-300">
+                  <div className="mb-4 sm:mb-6 text-sm sm:text-base text-slate-300">
                     Найдено отелей: <span className="font-bold text-white">{filteredHotels.length}</span>
                   </div>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {filteredHotels.map(hotel => {
                       const country = allCountries.find(c => c.id === hotel.countryId);
                       return (
-                        <Card key={hotel.id} className="bg-white/5 backdrop-blur-sm border-white/10 text-white hover:bg-white/10 transition-all hover:scale-105">
-                          <div className="relative h-48 overflow-hidden rounded-t-lg">
+                        <Card key={hotel.id} className="bg-white/5 backdrop-blur-sm border-white/10 text-white hover:bg-white/10 transition-all sm:hover:scale-105">
+                          <div className="relative h-44 sm:h-48 overflow-hidden rounded-t-lg">
                             <img 
                               src={hotel.image} 
                               alt={hotel.name}
                               className="w-full h-full object-cover"
                             />
-                            <div className="absolute top-3 right-3 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm flex items-center gap-1">
-                              <Icon name="Star" size={14} />
+                            <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-yellow-500 text-black px-2 sm:px-3 py-1 rounded-full font-bold text-xs sm:text-sm flex items-center gap-1">
+                              <Icon name="Star" size={12} className="sm:w-3.5 sm:h-3.5" />
                               {hotel.stars}★
                             </div>
-                            <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                            <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-black/60 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm flex items-center gap-1">
                               <span>{country?.flag}</span>
-                              <span>{country?.name}</span>
+                              <span className="hidden sm:inline">{country?.name}</span>
                             </div>
                           </div>
-                          <CardHeader>
-                            <CardTitle className="text-xl">{hotel.name}</CardTitle>
-                            <CardDescription className="text-slate-300 flex items-center gap-2">
-                              <Icon name="MapPin" size={14} />
+                          <CardHeader className="p-4 sm:p-6">
+                            <CardTitle className="text-lg sm:text-xl">{hotel.name}</CardTitle>
+                            <CardDescription className="text-slate-300 flex items-center gap-1 sm:gap-2 text-sm">
+                              <Icon name="MapPin" size={12} className="sm:w-3.5 sm:h-3.5" />
                               {hotel.city}
                             </CardDescription>
                           </CardHeader>
-                          <CardContent>
-                            <p className="text-sm text-slate-300 mb-4 line-clamp-2">
+                          <CardContent className="p-4 sm:p-6 pt-0">
+                            <p className="text-xs sm:text-sm text-slate-300 mb-3 sm:mb-4 line-clamp-2">
                               {hotel.description}
                             </p>
                             
-                            <div className="flex items-center gap-2 mb-4">
+                            <div className="flex items-center gap-2 mb-3 sm:mb-4">
                               <div className="flex items-center gap-1 bg-green-500/20 px-2 py-1 rounded-lg">
-                                <Icon name="Star" size={14} className="text-yellow-400" />
-                                <span className="font-bold">{hotel.rating}</span>
+                                <Icon name="Star" size={12} className="text-yellow-400 sm:w-3.5 sm:h-3.5" />
+                                <span className="text-sm sm:text-base font-bold">{hotel.rating}</span>
                               </div>
-                              <span className="text-sm text-slate-400">
+                              <span className="text-xs sm:text-sm text-slate-400">
                                 {hotel.reviews} отзывов
                               </span>
                             </div>
 
-                            <div className="flex flex-wrap gap-2 mb-4">
+                            <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
                               {hotel.amenities.slice(0, 3).map((amenity, i) => (
-                                <Badge key={i} variant="outline" className="border-blue-500/30 text-blue-300 text-xs">
+                                <Badge key={i} variant="outline" className="border-blue-500/30 text-blue-300 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5">
                                   {amenity}
                                 </Badge>
                               ))}
                               {hotel.amenities.length > 3 && (
-                                <Badge variant="outline" className="border-slate-600 text-slate-400 text-xs">
+                                <Badge variant="outline" className="border-slate-600 text-slate-400 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5">
                                   +{hotel.amenities.length - 3}
                                 </Badge>
                               )}
                             </div>
 
-                            <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                            <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-white/10">
                               <div>
-                                <div className="text-sm text-slate-400">от</div>
-                                <div className="text-2xl font-bold text-blue-400">
+                                <div className="text-xs sm:text-sm text-slate-400">от</div>
+                                <div className="text-xl sm:text-2xl font-bold text-blue-400">
                                   {hotel.price.toLocaleString()} ₽
                                 </div>
-                                <div className="text-xs text-slate-400">за ночь</div>
+                                <div className="text-[10px] sm:text-xs text-slate-400">за ночь</div>
                               </div>
-                              <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0">
-                                <Icon name="ExternalLink" size={16} className="mr-2" />
-                                Забронировать
+                              <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-xs sm:text-sm px-3 sm:px-4 py-2">
+                                <Icon name="ExternalLink" size={14} className="mr-1 sm:mr-2 w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                <span className="hidden sm:inline">Забронировать</span>
+                                <span className="sm:hidden">Бронь</span>
                               </Button>
                             </div>
                           </CardContent>
