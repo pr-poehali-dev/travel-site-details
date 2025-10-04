@@ -134,6 +134,25 @@ export default function Index() {
   const [returnDate, setReturnDate] = useState('')
   const [isRoundTrip, setIsRoundTrip] = useState(false)
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false)
+  
+  const playSwordSound = () => {
+    const audio = new Audio('https://www.soundjay.com/misc/sounds/sword-unsheathe-1.mp3')
+    audio.volume = 0.3
+    audio.play().catch(() => {})
+  }
+  
+  const toggleMusic = () => {
+    const music = document.getElementById('background-music') as HTMLAudioElement
+    if (music) {
+      if (isMusicPlaying) {
+        music.pause()
+      } else {
+        music.play().catch(() => {})
+      }
+      setIsMusicPlaying(!isMusicPlaying)
+    }
+  }
   
   useEffect(() => {
     const today = new Date()
@@ -175,80 +194,80 @@ export default function Index() {
 
   if (activeSection === 'map') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black">
         {/* Navigation */}
-        <nav className="border-b border-white/10 bg-black/20 backdrop-blur-md sticky top-0 z-50">
+        <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
           <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
             <div className="flex items-center justify-between">
               <button 
                 onClick={() => setActiveSection('home')} 
                 className="flex items-center space-x-2 sm:space-x-3"
               >
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                  <Icon name="Compass" size={20} className="text-white sm:w-6 sm:h-6" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-r from-got-fire to-orange-600 flex items-center justify-center border-2 border-got-gold/50">
+                  <Icon name="Crown" size={20} className="text-got-gold sm:w-6 sm:h-6" />
                 </div>
-                <h1 className="text-xl sm:text-2xl font-bold text-white">Странник</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
               </button>
               <div className="hidden md:flex items-center space-x-8">
                 <button 
                   onClick={() => setActiveSection('home')} 
-                  className="text-white/80 hover:text-white transition-colors font-medium"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
                 >
                   Главная
                 </button>
                 <button 
                   onClick={() => setActiveSection('map')} 
-                  className="text-blue-400 transition-colors font-medium"
+                  className="text-got-fire transition-colors font-bold"
                 >
-                  Карта
+                  Карта Вестероса
                 </button>
                 <Link 
                   to="/hotels" 
-                  className="text-white/80 hover:text-white transition-colors font-medium flex items-center gap-1"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-1"
                 >
-                  <Icon name="Hotel" size={16} />
-                  Отели
+                  <Icon name="Castle" size={16} />
+                  Замки
                 </Link>
                 <button 
-                  onClick={() => setActiveSection('about')} 
-                  className="text-white/80 hover:text-white transition-colors font-medium"
+                  onClick={() => setActiveSection('kingdoms')} 
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
                 >
-                  О проекте
+                  Королевства
                 </button>
                 <Link 
                   to="/news" 
-                  className="text-white/80 hover:text-cyan-400 transition-colors font-medium"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
                 >
-                  Новости
+                  Летописи
                 </Link>
                 <Link 
                   to="/radar" 
-                  className="text-white/80 hover:text-cyan-400 transition-colors font-medium flex items-center gap-1"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-1"
                 >
-                  <Icon name="Plane" size={16} />
-                  Радар
+                  <Icon name="Swords" size={16} />
+                  Поле Битвы
                 </Link>
               </div>
               <div className="md:hidden">
                 <Link 
                   to="/hotels" 
-                  className="text-white/80 hover:text-white transition-colors flex items-center gap-1 text-sm"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors flex items-center gap-1 text-sm"
                 >
-                  <Icon name="Hotel" size={18} />
+                  <Icon name="Castle" size={18} />
                 </Link>
               </div>
               <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
                 <DialogTrigger asChild>
-                  <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
-                    <Icon name="Route" size={16} className="mr-2" />
-                    Мой маршрут
+                  <Button className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-orange-600 hover:to-got-fire border-2 border-got-gold/50 text-white font-bold">
+                    <Icon name="Scroll" size={16} className="mr-2" />
+                    Мой путь
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px] bg-slate-800/95 backdrop-blur-xl border border-white/10">
+                <DialogContent className="sm:max-w-[500px] bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
                   <DialogHeader>
-                    <DialogTitle className="text-white text-xl font-semibold">Выберите маршрут</DialogTitle>
-                    <DialogDescription className="text-white/70">
-                      Откуда и куда планируете путешествовать?
+                    <DialogTitle className="text-got-gold text-2xl font-bold">⚔️ Выберите свой путь</DialogTitle>
+                    <DialogDescription className="text-got-gold/70">
+                      Откуда и куда планируете путешествовать по Семи Королевствам?
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-6">
@@ -368,6 +387,190 @@ export default function Index() {
           </div>
         </nav>
         <ModernWorldMap />
+      </div>
+    )
+  }
+
+  if (activeSection === 'kingdoms') {
+    const kingdoms = [
+      {
+        id: 1,
+        name: 'Север',
+        seat: 'Винтерфелл',
+        house: 'Старки',
+        sigil: '🐺',
+        words: 'Зима близко',
+        description: 'Самое обширное из Семи Королевств, суровое и холодное. Люди Севера закалены морозами и верны старым богам.',
+        rulers: 'Дом Старков правил Севером тысячи лет со времён Королей Севера',
+        culture: 'Почитание Старых Богов, чардревья, суровые традиции и честь',
+        climate: 'Холодный, с долгими зимами и короткими летними сезонами',
+        cities: ['Винтерфелл', 'Белая Гавань', 'Карлон'],
+        landmarks: ['Стена', 'Чардрева', 'Дредфорт'],
+      },
+      {
+        id: 2,
+        name: 'Речные Земли',
+        seat: 'Риверран',
+        house: 'Талли',
+        sigil: '🐟',
+        words: 'Семья, долг, честь',
+        description: 'Плодородные земли в центре Вестероса, изрезанные реками и торговыми путями.',
+        rulers: 'Дом Талли правит из замка Риверран, стоящего на слиянии рек',
+        culture: 'Рыцарство, торговля, гостеприимство',
+        climate: 'Умеренный, благоприятный для земледелия',
+        cities: ['Риверран', 'Харренхолл', 'Близнецы'],
+        landmarks: ['Харренхолл', 'Трезубец', 'Замок Близнецы'],
+      },
+      {
+        id: 3,
+        name: 'Долина Аррен',
+        seat: 'Орлиное Гнездо',
+        house: 'Аррены',
+        sigil: '🦅',
+        words: 'Высок как честь',
+        description: 'Горное королевство, защищённое неприступными Лунными Горами.',
+        rulers: 'Дом Арренов - древнейший дом андалов, правит из Орлиного Гнезда',
+        culture: 'Рыцарская доблесть, изоляционизм, почитание Семерых',
+        climate: 'Горный, холодный на вершинах',
+        cities: ['Орлиное Гнездо', 'Врата', 'Руническ камень'],
+        landmarks: ['Орлиное Гнездо', 'Кровавые Врата', 'Лунная дверь'],
+      },
+      {
+        id: 4,
+        name: 'Западные Земли',
+        seat: 'Бобровый Утёс',
+        house: 'Ланнистеры',
+        sigil: '🦁',
+        words: 'Услышь мой рёв!',
+        description: 'Богатейшее королевство благодаря золотым рудникам Бобрового Утёса.',
+        rulers: 'Дом Ланнистеров - самая богатая семья в Вестеросе',
+        culture: 'Богатство, власть, амбиции, роскошь',
+        climate: 'Умеренный, благоприятный',
+        cities: ['Бобровый Утёс', 'Ланниспорт'],
+        landmarks: ['Золотые рудники', 'Бобровый Утёс', 'Ланниспорт'],
+      },
+      {
+        id: 5,
+        name: 'Простор',
+        seat: 'Хайгарден',
+        house: 'Тиреллы',
+        sigil: '🌹',
+        words: 'Вырастая крепнем',
+        description: 'Самое плодородное и густонаселённое королевство, житница Вестероса.',
+        rulers: 'Дом Тиреллов правит из цветущего замка Хайгарден',
+        culture: 'Рыцарские турниры, искусство, музыка, изысканность',
+        climate: 'Тёплый и благоприятный для урожая',
+        cities: ['Хайгарден', 'Старомест', 'Трёхбашенный'],
+        landmarks: ['Цитадель', 'Старомест', 'Сад Хайгардена'],
+      },
+      {
+        id: 6,
+        name: 'Штормовые Земли',
+        seat: 'Штормовой Предел',
+        house: 'Баратеоны',
+        sigil: '🦌',
+        words: 'Наша ярость',
+        description: 'Земли, постоянно подвергающиеся штормам с Узкого моря.',
+        rulers: 'Дом Баратеонов захватил Железный Трон после восстания Роберта',
+        culture: 'Воинственность, сила, стойкость',
+        climate: 'Штормовой, с частыми ураганами',
+        cities: ['Штормовой Предел', 'Острая Скала'],
+        landmarks: ['Штормовой Предел', 'Корабельный Лес'],
+      },
+      {
+        id: 7,
+        name: 'Дорн',
+        seat: 'Солнечное Копьё',
+        house: 'Мартеллы',
+        sigil: '☀️',
+        words: 'Несгибаемые, непокорённые, несломленные',
+        description: 'Жаркое пустынное королевство на юге, последнее присоединившееся к Семи Королевствам.',
+        rulers: 'Дом Мартеллов - единственные правители, сохранившие титул князей',
+        culture: 'Независимость, равноправие полов, свободные нравы',
+        climate: 'Жаркий пустынный',
+        cities: ['Солнечное Копьё', 'Призрачный Холм', 'Айронвуд'],
+        landmarks: ['Водные Сады', 'Красные горы', 'Песчаная Дорога'],
+      }
+    ]
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black text-white">
+        <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              <button 
+                onClick={() => setActiveSection('home')} 
+                className="flex items-center space-x-3"
+              >
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-got-fire to-orange-600 flex items-center justify-center border-2 border-got-gold/50">
+                  <Icon name="Crown" size={28} className="text-got-gold" />
+                </div>
+                <h1 className="text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
+              </button>
+              <Button 
+                onClick={() => setActiveSection('home')}
+                className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-orange-600 hover:to-got-fire border-2 border-got-gold/50 text-white font-bold"
+              >
+                Назад
+              </Button>
+            </div>
+          </div>
+        </nav>
+        
+        <div className="container mx-auto px-6 py-12">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold text-got-gold mb-4">👑 Семь Королевств</h2>
+            <p className="text-xl text-got-gold/80">Познай величие и историю земель Вестероса</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {kingdoms.map((kingdom) => (
+              <Card key={kingdom.id} className="bg-got-black/80 border-4 border-got-gold/40 hover:border-got-fire transition-all duration-500 hover:scale-105">
+                <CardHeader>
+                  <div className="text-6xl mb-4 text-center">{kingdom.sigil}</div>
+                  <CardTitle className="text-3xl text-got-gold text-center">{kingdom.name}</CardTitle>
+                  <CardDescription className="text-got-gold/70 text-center italic text-lg">
+                    "{kingdom.words}"
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h3 className="text-got-fire font-bold text-lg mb-2">🏰 Столица:</h3>
+                    <p className="text-white">{kingdom.seat}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-got-fire font-bold text-lg mb-2">👑 Правящий дом:</h3>
+                    <p className="text-white">{kingdom.house}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-got-fire font-bold text-lg mb-2">📜 Описание:</h3>
+                    <p className="text-white/90">{kingdom.description}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-got-fire font-bold text-lg mb-2">⚔️ Правители:</h3>
+                    <p className="text-white/90">{kingdom.rulers}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-got-fire font-bold text-lg mb-2">🎭 Культура:</h3>
+                    <p className="text-white/90">{kingdom.culture}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-got-fire font-bold text-lg mb-2">🌡️ Климат:</h3>
+                    <p className="text-white/90">{kingdom.climate}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-got-fire font-bold text-lg mb-2">🏙️ Города:</h3>
+                    <p className="text-white/90">{kingdom.cities.join(', ')}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-got-fire font-bold text-lg mb-2">🗺️ Достопримечательности:</h3>
+                    <p className="text-white/90">{kingdom.landmarks.join(', ')}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     )
   }
@@ -556,6 +759,9 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black text-white">
+      <audio id="background-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+      </audio>
       <AirlineAds />
       {/* Navigation */}
       <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
@@ -567,7 +773,14 @@ export default function Index() {
               </div>
               <h1 className="text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
             </div>
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
+              <button
+                onClick={toggleMusic}
+                className="p-2 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
+                title={isMusicPlaying ? 'Остановить музыку' : 'Играть музыку'}
+              >
+                <Icon name={isMusicPlaying ? 'Volume2' : 'VolumeX'} size={20} className="text-got-gold" />
+              </button>
               <button 
                 onClick={() => setActiveSection('home')} 
                 className="text-got-fire transition-colors font-bold"
@@ -580,39 +793,44 @@ export default function Index() {
               >
                 Карта
               </button>
-              <a href="#" className="text-got-gold/80 hover:text-got-gold transition-colors font-bold">Королевства</a>
+              <button 
+                onClick={() => setActiveSection('kingdoms')} 
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+              >
+                Королевства
+              </button>
               <button 
                 onClick={() => setActiveSection('about')} 
-                className="text-white/80 hover:text-white transition-colors font-medium"
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
               >
                 О проекте
               </button>
               <Link 
                 to="/news" 
-                className="text-white/80 hover:text-cyan-400 transition-colors font-medium"
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
               >
-                Новости
+                Летописи
               </Link>
               <Link 
                 to="/radar" 
-                className="text-white/80 hover:text-cyan-400 transition-colors font-medium flex items-center gap-1"
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-1"
               >
-                <Icon name="Plane" size={16} />
-                Радар
+                <Icon name="Swords" size={16} />
+                Поле Битвы
               </Link>
             </div>
             <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
-                  <Icon name="Route" size={16} className="mr-2" />
-                  Мой маршрут
+                <Button className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-orange-600 hover:to-got-fire border-2 border-got-gold/50 text-white font-bold">
+                  <Icon name="Scroll" size={16} className="mr-2" />
+                  Мой путь
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[500px] bg-slate-800/95 backdrop-blur-xl border border-white/10">
+              <DialogContent className="sm:max-w-[500px] bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
                 <DialogHeader>
-                  <DialogTitle className="text-white text-xl font-semibold">Выберите маршрут</DialogTitle>
-                  <DialogDescription className="text-white/70">
-                    Планируйте свою поездку с выбором дат и направлений
+                  <DialogTitle className="text-got-gold text-2xl font-bold">⚔️ Выберите свой путь</DialogTitle>
+                  <DialogDescription className="text-got-gold/70">
+                    Планируйте своё путешествие по Семи Королевствам
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-6">
@@ -837,26 +1055,157 @@ export default function Index() {
               ⚔️ Великие Дома Вестероса ⚔️
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all">
-                <div className="text-5xl mb-3">🐺</div>
-                <h4 className="text-got-gold font-bold text-lg mb-2">Дом Старков</h4>
-                <p className="text-got-gold/60 text-sm italic">"Зима близко"</p>
-              </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all">
-                <div className="text-5xl mb-3">🦁</div>
-                <h4 className="text-got-gold font-bold text-lg mb-2">Дом Ланнистеров</h4>
-                <p className="text-got-gold/60 text-sm italic">"Услышь мой рёв!"</p>
-              </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all">
-                <div className="text-5xl mb-3">🐉</div>
-                <h4 className="text-got-gold font-bold text-lg mb-2">Дом Таргариенов</h4>
-                <p className="text-got-gold/60 text-sm italic">"Огонь и кровь"</p>
-              </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all">
-                <div className="text-5xl mb-3">🦌</div>
-                <h4 className="text-got-gold font-bold text-lg mb-2">Дом Баратеонов</h4>
-                <p className="text-got-gold/60 text-sm italic">"Наша ярость"</p>
-              </div>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                    <div className="text-5xl mb-3">🐺</div>
+                    <h4 className="text-got-gold font-bold text-lg mb-2">Дом Старков</h4>
+                    <p className="text-got-gold/60 text-sm italic">"Зима близко"</p>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
+                  <DialogHeader>
+                    <DialogTitle className="text-3xl text-got-gold mb-4">🐺 Дом Старков из Винтерфелла</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 text-white max-h-[60vh] overflow-y-auto">
+                    <p className="text-xl italic text-got-gold/80">"Зима близко"</p>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">📜 История:</h4>
+                      <p>Старки правят Севером уже тысячи лет, со времён Эпохи Героев. Они произошли от Брандона Строителя, который возвёл Стену и основал дом Старков в Винтерфелле.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">👑 Правители:</h4>
+                      <p>Эддард "Нед" Старк, Лорд Винтерфелла и Хранитель Севера. После его смерти - Робб Старк, Король Севера.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">🏰 Резиденция:</h4>
+                      <p>Винтерфелл - древний замок на Севере с горячими источниками под стенами и криптами, где покоятся все Старки.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">⚔️ Характеристики:</h4>
+                      <p>Честь, справедливость, верность. Старки почитают Старых Богов и славятся своей неподкупностью и благородством.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">👥 Известные члены:</h4>
+                      <p>Эддард Старк, Кейтилин Старк, Робб Старк, Санса Старк, Арья Старк, Бран Старк, Рикон Старк, Джон Сноу (бастард)</p>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                    <div className="text-5xl mb-3">🦁</div>
+                    <h4 className="text-got-gold font-bold text-lg mb-2">Дом Ланнистеров</h4>
+                    <p className="text-got-gold/60 text-sm italic">"Услышь мой рёв!"</p>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
+                  <DialogHeader>
+                    <DialogTitle className="text-3xl text-got-gold mb-4">🦁 Дом Ланнистеров из Бобрового Утёса</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 text-white max-h-[60vh] overflow-y-auto">
+                    <p className="text-xl italic text-got-gold/80">"Услышь мой рёв!" (неофициальный девиз: "Ланнистеры всегда платят свои долги")</p>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">📜 История:</h4>
+                      <p>Богатейший дом Вестероса, происходящий от Ланна Умного. Их богатство происходит из золотых рудников под Бобровым Утёсом.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">👑 Правители:</h4>
+                      <p>Тайвин Ланнистер - Лорд Бобрового Утёса, Хранитель Запада и Десница Короля при нескольких правителях.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">🏰 Резиденция:</h4>
+                      <p>Бобровый Утёс - огромная крепость, вырезанная из скалы над морем, с золотыми рудниками в глубинах.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">⚔️ Характеристики:</h4>
+                      <p>Богатство, власть, амбиции, хитрость. Ланнистеры славятся своей гордостью и стремлением к власти.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">👥 Известные члены:</h4>
+                      <p>Тайвин Ланнистер, Серсея Ланнистер, Джейме Ланнистер, Тирион Ланнистер</p>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                    <div className="text-5xl mb-3">🐉</div>
+                    <h4 className="text-got-gold font-bold text-lg mb-2">Дом Таргариенов</h4>
+                    <p className="text-got-gold/60 text-sm italic">"Огонь и кровь"</p>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
+                  <DialogHeader>
+                    <DialogTitle className="text-3xl text-got-gold mb-4">🐉 Дом Таргариенов из Драконьего Камня</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 text-white max-h-[60vh] overflow-y-auto">
+                    <p className="text-xl italic text-got-gold/80">"Огонь и кровь"</p>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">📜 История:</h4>
+                      <p>Древний валирийский дом, единственный выживший после Рока Валирии. Эйгон Завоеватель на драконах объединил Семь Королевств 300 лет назад.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">👑 Правители:</h4>
+                      <p>Правили Железным Троном почти 300 лет, пока их не свергли во время восстания Роберта Баратеона.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">🏰 Резиденция:</h4>
+                      <p>Драконий Камень - мрачная крепость на острове, построенная с помощью валирийской магии в форме драконов.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">⚔️ Характеристики:</h4>
+                      <p>Драконья кровь, огнестойкость, склонность к безумию. "Когда рождается Таргариен, боги подбрасывают монетку".</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">👥 Известные члены:</h4>
+                      <p>Эйгон Завоеватель, Безумный Король Эйрис II, Рейгар Таргариен, Визерис Таргариен, Дейнерис Таргариен</p>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                    <div className="text-5xl mb-3">🦌</div>
+                    <h4 className="text-got-gold font-bold text-lg mb-2">Дом Баратеонов</h4>
+                    <p className="text-got-gold/60 text-sm italic">"Наша ярость"</p>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
+                  <DialogHeader>
+                    <DialogTitle className="text-3xl text-got-gold mb-4">🦌 Дом Баратеонов из Штормового Предела</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 text-white max-h-[60vh] overflow-y-auto">
+                    <p className="text-xl italic text-got-gold/80">"Наша ярость"</p>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">📜 История:</h4>
+                      <p>Относительно молодой дом, основанный бастардом Таргариенов. Роберт Баратеон возглавил восстание и сверг Таргариенов, став королём.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">👑 Правители:</h4>
+                      <p>Роберт Баратеон - Король Семи Королевств после свержения Таргариенов. Его братья: Станнис и Ренли.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">🏰 Резиденция:</h4>
+                      <p>Штормовой Предел - неприступная крепость, построенная с использованием магии, способная выдержать любой шторм.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">⚔️ Характеристики:</h4>
+                      <p>Сила, ярость, воинственность. Баратеоны известны своим боевым духом и мощью в бою.</p>
+                    </div>
+                    <div>
+                      <h4 className="text-got-fire font-bold text-lg mb-2">👥 Известные члены:</h4>
+                      <p>Роберт Баратеон, Станнис Баратеон, Ренли Баратеон, Джоффри (официально Баратеон)</p>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </div>
