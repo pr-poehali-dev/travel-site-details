@@ -61,8 +61,7 @@ export default function MaintenanceMode() {
   const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-  const totalTime = 24 * 60 * 60 * 1000;
-  const progress = Math.max(0, Math.min(100, ((totalTime - timeLeft) / totalTime) * 100));
+  const progress = 15;
 
   const securityMeasures = [
     { icon: 'Shield', text: 'Усилена защита от DDoS-атак', completed: true },
