@@ -143,6 +143,8 @@ export default function Index() {
   const [showSwipeHint, setShowSwipeHint] = useState(true)
   const [isVideoPlayerOpen, setIsVideoPlayerOpen] = useState(false)
   const [isVideoMinimized, setIsVideoMinimized] = useState(false)
+  const [currentSeason, setCurrentSeason] = useState(1)
+  const [currentEpisode, setCurrentEpisode] = useState(1)
   
   const gotQuotes = [
     { text: "Зима близко", author: "Дом Старков" },
@@ -1196,7 +1198,7 @@ export default function Index() {
             <div className="bg-gradient-to-r from-got-fire to-orange-600 px-4 py-3 flex items-center justify-between">
               <h3 className="text-got-gold font-bold text-lg flex items-center gap-2">
                 <Icon name="Play" size={20} />
-                🐉 Игра Престолов
+                🐉 Игра Престолов - Сезон {currentSeason}, Серия {currentEpisode}
               </h3>
               <div className="flex items-center gap-2">
                 <button
@@ -1215,15 +1217,60 @@ export default function Index() {
                 </button>
               </div>
             </div>
-            <div className="flex-1 bg-black">
+            
+            {!isVideoMinimized && (
+              <div className="bg-got-black/80 px-4 py-3 border-b-2 border-got-gold/30">
+                <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex-1">
+                    <label className="text-got-gold text-sm font-bold mb-2 block">Сезон:</label>
+                    <Select value={currentSeason.toString()} onValueChange={(val) => setCurrentSeason(Number(val))}>
+                      <SelectTrigger className="bg-got-black/60 border-got-gold/50 text-got-gold">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-got-black/95 border-got-gold/50">
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map((season) => (
+                          <SelectItem key={season} value={season.toString()} className="text-got-gold hover:bg-got-gold/20">
+                            Сезон {season}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex-1">
+                    <label className="text-got-gold text-sm font-bold mb-2 block">Серия:</label>
+                    <Select value={currentEpisode.toString()} onValueChange={(val) => setCurrentEpisode(Number(val))}>
+                      <SelectTrigger className="bg-got-black/60 border-got-gold/50 text-got-gold">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-got-black/95 border-got-gold/50">
+                        {Array.from({ length: 10 }, (_, i) => i + 1).map((episode) => (
+                          <SelectItem key={episode} value={episode.toString()} className="text-got-gold hover:bg-got-gold/20">
+                            Серия {episode}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="mt-3 text-got-gold/70 text-sm text-center">
+                  🇷🇺 Русская озвучка на VK Video
+                </div>
+              </div>
+            )}
+            
+            <div className="flex-1 bg-black relative">
               <iframe
+                key={`s${currentSeason}e${currentEpisode}`}
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/KPLWWIOCOOQ"
+                src={`https://vk.com/video_ext.php?oid=-1&id=456239017&hd=2`}
                 title="Game of Thrones"
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                 allowFullScreen
               />
+              <div className="absolute bottom-4 left-4 bg-got-black/80 backdrop-blur-md border-2 border-got-gold/50 rounded-lg px-4 py-2 text-got-gold text-sm font-bold">
+                📺 VK Video • RU
+              </div>
             </div>
           </div>
         </div>
