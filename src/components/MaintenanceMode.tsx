@@ -183,15 +183,16 @@ export default function MaintenanceMode() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-slate-400 text-sm sm:text-base mb-12">
-          <div className="flex items-center gap-2">
-            <Icon name="Mail" size={16} className="sm:w-5 sm:h-5" />
-            <span>security@strannik.ru</span>
-          </div>
-          <div className="hidden sm:block w-1 h-1 bg-slate-600 rounded-full" />
-          <div className="flex items-center gap-2">
-            <Icon name="Phone" size={16} className="sm:w-5 sm:h-5" />
-            <span>8 (800) 555-35-35</span>
+        <div className="mb-12 bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+          <div className="text-center">
+            <p className="text-white/70 text-sm mb-4">Мы в соцсетях</p>
+            <button
+              onClick={() => window.open('https://t.me/Strannik_com', '_blank')}
+              className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0 rounded-lg transition-all duration-300"
+            >
+              <Icon name="Send" size={20} />
+              Смотреть
+            </button>
           </div>
         </div>
 
