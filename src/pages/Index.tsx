@@ -135,6 +135,34 @@ export default function Index() {
   const [isRoundTrip, setIsRoundTrip] = useState(false)
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
+  const [currentQuote, setCurrentQuote] = useState(0)
+  
+  const gotQuotes = [
+    { text: "Зима близко", author: "Дом Старков" },
+    { text: "Ланнистеры всегда платят свои долги", author: "Дом Ланнистеров" },
+    { text: "Огонь и кровь", author: "Дом Таргариенов" },
+    { text: "Что мертво, умереть не может", author: "Дом Грейджоев" },
+    { text: "Услышь мой рёв!", author: "Дом Ланнистеров" },
+    { text: "Наша ярость", author: "Дом Баратеонов" },
+    { text: "Вырастая крепнем", author: "Дом Тиреллов" },
+    { text: "Семья, долг, честь", author: "Дом Талли" },
+    { text: "Высок как честь", author: "Дом Арренов" },
+    { text: "Несгибаемые, непокорённые, несломленные", author: "Дом Мартеллов" },
+    { text: "Когда играешь в игру престолов, ты либо побеждаешь, либо умираешь", author: "Серсея Ланнистер" },
+    { text: "Хаос — это лестница", author: "Мизинец" },
+    { text: "Ночь темна и полна ужасов", author: "Мелисандра" },
+    { text: "Что знают живые о смерти?", author: "Иггритт" },
+    { text: "Любой человек, который должен говорить 'Я король', — не настоящий король", author: "Тайвин Ланнистер" },
+    { text: "Когда снега падут и ветры завоют, одинокий волк умрёт, но стая выживет", author: "Нед Старк" },
+    { text: "Драконы не понимают разницы между тем, что их и что не их", author: "Дейенерис Таргариен" },
+    { text: "Я пью вино и знаю вещи", author: "Тирион Ланнистер" },
+    { text: "Власть — это тень на стене", author: "Варис" },
+    { text: "Не будь дураком. Только дурак доверяет Ланнистеру", author: "Нед Старк" }
+  ]
+  
+  useEffect(() => {
+    setCurrentQuote(Math.floor(Math.random() * gotQuotes.length))
+  }, [])
   
   const playSwordSound = () => {
     const audio = new Audio('https://www.soundjay.com/misc/sounds/sword-unsheathe-1.mp3')
@@ -1047,9 +1075,13 @@ export default function Index() {
         
         <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
           <div className="mb-8 animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-got-black/60 backdrop-blur-md rounded-lg px-6 py-3 mb-8 border-2 border-got-gold/50">
-              <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-got-gold">⚔️ Огонь и Кровь ⚔️</span>
+            <div className="inline-flex flex-col items-center space-y-2 bg-got-black/60 backdrop-blur-md rounded-lg px-8 py-4 mb-8 border-2 border-got-gold/50">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
+                <span className="text-lg font-bold text-got-gold italic">"{gotQuotes[currentQuote].text}"</span>
+                <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
+              </div>
+              <span className="text-sm text-got-gold/70">— {gotQuotes[currentQuote].author}</span>
             </div>
           </div>
           
@@ -1065,7 +1097,7 @@ export default function Index() {
             Третьего не дано." — Серсея Ланнистер
           </p>
           
-          <div className="flex flex-col md:flex-row gap-6 justify-center">
+          <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white border-2 border-got-gold/50 h-14 px-8 text-lg font-bold relative overflow-hidden group"
@@ -1079,9 +1111,10 @@ export default function Index() {
               size="lg" 
               variant="outline" 
               className="border-2 border-got-gold/50 text-got-gold hover:bg-got-gold/20 hover:border-got-gold h-14 px-8 text-lg font-bold bg-got-black/60 backdrop-blur-sm"
+              onClick={() => setCurrentQuote((prev) => (prev + 1) % gotQuotes.length)}
             >
-              <Icon name="Sword" size={24} className="mr-3" />
-              Присягнуть дому
+              <Icon name="Scroll" size={24} className="mr-3" />
+              Новая цитата
             </Button>
           </div>
         </div>
