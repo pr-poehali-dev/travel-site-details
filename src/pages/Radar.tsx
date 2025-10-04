@@ -24,7 +24,7 @@ export default function Radar() {
     window.scrollTo(0, 0);
 
     const targetDate = new Date();
-    targetDate.setFullYear(targetDate.getFullYear() + 1);
+    targetDate.setTime(targetDate.getTime() + 360 * 24 * 60 * 60 * 1000);
 
     const updateTimer = () => {
       const now = new Date().getTime();

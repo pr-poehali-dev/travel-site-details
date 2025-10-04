@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 
-const MAINTENANCE_END_TIME = Date.now() + 360 * 24 * 60 * 60 * 1000;
+const MAINTENANCE_END_TIME = Date.now() - 1000;
 
 export default function MaintenanceMode() {
   const [timeLeft, setTimeLeft] = useState(MAINTENANCE_END_TIME - Date.now());
-  const [isMaintenanceMode, setIsMaintenanceMode] = useState(true);
+  const [isMaintenanceMode, setIsMaintenanceMode] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
