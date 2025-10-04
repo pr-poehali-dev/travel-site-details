@@ -78,9 +78,11 @@ export default function MaintenanceMode() {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 relative overflow-hidden">
+    <div className="fixed inset-0 z-[100] overflow-y-auto bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 relative">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.15),transparent_70%)]" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTEsMTEzLDEzMywwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40" />
+      
+      <div className="min-h-screen flex flex-col items-center justify-start py-8 sm:py-12">
       
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center overflow-y-auto max-h-screen py-8">
         <div className="inline-block mb-8 sm:mb-12">
@@ -181,7 +183,7 @@ export default function MaintenanceMode() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-slate-400 text-sm sm:text-base">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-slate-400 text-sm sm:text-base mb-12">
           <div className="flex items-center gap-2">
             <Icon name="Mail" size={16} className="sm:w-5 sm:h-5" />
             <span>security@strannik.ru</span>
@@ -192,6 +194,121 @@ export default function MaintenanceMode() {
             <span>8 (800) 555-35-35</span>
           </div>
         </div>
+
+        <div className="mt-16 space-y-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-400 via-orange-400 to-red-400 bg-clip-text text-transparent mb-4">
+              Что такое хакерская атака?
+            </h2>
+            <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
+              Узнайте больше о произошедшем инциденте и мерах, которые мы принимаем для защиты ваших данных
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:gap-8">
+            <div className="bg-gradient-to-br from-red-500/10 to-orange-500/10 border border-red-500/30 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-red-500/50">
+                  <Icon name="Bug" size={40} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-red-300 mb-3">DDoS атака</h3>
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+                    Хакеры организовали массовую атаку на наши серверы, отправляя тысячи запросов одновременно. 
+                    Это привело к временной перегрузке системы и недоступности сервиса.
+                  </p>
+                  <div className="flex items-center gap-2 text-orange-400 text-sm">
+                    <Icon name="AlertCircle" size={16} />
+                    <span>Атака началась в 03:24 МСК</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-orange-500/10 to-yellow-500/10 border border-orange-500/30 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-orange-500 to-yellow-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/50">
+                  <Icon name="ShieldCheck" size={40} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-orange-300 mb-3">Защита данных</h3>
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+                    Все ваши данные в полной безопасности! Мы используем многоуровневое шифрование и резервное копирование. 
+                    Атака затронула только доступность сервиса, но не базы данных.
+                  </p>
+                  <div className="flex items-center gap-2 text-green-400 text-sm">
+                    <Icon name="CheckCircle2" size={16} />
+                    <span>Данные пользователей защищены</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/50">
+                  <Icon name="Users" size={40} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-blue-300 mb-3">Наша команда в действии</h3>
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+                    Команда из 15 специалистов по кибербезопасности работает 24/7, чтобы восстановить сервис. 
+                    Мы отслеживаем каждую стадию восстановления и усиливаем защиту системы.
+                  </p>
+                  <div className="grid grid-cols-2 gap-3 mt-4">
+                    <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                      <div className="text-2xl font-bold text-cyan-400">15+</div>
+                      <div className="text-xs text-slate-400">специалистов</div>
+                    </div>
+                    <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                      <div className="text-2xl font-bold text-cyan-400">24/7</div>
+                      <div className="text-xs text-slate-400">мониторинг</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/50">
+                  <Icon name="Zap" size={40} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-purple-300 mb-3">Что мы делаем сейчас</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <Icon name="ArrowRight" size={18} className="text-purple-400 flex-shrink-0 mt-1" />
+                      <p className="text-slate-300 text-sm sm:text-base">Блокируем вредоносный трафик с помощью AI-фильтров</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="ArrowRight" size={18} className="text-purple-400 flex-shrink-0 mt-1" />
+                      <p className="text-slate-300 text-sm sm:text-base">Усиливаем серверную инфраструктуру дополнительными мощностями</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="ArrowRight" size={18} className="text-purple-400 flex-shrink-0 mt-1" />
+                      <p className="text-slate-300 text-sm sm:text-base">Проводим полный аудит безопасности всех систем</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="ArrowRight" size={18} className="text-purple-400 flex-shrink-0 mt-1" />
+                      <p className="text-slate-300 text-sm sm:text-base">Обновляем все протоколы защиты до новейших стандартов</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-2xl p-6 sm:p-8 backdrop-blur-sm text-center mt-12">
+            <Icon name="Heart" size={48} className="text-green-400 mx-auto mb-4" />
+            <h3 className="text-xl sm:text-2xl font-bold text-green-300 mb-3">Спасибо за понимание!</h3>
+            <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+              Мы ценим ваше терпение и доверие. После восстановления сервиса мы предоставим всем пользователям 
+              специальный бонус в знак благодарности. Следите за обновлениями!
+            </p>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   );
