@@ -23,9 +23,16 @@ export default function Radar() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const targetDate = new Date();
-    targetDate.setTime(targetDate.getTime() + 10 * 24 * 60 * 60 * 1000);
-    localStorage.setItem('radar_target_date', targetDate.getTime().toString());
+    const savedTargetDate = localStorage.getItem('radar_target_date');
+    let targetDate: Date;
+
+    if (savedTargetDate) {
+      targetDate = new Date(parseInt(savedTargetDate, 10));
+    } else {
+      targetDate = new Date();
+      targetDate.setTime(targetDate.getTime() + 10 * 24 * 60 * 60 * 1000);
+      localStorage.setItem('radar_target_date', targetDate.getTime().toString());
+    }
 
     const updateTimer = () => {
       const now = new Date().getTime();
