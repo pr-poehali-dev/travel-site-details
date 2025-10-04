@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 
 const MAINTENANCE_END_TIME = Date.now() + 24 * 60 * 60 * 1000;
@@ -7,6 +7,8 @@ const MAINTENANCE_END_TIME = Date.now() + 24 * 60 * 60 * 1000;
 export default function MaintenanceMode() {
   const [timeLeft, setTimeLeft] = useState(MAINTENANCE_END_TIME - Date.now());
   const [isMaintenanceMode, setIsMaintenanceMode] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const savedEndTime = localStorage.getItem('maintenanceEndTime');
@@ -38,6 +40,13 @@ export default function MaintenanceMode() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (isMaintenanceMode && location.pathname !== '/') {
+      navigate('/', { replace: true });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [isMaintenanceMode, location.pathname, navigate]);
+
   if (!isMaintenanceMode) {
     return null;
   }
@@ -58,18 +67,31 @@ export default function MaintenanceMode() {
     { icon: 'CheckCircle2', text: 'Тестирование системы безопасности', completed: progress > 85 },
   ];
 
+  const handleBackClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/', { replace: true });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 relative overflow-hidden">
+    <div 
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 relative overflow-hidden"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }}
+    >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.15),transparent_70%)]" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTEsMTEzLDEzMywwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40" />
 
-      <Link 
-        to="/" 
+      <button 
+        onClick={handleBackClick}
         className="absolute top-6 sm:top-8 left-4 sm:left-8 inline-flex items-center gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-slate-900/60 border-2 border-red-500/30 text-red-200 rounded-xl sm:rounded-2xl hover:border-red-400/60 hover:bg-slate-900/80 transition-all duration-300 group backdrop-blur-md z-10"
       >
         <Icon name="ArrowLeft" size={18} className="group-hover:-translate-x-1 transition-transform sm:w-5 sm:h-5" />
         <span className="text-sm sm:text-base">Назад на главную</span>
-      </Link>
+      </button>
       
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center overflow-y-auto max-h-screen py-8">
         <div className="inline-block mb-8 sm:mb-12">
