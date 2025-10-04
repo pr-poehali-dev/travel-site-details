@@ -100,11 +100,16 @@ export default function MaintenanceMode() {
             <Icon name="AlertTriangle" size={20} className="text-red-400 flex-shrink-0 mt-1 sm:w-6 sm:h-6" />
             <div>
               <h3 className="text-base sm:text-lg font-semibold text-red-300 mb-2">Хакерская атака</h3>
-              <p className="text-sm sm:text-base text-slate-300">
+              <p className="text-sm sm:text-base text-slate-300 mb-3">
                 Технические работы ведутся из-за хакерской атаки. 
                 Приносим извинения за доставленные неудобства. 
                 Наша команда работает над восстановлением безопасности системы.
               </p>
+              <div className="bg-red-500/20 border border-red-400/40 rounded-lg p-3 mt-3">
+                <p className="text-sm sm:text-base text-red-200 font-medium">
+                  ⚠️ Во избежание утечки данных настоятельно рекомендуем воздержаться от посещения сайта до окончания технических работ.
+                </p>
+              </div>
             </div>
           </div>
         </div>
