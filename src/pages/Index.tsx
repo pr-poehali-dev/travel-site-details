@@ -137,6 +137,8 @@ export default function Index() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [currentQuote, setCurrentQuote] = useState(0)
   const [quoteKey, setQuoteKey] = useState(0)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   const gotQuotes = [
     { text: "Зима близко", author: "Дом Старков" },
@@ -854,7 +856,8 @@ export default function Index() {
               </div>
               <h1 className="text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
             </div>
-            <div className="hidden md:flex items-center space-x-6">
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-6">
               <button
                 onClick={toggleMusic}
                 className="p-2 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
@@ -900,6 +903,115 @@ export default function Index() {
                 Поле Битвы
               </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
+            >
+              <Icon name={isMobileMenuOpen ? 'X' : 'Menu'} size={24} className="text-got-gold" />
+            </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-got-black/95 border-t-2 border-got-gold/30 backdrop-blur-md">
+            <div className="container mx-auto px-6 py-4 flex flex-col space-y-4">
+              <button
+                onClick={toggleMusic}
+                className="flex items-center gap-3 p-3 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
+              >
+                <Icon name={isMusicPlaying ? 'Volume2' : 'VolumeX'} size={20} className="text-got-gold" />
+                <span className="text-got-gold font-bold">{isMusicPlaying ? 'Остановить музыку' : 'Играть музыку'}</span>
+              </button>
+              <button 
+                onClick={() => {
+                  setActiveSection('home')
+                  setIsMobileMenuOpen(false)
+                }} 
+                className="text-got-fire transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+              >
+                Главная
+              </button>
+              <button 
+                onClick={() => {
+                  setActiveSection('map')
+                  setIsMobileMenuOpen(false)
+                }} 
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+              >
+                Карта
+              </button>
+              <button 
+                onClick={() => {
+                  setActiveSection('kingdoms')
+                  setIsMobileMenuOpen(false)
+                }} 
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+              >
+                Королевства
+              </button>
+              <button 
+                onClick={() => {
+                  setActiveSection('about')
+                  setIsMobileMenuOpen(false)
+                }} 
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+              >
+                О проекте
+              </button>
+              <Link 
+                to="/news" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+              >
+                Летописи
+              </Link>
+              <Link 
+                to="/radar" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-2 p-3 hover:bg-got-gold/10 rounded-lg"
+              >
+                <Icon name="Swords" size={16} />
+                Поле Битвы
+              </Link>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* GOT Theme Timer */}
+      <div className="bg-got-black border-b-4 border-got-gold/50 py-4">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+            <div className="text-got-gold font-bold text-sm md:text-lg text-center">⚔️ До конца тематики осталось:</div>
+            <div className="flex gap-2 md:gap-4">
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-3 md:px-4 py-2">
+                <div className="text-xl md:text-2xl font-bold text-got-fire">{timeLeft.days}</div>
+                <div className="text-xs text-got-gold/70">дней</div>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-3 md:px-4 py-2">
+                <div className="text-xl md:text-2xl font-bold text-got-fire">{timeLeft.hours}</div>
+                <div className="text-xs text-got-gold/70">часов</div>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-3 md:px-4 py-2">
+                <div className="text-xl md:text-2xl font-bold text-got-fire">{timeLeft.minutes}</div>
+                <div className="text-xs text-got-gold/70">минут</div>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-3 md:px-4 py-2">
+                <div className="text-xl md:text-2xl font-bold text-got-fire">{timeLeft.seconds}</div>
+                <div className="text-xs text-got-gold/70">секунд</div>
+              </div>
+            </div>
+            <Link 
+              to="/game" 
+              className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white px-4 md:px-6 py-2 rounded-lg border-2 border-got-gold/50 font-bold transition-all"
+            >
+              🐉 Играть
+            </Link>
+          </div>
             <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
               <DialogTrigger asChild>
                 <Button className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-orange-600 hover:to-got-fire border-2 border-got-gold/50 text-white font-bold">
@@ -1036,38 +1148,7 @@ export default function Index() {
         </div>
       </nav>
 
-      {/* GOT Theme Timer */}
-      <div className="bg-got-black border-b-4 border-got-gold/50 py-4">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-center gap-8">
-            <div className="text-got-gold font-bold text-lg">⚔️ До конца тематики осталось:</div>
-            <div className="flex gap-4">
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-4 py-2">
-                <div className="text-2xl font-bold text-got-fire">{timeLeft.days}</div>
-                <div className="text-xs text-got-gold/70">дней</div>
-              </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-4 py-2">
-                <div className="text-2xl font-bold text-got-fire">{timeLeft.hours}</div>
-                <div className="text-xs text-got-gold/70">часов</div>
-              </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-4 py-2">
-                <div className="text-2xl font-bold text-got-fire">{timeLeft.minutes}</div>
-                <div className="text-xs text-got-gold/70">минут</div>
-              </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-4 py-2">
-                <div className="text-2xl font-bold text-got-fire">{timeLeft.seconds}</div>
-                <div className="text-xs text-got-gold/70">секунд</div>
-              </div>
-            </div>
-            <Link 
-              to="/game" 
-              className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white px-6 py-2 rounded-lg border-2 border-got-gold/50 font-bold transition-all"
-            >
-              🐉 Играть
-            </Link>
-          </div>
-        </div>
-      </div>
+
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -1086,34 +1167,34 @@ export default function Index() {
           <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
         </div>
         
-        <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
-          <div className="mb-8 animate-fade-in">
-            <div key={quoteKey} className="inline-flex flex-col items-center space-y-2 bg-got-black/60 backdrop-blur-md rounded-lg px-8 py-4 mb-8 border-2 border-got-gold/50 quote-fade-in">
+        <div className="relative z-10 text-center max-w-6xl mx-auto px-4 md:px-6">
+          <div className="mb-6 md:mb-8 animate-fade-in">
+            <div key={quoteKey} className="inline-flex flex-col items-center space-y-2 bg-got-black/60 backdrop-blur-md rounded-lg px-4 md:px-8 py-3 md:py-4 mb-6 md:mb-8 border-2 border-got-gold/50 quote-fade-in">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
-                <span className="text-lg font-bold text-got-gold italic quote-glow">"{gotQuotes[currentQuote].text}"</span>
+                <span className="text-sm md:text-lg font-bold text-got-gold italic quote-glow">"{gotQuotes[currentQuote].text}"</span>
                 <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
               </div>
-              <span className="text-sm text-got-gold/70 quote-fade-in">— {gotQuotes[currentQuote].author}</span>
+              <span className="text-xs md:text-sm text-got-gold/70 quote-fade-in">— {gotQuotes[currentQuote].author}</span>
             </div>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-black mb-8 leading-none tracking-wider">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black mb-6 md:mb-8 leading-none tracking-wider">
             <span className="bg-gradient-to-r from-got-gold via-got-fire to-got-gold bg-clip-text text-transparent drop-shadow-2xl">
               СЕМЬ КОРОЛЕВСТВ
             </span><br />
-            <span className="text-got-gold text-5xl md:text-6xl">⚔️ ВЕСТЕРОСА ⚔️</span>
+            <span className="text-got-gold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">⚔️ ВЕСТЕРОСА ⚔️</span>
           </h1>
           
-          <p className="text-xl md:text-2xl mb-12 text-got-gold/70 max-w-3xl mx-auto font-light italic">
+          <p className="text-base md:text-xl lg:text-2xl mb-8 md:mb-12 text-got-gold/70 max-w-3xl mx-auto font-light italic px-4">
             "Когда ты играешь в игру престолов, ты либо побеждаешь, либо умираешь. 
             Третьего не дано." — Серсея Ланнистер
           </p>
           
-          <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-4">
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white border-2 border-got-gold/50 h-14 px-8 text-lg font-bold relative overflow-hidden group"
+              className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white border-2 border-got-gold/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
               onClick={() => setActiveSection('map')}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-got-fire/20 to-orange-600/20 animate-pulse"></div>
@@ -1123,7 +1204,7 @@ export default function Index() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-got-gold/50 text-got-gold hover:bg-got-gold/20 hover:border-got-gold h-14 px-8 text-lg font-bold bg-got-black/60 backdrop-blur-sm transition-all hover:scale-105"
+              className="border-2 border-got-gold/50 text-got-gold hover:bg-got-gold/20 hover:border-got-gold h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold bg-got-black/60 backdrop-blur-sm transition-all hover:scale-105 w-full sm:w-auto"
               onClick={changeQuote}
             >
               <Icon name="Scroll" size={24} className="mr-3" />
@@ -1134,19 +1215,19 @@ export default function Index() {
       </section>
 
       {/* Great Houses Section */}
-      <section className="py-16 px-6 relative bg-gradient-to-r from-got-black via-got-iron/20 to-got-black backdrop-blur-sm border-y-4 border-got-gold/30">
+      <section className="py-8 md:py-16 px-4 md:px-6 relative bg-gradient-to-r from-got-black via-got-iron/20 to-got-black backdrop-blur-sm border-y-4 border-got-gold/30">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h3 className="text-4xl font-bold mb-8 text-got-gold">
+          <div className="text-center mb-8 md:mb-12">
+            <h3 className="text-2xl md:text-4xl font-bold mb-6 md:mb-8 text-got-gold">
               ⚔️ Великие Дома Вестероса ⚔️
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
-                    <div className="text-5xl mb-3">🐺</div>
-                    <h4 className="text-got-gold font-bold text-lg mb-2">Дом Старков</h4>
-                    <p className="text-got-gold/60 text-sm italic">"Зима близко"</p>
+                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                    <div className="text-3xl md:text-5xl mb-2 md:mb-3">🐺</div>
+                    <h4 className="text-got-gold font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Старков</h4>
+                    <p className="text-got-gold/60 text-xs md:text-sm italic">"Зима близко"</p>
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
@@ -1181,10 +1262,10 @@ export default function Index() {
 
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
-                    <div className="text-5xl mb-3">🦁</div>
-                    <h4 className="text-got-gold font-bold text-lg mb-2">Дом Ланнистеров</h4>
-                    <p className="text-got-gold/60 text-sm italic">"Услышь мой рёв!"</p>
+                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                    <div className="text-3xl md:text-5xl mb-2 md:mb-3">🦁</div>
+                    <h4 className="text-got-gold font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Ланнистеров</h4>
+                    <p className="text-got-gold/60 text-xs md:text-sm italic">"Услышь мой рёв!"</p>
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
@@ -1219,10 +1300,10 @@ export default function Index() {
 
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
-                    <div className="text-5xl mb-3">🐉</div>
-                    <h4 className="text-got-gold font-bold text-lg mb-2">Дом Таргариенов</h4>
-                    <p className="text-got-gold/60 text-sm italic">"Огонь и кровь"</p>
+                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                    <div className="text-3xl md:text-5xl mb-2 md:mb-3">🐉</div>
+                    <h4 className="text-got-gold font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Таргариенов</h4>
+                    <p className="text-got-gold/60 text-xs md:text-sm italic">"Огонь и кровь"</p>
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
@@ -1257,10 +1338,10 @@ export default function Index() {
 
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
-                    <div className="text-5xl mb-3">🦌</div>
-                    <h4 className="text-got-gold font-bold text-lg mb-2">Дом Баратеонов</h4>
-                    <p className="text-got-gold/60 text-sm italic">"Наша ярость"</p>
+                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                    <div className="text-3xl md:text-5xl mb-2 md:mb-3">🦌</div>
+                    <h4 className="text-got-gold font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Баратеонов</h4>
+                    <p className="text-got-gold/60 text-xs md:text-sm italic">"Наша ярость"</p>
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
