@@ -66,7 +66,12 @@ export default {
 				'map-brown': '#8B4513',
 				'adventure-teal': '#2F4F4F',
 				'parchment': '#F5E6D3',
-				'charcoal': '#1A1A1A'
+				'charcoal': '#1A1A1A',
+				'got-gold': '#C9A86A',
+				'got-black': '#0A0A0A',
+				'got-iron': '#4A4A4A',
+				'got-fire': '#FF6B35',
+				'got-ice': '#88D4F2'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

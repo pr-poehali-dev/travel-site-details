@@ -133,13 +133,44 @@ export default function Index() {
   const [departureDate, setDepartureDate] = useState('')
   const [returnDate, setReturnDate] = useState('')
   const [isRoundTrip, setIsRoundTrip] = useState(false)
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   
-  // Устанавливаем дату отправления по умолчанию (через 30 дней)
   useEffect(() => {
     const today = new Date()
     const defaultDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
     const dateString = defaultDate.toISOString().split('T')[0]
     setDepartureDate(dateString)
+  }, [])
+
+  useEffect(() => {
+    const savedEndDate = localStorage.getItem('got_theme_end_date')
+    let targetDate: Date
+
+    if (savedEndDate) {
+      targetDate = new Date(parseInt(savedEndDate, 10))
+    } else {
+      targetDate = new Date()
+      targetDate.setTime(targetDate.getTime() + 7 * 24 * 60 * 60 * 1000)
+      localStorage.setItem('got_theme_end_date', targetDate.getTime().toString())
+    }
+
+    const updateTimer = () => {
+      const now = new Date().getTime()
+      const distance = targetDate.getTime() - now
+
+      if (distance > 0) {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        })
+      }
+    }
+
+    updateTimer()
+    const interval = setInterval(updateTimer, 1000)
+    return () => clearInterval(interval)
   }, [])
 
   if (activeSection === 'map') {
@@ -706,34 +737,66 @@ export default function Index() {
         </div>
       </nav>
 
+      {/* GOT Theme Timer */}
+      <div className="bg-got-black border-b-4 border-got-gold/50 py-4">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-center gap-8">
+            <div className="text-got-gold font-bold text-lg">⚔️ До конца тематики осталось:</div>
+            <div className="flex gap-4">
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-4 py-2">
+                <div className="text-2xl font-bold text-got-fire">{timeLeft.days}</div>
+                <div className="text-xs text-got-gold/70">дней</div>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-4 py-2">
+                <div className="text-2xl font-bold text-got-fire">{timeLeft.hours}</div>
+                <div className="text-xs text-got-gold/70">часов</div>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-4 py-2">
+                <div className="text-2xl font-bold text-got-fire">{timeLeft.minutes}</div>
+                <div className="text-xs text-got-gold/70">минут</div>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-4 py-2">
+                <div className="text-2xl font-bold text-got-fire">{timeLeft.seconds}</div>
+                <div className="text-xs text-got-gold/70">секунд</div>
+              </div>
+            </div>
+            <Link 
+              to="/game" 
+              className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white px-6 py-2 rounded-lg border-2 border-got-gold/50 font-bold transition-all"
+            >
+              🐉 Играть
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
           style={{ backgroundImage: 'url(/img/c3564582-71b0-4438-9415-5e1c70f4bb2e.jpg)' }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-br from-got-black/80 via-got-iron/60 to-got-black/80" />
         </div>
         
-        {/* Floating Neon Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-3 h-3 bg-cyan-400 rounded-full animate-pulse neon-glow-blue"></div>
-          <div className="absolute top-40 right-20 w-4 h-4 bg-purple-500 rounded-full animate-pulse neon-glow-purple"></div>
-          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+          <div className="absolute top-20 left-10 w-3 h-3 bg-got-fire rounded-full animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-4 h-4 bg-got-gold rounded-full animate-pulse"></div>
+          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-got-gold rounded-full animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
         </div>
         
         <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
           <div className="mb-8 animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-black/40 backdrop-blur-md rounded-full px-6 py-3 mb-8 border border-cyan-500/30 neon-border-blue">
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse neon-glow-blue"></div>
-              <span className="text-sm font-medium text-cyan-300 neon-text-cyan">Исследуй мир интерактивно</span>
+            <div className="inline-flex items-center space-x-2 bg-got-black/60 backdrop-blur-md rounded-lg px-6 py-3 mb-8 border-2 border-got-gold/50">
+              <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-got-gold">Winter is Coming...</span>
             </div>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-black mb-8 leading-none">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent neon-text-blue">
+            <span className="bg-gradient-to-r from-got-gold via-got-fire to-got-gold bg-clip-text text-transparent">
               ПУТЕШЕСТВИЯ
             </span><br />
             <span className="text-white neon-text-purple">БЕЗ ГРАНИЦ</span>
