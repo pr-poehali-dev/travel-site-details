@@ -341,6 +341,25 @@ export default function Radar() {
           <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse delay-150"></div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-md border-t-2 border-cyan-500/30 py-8">
+        <div className="container mx-auto px-6 text-center">
+          <p className="text-cyan-300/60 text-sm mb-4">
+            Откройте мир через интерактивные путешествия • 2024
+          </p>
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-white/70 text-xs">Мы в соцсетях</p>
+            <Button
+              onClick={() => window.open('https://t.me/Strannik_com', '_blank')}
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0 px-4 py-1.5 text-sm flex items-center gap-2"
+            >
+              <Icon name="Send" size={16} />
+              Смотреть
+            </Button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
