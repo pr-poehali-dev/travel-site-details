@@ -148,11 +148,21 @@ export default function Index() {
       if (isMusicPlaying) {
         music.pause()
       } else {
+        music.volume = 0.2
         music.play().catch(() => {})
       }
       setIsMusicPlaying(!isMusicPlaying)
     }
   }
+  
+  useEffect(() => {
+    const music = document.getElementById('background-music') as HTMLAudioElement
+    if (music) {
+      music.volume = 0.2
+      music.play().catch(() => {})
+      setIsMusicPlaying(true)
+    }
+  }, [])
   
   useEffect(() => {
     const today = new Date()
@@ -195,6 +205,9 @@ export default function Index() {
   if (activeSection === 'map') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black">
+        <audio id="background-music" loop>
+          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+        </audio>
         {/* Navigation */}
         <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
           <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
@@ -392,6 +405,15 @@ export default function Index() {
   }
 
   if (activeSection === 'kingdoms') {
+    useEffect(() => {
+      const music = document.getElementById('background-music') as HTMLAudioElement
+      if (music && !isMusicPlaying) {
+        music.volume = 0.2
+        music.play().catch(() => {})
+        setIsMusicPlaying(true)
+      }
+    }, [])
+
     const kingdoms = [
       {
         id: 1,
@@ -495,6 +517,9 @@ export default function Index() {
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black text-white">
+        <audio id="background-music" loop>
+          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+        </audio>
         <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
@@ -577,63 +602,78 @@ export default function Index() {
 
   if (activeSection === 'about') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black">
+        <audio id="background-music" loop>
+          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+        </audio>
         {/* Navigation */}
-        <nav className="border-b border-white/10 bg-black/20 backdrop-blur-md sticky top-0 z-50">
+        <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                  <Icon name="Compass" size={24} className="text-white" />
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-got-fire to-orange-600 flex items-center justify-center border-2 border-got-gold/50">
+                  <Icon name="Crown" size={28} className="text-got-gold" />
                 </div>
-                <h1 className="text-2xl font-bold text-white">Странник</h1>
+                <h1 className="text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
               </div>
-              <div className="hidden md:flex items-center space-x-8">
+              <div className="hidden md:flex items-center space-x-6">
+                <button
+                  onClick={toggleMusic}
+                  className="p-2 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
+                  title={isMusicPlaying ? 'Остановить музыку' : 'Играть музыку'}
+                >
+                  <Icon name={isMusicPlaying ? 'Volume2' : 'VolumeX'} size={20} className="text-got-gold" />
+                </button>
                 <button 
                   onClick={() => setActiveSection('home')} 
-                  className="text-white/80 hover:text-white transition-colors font-medium"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
                 >
                   Главная
                 </button>
                 <button 
                   onClick={() => setActiveSection('map')} 
-                  className="text-white/80 hover:text-white transition-colors font-medium"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
                 >
                   Карта
                 </button>
-                <a href="#" className="text-white/80 hover:text-white transition-colors font-medium">Страны</a>
+                <button 
+                  onClick={() => setActiveSection('kingdoms')} 
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                >
+                  Королевства
+                </button>
                 <Link 
                   to="/news" 
-                  className="text-white/80 hover:text-cyan-400 transition-colors font-medium"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
                 >
-                  Новости
+                  Летописи
                 </Link>
                 <Link 
                   to="/radar" 
-                  className="text-white/80 hover:text-cyan-400 transition-colors font-medium flex items-center gap-1"
+                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-1"
                 >
-                  <Icon name="Plane" size={16} />
-                  Радар
+                  <Icon name="Swords" size={16} />
+                  Поле Битвы
                 </Link>
                 <button 
                   onClick={() => setActiveSection('about')} 
-                  className="text-blue-400 transition-colors font-medium"
+                  className="text-got-fire transition-colors font-bold"
                 >
                   О проекте
                 </button>
               </div>
               <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
                 <DialogTrigger asChild>
-                  <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-white">
-                    <Icon name="Route" size={16} className="mr-2" />
-                    Мой маршрут
+                  <Button className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-orange-600 hover:to-got-fire border-2 border-got-gold/50 text-white font-bold">
+                    <Icon name="Scroll" size={16} className="mr-2" />
+                    Мой путь
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px] bg-slate-800/95 backdrop-blur-xl border border-white/10">
+                <DialogContent className="sm:max-w-[500px] bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
                   <DialogHeader>
-                    <DialogTitle className="text-white text-xl font-semibold">Выберите маршрут</DialogTitle>
-                    <DialogDescription className="text-white/70">
-                      Откуда и куда планируете путешествовать?
+                    <DialogTitle className="text-got-gold text-2xl font-bold">⚔️ Выберите свой путь</DialogTitle>
+                    <DialogDescription className="text-got-gold/70">
+                      Откуда и куда планируете путешествовать по Семи Королевствам?
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-6">
@@ -1009,7 +1049,7 @@ export default function Index() {
           <div className="mb-8 animate-fade-in">
             <div className="inline-flex items-center space-x-2 bg-got-black/60 backdrop-blur-md rounded-lg px-6 py-3 mb-8 border-2 border-got-gold/50">
               <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-got-gold">Winter is Coming...</span>
+              <span className="text-sm font-medium text-got-gold">⚔️ Огонь и Кровь ⚔️</span>
             </div>
           </div>
           
