@@ -18,8 +18,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <MaintenanceMode />
       <BrowserRouter>
+        <MaintenanceMode />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/news" element={<News />} />
