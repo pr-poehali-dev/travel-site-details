@@ -9,6 +9,7 @@ import News from "./pages/News";
 import Radar from "./pages/Radar";
 import Hotels from "./pages/Hotels";
 import NotFound from "./pages/NotFound";
+import MaintenanceMode from "./components/MaintenanceMode";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <MaintenanceMode />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
