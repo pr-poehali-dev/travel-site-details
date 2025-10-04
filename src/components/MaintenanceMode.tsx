@@ -46,6 +46,18 @@ export default function MaintenanceMode() {
   const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
+  const totalTime = 24 * 60 * 60 * 1000;
+  const progress = Math.max(0, Math.min(100, ((totalTime - timeLeft) / totalTime) * 100));
+
+  const securityMeasures = [
+    { icon: 'Shield', text: 'Усилена защита от DDoS-атак', completed: true },
+    { icon: 'Lock', text: 'Обновлены SSL-сертификаты', completed: true },
+    { icon: 'Database', text: 'Восстановление базы данных', completed: progress > 30 },
+    { icon: 'Server', text: 'Проверка серверов на уязвимости', completed: progress > 50 },
+    { icon: 'Key', text: 'Смена всех ключей доступа', completed: progress > 70 },
+    { icon: 'CheckCircle2', text: 'Тестирование системы безопасности', completed: progress > 85 },
+  ];
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.15),transparent_70%)]" />
@@ -59,7 +71,7 @@ export default function MaintenanceMode() {
         <span className="text-sm sm:text-base">Назад на главную</span>
       </Link>
       
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center overflow-y-auto max-h-screen py-8">
         <div className="inline-block mb-8 sm:mb-12">
           <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-r from-red-500 via-orange-600 to-red-600 flex items-center justify-center shadow-2xl shadow-red-500/50 relative">
             <Icon name="ShieldAlert" size={60} className="text-white sm:w-20 sm:h-20" />
@@ -112,6 +124,49 @@ export default function MaintenanceMode() {
               </div>
               <div className="text-xs sm:text-sm text-slate-400">секунд</div>
             </div>
+          </div>
+        </div>
+
+        <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10 mb-6 sm:mb-8">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="flex items-center gap-2">
+              <Icon name="Activity" size={18} className="text-green-400 sm:w-5 sm:h-5" />
+              <h3 className="text-sm sm:text-base font-semibold text-white">Прогресс восстановления</h3>
+            </div>
+            <span className="text-lg sm:text-xl font-bold text-green-400">{Math.round(progress)}%</span>
+          </div>
+          
+          <div className="relative h-3 sm:h-4 bg-slate-800 rounded-full overflow-hidden mb-4 sm:mb-6">
+            <div 
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 transition-all duration-1000 ease-out rounded-full"
+              style={{ width: `${progress}%` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+            </div>
+          </div>
+
+          <div className="space-y-2 sm:space-y-3">
+            <h4 className="text-xs sm:text-sm font-semibold text-slate-300 mb-2 sm:mb-3 flex items-center gap-2">
+              <Icon name="CheckCircle" size={16} className="text-green-400" />
+              Принятые меры безопасности:
+            </h4>
+            {securityMeasures.map((measure, index) => (
+              <div 
+                key={index} 
+                className={`flex items-center gap-2 sm:gap-3 text-xs sm:text-sm transition-all duration-300 ${
+                  measure.completed ? 'text-green-400' : 'text-slate-500'
+                }`}
+              >
+                <Icon 
+                  name={measure.completed ? 'CheckCircle2' : 'Circle'} 
+                  size={14} 
+                  className={`flex-shrink-0 sm:w-4 sm:h-4 ${
+                    measure.completed ? 'text-green-400' : 'text-slate-600'
+                  }`} 
+                />
+                <span className={measure.completed ? 'font-medium' : ''}>{measure.text}</span>
+              </div>
+            ))}
           </div>
         </div>
 
