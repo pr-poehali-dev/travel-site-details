@@ -39,47 +39,47 @@ interface Destination {
 const destinations: Destination[] = [
   {
     id: '1',
-    name: 'Альпийские пики',
-    country: 'Швейцария',
-    description: 'Захватывающие горные вершины с кристально чистым воздухом и панорамными видами',
-    image: '/img/33a06e67-6498-4583-acaa-3a325092b355.jpg',
-    category: 'Горы',
-    highlights: ['Маттерхорн', 'Юнгфрауйох', 'Церматт', 'Гриндельвальд'],
-    climate: 'Альпийский континентальный климат с холодными зимами и прохладным летом',
-    bestTime: 'Июнь-сентябрь для походов, декабрь-март для лыжного спорта',
-    activities: ['Горные походы', 'Лыжный спорт', 'Альпинизм', 'Фотография', 'Канатные дороги'],
-    culture: 'Смесь немецкой, французской и итальянской культур с богатыми традициями',
-    history: 'История насчитывает тысячи лет, от кельтских племен до современной конфедерации',
-    cuisine: ['Фондю', 'Раклет', 'Рёшти', 'Швейцарский шоколад', 'Альпийские сыры'],
-    transportation: 'Отличная железнодорожная сеть, канатные дороги, автобусы',
-    accommodation: ['Горные шале', 'Отели класса люкс', 'Хостелы', 'Кемпинги'],
-    budget: '200-500$ в день (высокие цены)',
-    language: 'Немецкий, французский, итальянский, ретороманский',
-    currency: 'Швейцарский франк (CHF)',
-    safety: 'Очень высокий уровень безопасности',
-    tips: ['Покупайте Swiss Travel Pass', 'Бронируйте жилье заранее', 'Берите теплую одежду']
+    name: 'Стена и Земли За Стеной',
+    country: 'Север Вестероса',
+    description: 'Величественная Ледяная Стена высотой 700 футов, защищающая королевства от одичалых и Белых Ходоков',
+    image: '/img/6930efc9-60b7-4e40-8cef-0658723a667f.jpg',
+    category: 'Крепость',
+    highlights: ['Чёрный Замок', 'Ледяная Стена', 'Башня Призраков', 'Лес Призраков'],
+    climate: 'Суровый северный климат с долгими зимами и коротким летом',
+    bestTime: 'Лето для путешествий, но помните: Зима близко!',
+    activities: ['Дозор на Стене', 'Охота на одичалых', 'Изучение древних рун', 'Тренировки с мечом'],
+    culture: 'Суровая культура Ночного Дозора, присяга на всю жизнь',
+    history: 'Построена 8000 лет назад для защиты от Белых Ходоков',
+    cuisine: ['Солёная говядина', 'Чёрный хлеб', 'Луковый суп', 'Эль Ночного Дозора'],
+    transportation: 'Верхом на конях, пешие походы вдоль Стены',
+    accommodation: ['Чёрный Замок', 'Сторожевые башни', 'Военные бараки'],
+    budget: 'Бесплатно для братьев Ночного Дозора',
+    language: 'Общий язык Вестероса',
+    currency: 'Золотые драконы',
+    safety: 'Опасно! Белые Ходоки и одичалые!',
+    tips: ['Носите тёплую одежду', 'Не ходите за Стену в одиночку', 'Всегда держите валирийскую сталь наготове']
   },
   {
     id: '2',
-    name: 'Тропический рай',
-    country: 'Мальдивы',
-    description: 'Кристально чистые воды и белоснежные пляжи в окружении коралловых рифов',
-    image: '/img/ad2cac84-6f93-467d-a433-dbc81ec96038.jpg',
-    category: 'Пляж',
-    highlights: ['Атолл Северный Мале', 'Атолл Ари', 'Баа атолл', 'Подводные рестораны'],
-    climate: 'Тропический муссонный климат с постоянно теплой температурой',
-    bestTime: 'Ноябрь-апрель (сухой сезон)',
-    activities: ['Дайвинг', 'Снорклинг', 'Рыбалка', 'СПА', 'Водные виды спорта'],
-    culture: 'Исламская культура с влиянием индийских и арабских традиций',
-    history: 'Древняя история мореплавания, влияние буддизма и ислама',
-    cuisine: ['Рыбное карри', 'Роши', 'Масхуни', 'Тропические фрукты', 'Кокосовые блюда'],
-    transportation: 'Гидросамолеты, скоростные катера между островами',
-    accommodation: ['Роскошные резорты', 'Бунгало на воде', 'Гостевые дома'],
-    budget: '300-2000$ в день (роскошное направление)',
-    language: 'Дивехи, английский',
-    currency: 'Мальдивская руфия (MVR), принимается USD',
-    safety: 'Высокий уровень безопасности на курортах',
-    tips: ['Уважайте местные традиции', 'Алкоголь только на курортах', 'Защита от солнца']
+    name: 'Дорн - Королевство Солнца',
+    country: 'Южный Вестерос',
+    description: 'Жаркое королевство с золотыми дворцами, экзотической культурой и непокорённым духом',
+    image: '/img/5a0ae15a-245d-4579-a7d0-347604412c6e.jpg',
+    category: 'Королевство',
+    highlights: ['Солнечное Копьё', 'Водные Сады', 'Песчаные дюны', 'Дворец Мартеллов'],
+    climate: 'Жаркий пустынный климат круглый год',
+    bestTime: 'Весна и осень, когда жара терпима',
+    activities: ['Поединки на копьях', 'Изучение ядов', 'Танцы змей', 'Пиры во дворце'],
+    culture: 'Свободолюбивая культура с равноправием полов',
+    history: 'Единственное королевство, не покорённое драконами Таргариенов',
+    cuisine: ['Пряное мясо', 'Экзотические фрукты', 'Дорнийское вино', 'Змеиное мясо'],
+    transportation: 'Верблюды, лошади, паланкины',
+    accommodation: ['Дворцы знати', 'Песчаные замки', 'Караван-сараи'],
+    budget: '100-500 золотых драконов',
+    language: 'Общий язык с дорнийским акцентом',
+    currency: 'Золотые драконы',
+    safety: 'Берегитесь ядов и песчаных змей!',
+    tips: ['Уважайте законы Дорна', 'Пейте много воды', 'Не оскорбляйте Мартеллов']
   }
 ]
 
@@ -555,32 +555,32 @@ export default function Index() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black text-white">
       <AirlineAds />
       {/* Navigation */}
-      <nav className="border-b border-white/10 bg-black/20 backdrop-blur-md sticky top-0 z-50">
+      <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                <Icon name="Compass" size={24} className="text-white" />
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-got-fire to-orange-600 flex items-center justify-center border-2 border-got-gold/50">
+                <Icon name="Crown" size={28} className="text-got-gold" />
               </div>
-              <h1 className="text-2xl font-bold text-white">Странник</h1>
+              <h1 className="text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => setActiveSection('home')} 
-                className="text-blue-400 transition-colors font-medium"
+                className="text-got-fire transition-colors font-bold"
               >
                 Главная
               </button>
               <button 
                 onClick={() => setActiveSection('map')} 
-                className="text-white/80 hover:text-white transition-colors font-medium"
+                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
               >
                 Карта
               </button>
-              <a href="#" className="text-white/80 hover:text-white transition-colors font-medium">Страны</a>
+              <a href="#" className="text-got-gold/80 hover:text-got-gold transition-colors font-bold">Королевства</a>
               <button 
                 onClick={() => setActiveSection('about')} 
                 className="text-white/80 hover:text-white transition-colors font-medium"
@@ -774,7 +774,7 @@ export default function Index() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
-          style={{ backgroundImage: 'url(/img/c3564582-71b0-4438-9415-5e1c70f4bb2e.jpg)' }}
+          style={{ backgroundImage: 'url(/img/6547af4c-41dd-4a04-b44f-1947903c0fe1.jpg)' }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-got-black/80 via-got-iron/60 to-got-black/80" />
         </div>
@@ -795,76 +795,69 @@ export default function Index() {
             </div>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-black mb-8 leading-none">
-            <span className="bg-gradient-to-r from-got-gold via-got-fire to-got-gold bg-clip-text text-transparent">
-              ПУТЕШЕСТВИЯ
+          <h1 className="text-6xl md:text-8xl font-black mb-8 leading-none tracking-wider">
+            <span className="bg-gradient-to-r from-got-gold via-got-fire to-got-gold bg-clip-text text-transparent drop-shadow-2xl">
+              СЕМЬ КОРОЛЕВСТВ
             </span><br />
-            <span className="text-white neon-text-purple">БЕЗ ГРАНИЦ</span>
+            <span className="text-got-gold text-5xl md:text-6xl">⚔️ ВЕСТЕРОСА ⚔️</span>
           </h1>
           
-          <p className="text-xl md:text-2xl mb-12 text-white/80 max-w-3xl mx-auto font-light">
-            Откройте тайны планеты через интерактивную карту мира. 
-            Каждая точка — это история, культура и приключение.
+          <p className="text-xl md:text-2xl mb-12 text-got-gold/70 max-w-3xl mx-auto font-light italic">
+            "Когда ты играешь в игру престолов, ты либо побеждаешь, либо умираешь. 
+            Третьего не дано." — Серсея Ланнистер
           </p>
           
           <div className="flex flex-col md:flex-row gap-6 justify-center">
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-800 text-white border-0 h-14 px-8 text-lg font-semibold neon-border-blue relative overflow-hidden group"
+              className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white border-2 border-got-gold/50 h-14 px-8 text-lg font-bold relative overflow-hidden group"
               onClick={() => setActiveSection('map')}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-600/20 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-got-fire/20 to-orange-600/20 animate-pulse"></div>
               <Icon name="Map" size={24} className="mr-3 relative z-10" />
-              <span className="relative z-10">Исследовать карту</span>
+              <span className="relative z-10">Карта Вестероса</span>
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-purple-500/50 text-white hover:bg-purple-500/20 hover:border-purple-400 h-14 px-8 text-lg font-semibold bg-black/40 backdrop-blur-sm neon-border-purple"
+              className="border-2 border-got-gold/50 text-got-gold hover:bg-got-gold/20 hover:border-got-gold h-14 px-8 text-lg font-bold bg-got-black/60 backdrop-blur-sm"
             >
-              <Icon name="Compass" size={24} className="mr-3" />
-              Начать путешествие
+              <Icon name="Sword" size={24} className="mr-3" />
+              Присягнуть дому
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Partners Section - Neon Style */}
-      <section className="py-16 px-6 relative bg-gradient-to-r from-black/40 via-purple-950/20 to-black/40 backdrop-blur-sm border-y border-purple-500/20">
+      {/* Great Houses Section */}
+      <section className="py-16 px-6 relative bg-gradient-to-r from-got-black via-got-iron/20 to-got-black backdrop-blur-sm border-y-4 border-got-gold/30">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-8 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent neon-text-purple">
-              Путешествуем вместе с Аэрофлотом и ЮТэйром
+            <h3 className="text-4xl font-bold mb-8 text-got-gold">
+              ⚔️ Великие Дома Вестероса ⚔️
             </h3>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
-              <a 
-                href="https://www.aeroflot.ru/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-black/60 rounded-2xl backdrop-blur-md border-2 border-blue-500/40 hover:border-blue-400 transition-all duration-300 hover:scale-105 cursor-pointer neon-border-blue group"
-              >
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Aeroflot_logo.svg/2560px-Aeroflot_logo.svg.png" 
-                  alt="Аэрофлот" 
-                  className="h-16 w-auto object-contain filter group-hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-all duration-300"
-                />
-              </a>
-              <a 
-                href="https://www.utair.ru/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-black/60 rounded-2xl backdrop-blur-md border-2 border-purple-500/40 hover:border-purple-400 transition-all duration-300 hover:scale-105 cursor-pointer neon-border-purple group"
-              >
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/UTair_Aviation_logo.svg/2560px-UTair_Aviation_logo.svg.png" 
-                  alt="ЮТэйр" 
-                  className="h-16 w-auto object-contain filter group-hover:drop-shadow-[0_0_15px_rgba(168,85,247,0.8)] transition-all duration-300"
-                />
-              </a>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all">
+                <div className="text-5xl mb-3">🐺</div>
+                <h4 className="text-got-gold font-bold text-lg mb-2">Дом Старков</h4>
+                <p className="text-got-gold/60 text-sm italic">"Зима близко"</p>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all">
+                <div className="text-5xl mb-3">🦁</div>
+                <h4 className="text-got-gold font-bold text-lg mb-2">Дом Ланнистеров</h4>
+                <p className="text-got-gold/60 text-sm italic">"Услышь мой рёв!"</p>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all">
+                <div className="text-5xl mb-3">🐉</div>
+                <h4 className="text-got-gold font-bold text-lg mb-2">Дом Таргариенов</h4>
+                <p className="text-got-gold/60 text-sm italic">"Огонь и кровь"</p>
+              </div>
+              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all">
+                <div className="text-5xl mb-3">🦌</div>
+                <h4 className="text-got-gold font-bold text-lg mb-2">Дом Баратеонов</h4>
+                <p className="text-got-gold/60 text-sm italic">"Наша ярость"</p>
+              </div>
             </div>
-            <p className="text-cyan-300/70 text-sm mt-6 max-w-2xl mx-auto">
-              Надёжные авиаперевозчики для комфортных путешествий по всему миру
-            </p>
           </div>
         </div>
       </section>
@@ -874,12 +867,11 @@ export default function Index() {
         <div className="absolute inset-0 bg-gradient-to-b from-purple-950/10 via-black/0 to-cyan-950/10 pointer-events-none"></div>
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent neon-text-blue">
-              Популярные направления
+            <h2 className="text-5xl font-bold mb-6 text-got-gold">
+              ⚔️ Великие Земли Вестероса ⚔️
             </h2>
-            <p className="text-xl text-cyan-200/70 max-w-3xl mx-auto font-light">
-              Кликните на любое место, чтобы погрузиться в его уникальную атмосферу, 
-              историю и культурные особенности
+            <p className="text-xl text-got-gold/60 max-w-3xl mx-auto font-light italic">
+              "Когда идёт снег и воют северные ветра, одинокий волк умирает, но стая выживает"
             </p>
           </div>
 
@@ -887,16 +879,16 @@ export default function Index() {
             {destinations.map((destination) => (
               <Dialog key={destination.id}>
                 <DialogTrigger asChild>
-                  <Card className="group cursor-pointer bg-black/60 backdrop-blur-md border-2 border-cyan-500/30 hover:border-purple-500/60 transition-all duration-500 hover:scale-105 neon-border-blue hover:neon-border-purple overflow-hidden">
+                  <Card className="group cursor-pointer bg-got-black/80 backdrop-blur-md border-2 border-got-gold/40 hover:border-got-fire transition-all duration-500 hover:scale-105 overflow-hidden">
                     <div className="relative overflow-hidden">
                       <img 
                         src={destination.image} 
                         alt={destination.name}
                         className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-purple-950/30 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-got-black via-got-iron/30 to-transparent" />
                       <div className="absolute top-6 right-6">
-                        <Badge className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 text-white border-0 neon-border-blue">
+                        <Badge className="bg-gradient-to-r from-got-fire to-orange-600 text-white border-2 border-got-gold/50 font-bold">
                           {destination.category}
                         </Badge>
                       </div>
