@@ -1252,8 +1252,45 @@ export default function Index() {
                     </Select>
                   </div>
                 </div>
-                <div className="mt-3 text-got-gold/70 text-sm text-center">
-                  🇷🇺 Русская озвучка на VK Video
+                
+                <div className="mt-4 flex items-center justify-between gap-2">
+                  <button
+                    onClick={() => {
+                      if (currentEpisode > 1) {
+                        setCurrentEpisode(currentEpisode - 1)
+                      } else if (currentSeason > 1) {
+                        setCurrentSeason(currentSeason - 1)
+                        setCurrentEpisode(10)
+                      }
+                    }}
+                    disabled={currentSeason === 1 && currentEpisode === 1}
+                    className="flex-1 bg-got-black/60 border-2 border-got-gold/50 text-got-gold py-2 px-4 rounded-lg hover:bg-got-gold/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed font-bold flex items-center justify-center gap-2"
+                  >
+                    <Icon name="ChevronLeft" size={20} />
+                    <span className="hidden md:inline">Предыдущая</span>
+                    <span className="md:hidden">Пред.</span>
+                  </button>
+                  
+                  <div className="text-got-gold/70 text-sm text-center px-2">
+                    🇷🇺 VK Video
+                  </div>
+                  
+                  <button
+                    onClick={() => {
+                      if (currentEpisode < 10) {
+                        setCurrentEpisode(currentEpisode + 1)
+                      } else if (currentSeason < 8) {
+                        setCurrentSeason(currentSeason + 1)
+                        setCurrentEpisode(1)
+                      }
+                    }}
+                    disabled={currentSeason === 8 && currentEpisode === 10}
+                    className="flex-1 bg-got-black/60 border-2 border-got-gold/50 text-got-gold py-2 px-4 rounded-lg hover:bg-got-gold/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed font-bold flex items-center justify-center gap-2"
+                  >
+                    <span className="hidden md:inline">Следующая</span>
+                    <span className="md:hidden">След.</span>
+                    <Icon name="ChevronRight" size={20} />
+                  </button>
                 </div>
               </div>
             )}
