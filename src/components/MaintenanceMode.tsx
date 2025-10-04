@@ -64,12 +64,12 @@ export default function MaintenanceMode() {
   const progress = 90;
 
   const securityMeasures = [
-    { icon: 'Shield', text: 'Усилена защита от DDoS-атак', completed: true },
-    { icon: 'Lock', text: 'Обновлены SSL-сертификаты', completed: true },
-    { icon: 'Database', text: 'Восстановление базы данных', completed: progress > 30 },
-    { icon: 'Server', text: 'Проверка серверов на уязвимости', completed: progress > 50 },
-    { icon: 'Key', text: 'Смена всех ключей доступа', completed: progress > 70 },
-    { icon: 'CheckCircle2', text: 'Тестирование системы безопасности', completed: progress > 85 },
+    { icon: 'Shield', text: 'Усилена защита от DDoS-атак', completed: true, inProgress: false },
+    { icon: 'Lock', text: 'Обновлены SSL-сертификаты', completed: true, inProgress: false },
+    { icon: 'Database', text: 'Восстановление базы данных', completed: progress > 30, inProgress: progress >= 30 && progress <= 50 },
+    { icon: 'Server', text: 'Проверка серверов на уязвимости', completed: progress > 50, inProgress: progress >= 50 && progress <= 70 },
+    { icon: 'Key', text: 'Смена всех ключей доступа', completed: progress > 70, inProgress: progress >= 70 && progress <= 85 },
+    { icon: 'CheckCircle2', text: 'Тестирование системы безопасности', completed: progress >= 100, inProgress: progress >= 85 && progress < 100 },
   ];
 
   if (!isMaintenanceMode) {
@@ -171,12 +171,13 @@ export default function MaintenanceMode() {
               <div 
                 key={index} 
                 className={`flex items-center gap-2 sm:gap-3 text-xs sm:text-sm transition-all duration-300 ${
-                  measure.completed ? 'text-green-400' : 'text-slate-500'
+                  measure.completed ? 'text-green-400' : measure.inProgress ? 'text-yellow-400' : 'text-slate-500'
                 }`}
               >
                 <Icon 
-                  name={measure.completed ? 'CheckCircle2' : 'Circle'} 
-                  size={14} 
+                  name={measure.completed ? 'CheckCircle2' : measure.inProgress ? 'Loader2' : 'Circle'} 
+                  size={14}
+                  className={measure.inProgress ? 'animate-spin' : ''} 
                   className={`flex-shrink-0 sm:w-4 sm:h-4 ${
                     measure.completed ? 'text-green-400' : 'text-slate-600'
                   }`} 
