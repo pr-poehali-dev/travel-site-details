@@ -136,6 +136,7 @@ export default function Index() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [currentQuote, setCurrentQuote] = useState(0)
+  const [quoteKey, setQuoteKey] = useState(0)
   
   const gotQuotes = [
     { text: "Зима близко", author: "Дом Старков" },
@@ -160,6 +161,18 @@ export default function Index() {
     { text: "Не будь дураком. Только дурак доверяет Ланнистеру", author: "Нед Старк" }
   ]
   
+  const playQuoteSound = () => {
+    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1u+zjiwgVbfz8qGDKAU=')
+    audio.volume = 0.3
+    audio.play().catch(() => {})
+  }
+
+  const changeQuote = () => {
+    playQuoteSound()
+    setCurrentQuote((prev) => (prev + 1) % gotQuotes.length)
+    setQuoteKey(prev => prev + 1)
+  }
+
   useEffect(() => {
     setCurrentQuote(Math.floor(Math.random() * gotQuotes.length))
   }, [])
@@ -1075,13 +1088,13 @@ export default function Index() {
         
         <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
           <div className="mb-8 animate-fade-in">
-            <div className="inline-flex flex-col items-center space-y-2 bg-got-black/60 backdrop-blur-md rounded-lg px-8 py-4 mb-8 border-2 border-got-gold/50">
+            <div key={quoteKey} className="inline-flex flex-col items-center space-y-2 bg-got-black/60 backdrop-blur-md rounded-lg px-8 py-4 mb-8 border-2 border-got-gold/50 quote-fade-in">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
-                <span className="text-lg font-bold text-got-gold italic">"{gotQuotes[currentQuote].text}"</span>
+                <span className="text-lg font-bold text-got-gold italic quote-glow">"{gotQuotes[currentQuote].text}"</span>
                 <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
               </div>
-              <span className="text-sm text-got-gold/70">— {gotQuotes[currentQuote].author}</span>
+              <span className="text-sm text-got-gold/70 quote-fade-in">— {gotQuotes[currentQuote].author}</span>
             </div>
           </div>
           
@@ -1110,8 +1123,8 @@ export default function Index() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-got-gold/50 text-got-gold hover:bg-got-gold/20 hover:border-got-gold h-14 px-8 text-lg font-bold bg-got-black/60 backdrop-blur-sm"
-              onClick={() => setCurrentQuote((prev) => (prev + 1) % gotQuotes.length)}
+              className="border-2 border-got-gold/50 text-got-gold hover:bg-got-gold/20 hover:border-got-gold h-14 px-8 text-lg font-bold bg-got-black/60 backdrop-blur-sm transition-all hover:scale-105"
+              onClick={changeQuote}
             >
               <Icon name="Scroll" size={24} className="mr-3" />
               Новая цитата
