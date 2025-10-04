@@ -138,7 +138,9 @@ export default function Index() {
   const [currentQuote, setCurrentQuote] = useState(0)
   const [quoteKey, setQuoteKey] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+  const [showSwipeHint, setShowSwipeHint] = useState(true)
   
   const gotQuotes = [
     { text: "Зима близко", author: "Дом Старков" },
@@ -174,6 +176,47 @@ export default function Index() {
     setCurrentQuote((prev) => (prev + 1) % gotQuotes.length)
     setQuoteKey(prev => prev + 1)
   }
+
+  const sections = ['home', 'map', 'kingdoms', 'about']
+  const minSwipeDistance = 50
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    
+    const currentIndex = sections.indexOf(activeSection)
+    
+    if (isLeftSwipe && currentIndex < sections.length - 1) {
+      setActiveSection(sections[currentIndex + 1])
+      playQuoteSound()
+      setShowSwipeHint(false)
+    }
+    
+    if (isRightSwipe && currentIndex > 0) {
+      setActiveSection(sections[currentIndex - 1])
+      playQuoteSound()
+      setShowSwipeHint(false)
+    }
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSwipeHint(false)
+    }, 5000)
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     setCurrentQuote(Math.floor(Math.random() * gotQuotes.length))
@@ -841,10 +884,60 @@ export default function Index() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black text-white">
+    <div 
+      className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black text-white"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
       <audio id="background-music" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
       </audio>
+
+      {/* Swipe Indicator */}
+      {showSwipeHint && (
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 lg:hidden pointer-events-none animate-bounce">
+          <div className="bg-got-black/80 backdrop-blur-md border-2 border-got-gold/50 rounded-full px-6 py-3 flex items-center gap-3">
+            <Icon name="ChevronLeft" size={20} className="text-got-gold/50" />
+            <span className="text-got-gold/70 text-sm font-bold">👈 Свайп для навигации 👉</span>
+            <Icon name="ChevronRight" size={20} className="text-got-gold/50" />
+          </div>
+        </div>
+      )}
+
+      {/* Section Progress Indicator */}
+      <div className="fixed top-24 right-4 z-40 lg:hidden flex flex-col gap-3">
+        {sections.map((section) => {
+          const sectionNames: Record<string, string> = {
+            home: 'Главная',
+            map: 'Карта',
+            kingdoms: 'Королевства',
+            about: 'О нас'
+          }
+          return (
+            <div
+              key={section}
+              className="flex items-center gap-2"
+            >
+              <span className={`text-xs font-bold transition-all ${
+                activeSection === section 
+                  ? 'text-got-fire' 
+                  : 'text-got-gold/40'
+              }`}>
+                {activeSection === section && sectionNames[section]}
+              </span>
+              <div
+                className={`rounded-full transition-all ${
+                  activeSection === section 
+                    ? 'bg-got-fire w-3 h-3 shadow-lg shadow-got-fire/50' 
+                    : 'bg-got-gold/30 w-2 h-2'
+                }`}
+              />
+            </div>
+          )
+        })}
+      </div>
+
       <AirlineAds />
       {/* Navigation */}
       <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">

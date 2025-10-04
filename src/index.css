@@ -197,4 +197,40 @@
   .quote-glow {
     animation: quote-glow 2s ease-in-out infinite;
   }
+
+  @keyframes slide-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-left {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .swipe-transition {
+    transition:
+      transform 0.3s ease-out,
+      opacity 0.3s ease-out;
+  }
+
+  .section-enter {
+    animation: slide-in-right 0.4s ease-out;
+  }
+
+  .section-exit {
+    animation: slide-in-left 0.4s ease-out;
+  }
 }
