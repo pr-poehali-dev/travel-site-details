@@ -141,6 +141,8 @@ export default function Index() {
   const [touchStart, setTouchStart] = useState<number | null>(null)
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
   const [showSwipeHint, setShowSwipeHint] = useState(true)
+  const [isVideoPlayerOpen, setIsVideoPlayerOpen] = useState(false)
+  const [isVideoMinimized, setIsVideoMinimized] = useState(false)
   
   const gotQuotes = [
     { text: "Зима близко", author: "Дом Старков" },
@@ -1169,9 +1171,63 @@ export default function Index() {
               <Icon name="Scroll" size={24} className="mr-3" />
               Новая цитата
             </Button>
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-2 border-got-gold/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
+              onClick={() => setIsVideoPlayerOpen(true)}
+            >
+              <Icon name="Play" size={24} className="mr-3" />
+              Смотреть сериал
+            </Button>
           </div>
         </div>
       </section>
+
+      {/* Floating Video Player */}
+      {isVideoPlayerOpen && (
+        <div 
+          className={`fixed z-50 transition-all duration-300 ${
+            isVideoMinimized 
+              ? 'bottom-4 right-4 w-80 h-48' 
+              : 'inset-4 md:inset-8'
+          }`}
+        >
+          <div className="bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50 rounded-lg overflow-hidden h-full flex flex-col shadow-2xl">
+            <div className="bg-gradient-to-r from-got-fire to-orange-600 px-4 py-3 flex items-center justify-between">
+              <h3 className="text-got-gold font-bold text-lg flex items-center gap-2">
+                <Icon name="Play" size={20} />
+                🐉 Игра Престолов
+              </h3>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsVideoMinimized(!isVideoMinimized)}
+                  className="p-2 hover:bg-got-gold/20 rounded transition-colors"
+                  title={isVideoMinimized ? "Развернуть" : "Свернуть"}
+                >
+                  <Icon name={isVideoMinimized ? "Maximize2" : "Minimize2"} size={20} className="text-got-gold" />
+                </button>
+                <button
+                  onClick={() => setIsVideoPlayerOpen(false)}
+                  className="p-2 hover:bg-got-gold/20 rounded transition-colors"
+                  title="Закрыть"
+                >
+                  <Icon name="X" size={20} className="text-got-gold" />
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 bg-black">
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/KPLWWIOCOOQ"
+                title="Game of Thrones"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Great Houses Section */}
       <section className="py-8 md:py-16 px-4 md:px-6 relative bg-gradient-to-r from-got-black via-got-iron/20 to-got-black backdrop-blur-sm border-y-4 border-got-gold/30">
