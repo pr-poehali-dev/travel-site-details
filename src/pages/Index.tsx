@@ -638,51 +638,109 @@ export default function Index() {
             <p className="text-xl text-got-gold/80">Познай величие и историю земель Вестероса</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {kingdoms.map((kingdom) => (
-              <Card key={kingdom.id} className="bg-got-black/80 border-4 border-got-gold/40 hover:border-got-fire transition-all duration-500 hover:scale-105">
-                <CardHeader>
-                  <div className="text-6xl mb-4 text-center">{kingdom.sigil}</div>
-                  <CardTitle className="text-3xl text-got-gold text-center">{kingdom.name}</CardTitle>
-                  <CardDescription className="text-got-gold/70 text-center italic text-lg">
-                    "{kingdom.words}"
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <h3 className="text-got-fire font-bold text-lg mb-2">🏰 Столица:</h3>
-                    <p className="text-white">{kingdom.seat}</p>
+              <Dialog key={kingdom.id}>
+                <DialogTrigger asChild>
+                  <div className="bg-got-black/80 border-3 border-got-gold/40 hover:border-got-fire rounded-lg p-6 transition-all duration-300 hover:scale-105 cursor-pointer backdrop-blur-md group">
+                    <div className="text-7xl mb-4 text-center transform group-hover:scale-110 transition-transform">{kingdom.sigil}</div>
+                    <h3 className="text-2xl font-bold text-got-gold text-center mb-2">{kingdom.name}</h3>
+                    <p className="text-got-gold/70 text-center italic text-sm mb-3">"{kingdom.words}"</p>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="text-got-fire font-bold">🏰 Столица:</span>
+                        <span className="text-white">{kingdom.seat}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-got-fire font-bold">👑 Дом:</span>
+                        <span className="text-white">{kingdom.house}</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 text-center">
+                      <span className="text-got-gold/60 text-xs">Нажми для подробностей →</span>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-got-fire font-bold text-lg mb-2">👑 Правящий дом:</h3>
-                    <p className="text-white">{kingdom.house}</p>
+                </DialogTrigger>
+                <DialogContent className="bg-got-black/95 border-4 border-got-gold/50 text-white max-w-2xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <div className="text-7xl mb-4 text-center">{kingdom.sigil}</div>
+                    <DialogTitle className="text-4xl text-got-gold text-center">{kingdom.name}</DialogTitle>
+                    <DialogDescription className="text-got-gold/70 text-center italic text-xl">
+                      "{kingdom.words}"
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4 mt-6">
+                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
+                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                        <Icon name="Castle" size={20} />
+                        Столица
+                      </h3>
+                      <p className="text-white">{kingdom.seat}</p>
+                    </div>
+                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
+                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                        <Icon name="Crown" size={20} />
+                        Правящий дом
+                      </h3>
+                      <p className="text-white">{kingdom.house}</p>
+                    </div>
+                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
+                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                        <Icon name="BookOpen" size={20} />
+                        Описание
+                      </h3>
+                      <p className="text-white/90">{kingdom.description}</p>
+                    </div>
+                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
+                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                        <Icon name="Swords" size={20} />
+                        Правители
+                      </h3>
+                      <p className="text-white/90">{kingdom.rulers}</p>
+                    </div>
+                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
+                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                        <Icon name="Theater" size={20} />
+                        Культура
+                      </h3>
+                      <p className="text-white/90">{kingdom.culture}</p>
+                    </div>
+                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
+                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                        <Icon name="Thermometer" size={20} />
+                        Климат
+                      </h3>
+                      <p className="text-white/90">{kingdom.climate}</p>
+                    </div>
+                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
+                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                        <Icon name="Building2" size={20} />
+                        Города
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {kingdom.cities.map((city, idx) => (
+                          <span key={idx} className="bg-got-gold/20 text-got-gold px-3 py-1 rounded-full text-sm border border-got-gold/40">
+                            {city}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
+                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                        <Icon name="Map" size={20} />
+                        Достопримечательности
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {kingdom.landmarks.map((landmark, idx) => (
+                          <span key={idx} className="bg-got-fire/20 text-got-gold px-3 py-1 rounded-full text-sm border border-got-fire/40">
+                            {landmark}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-got-fire font-bold text-lg mb-2">📜 Описание:</h3>
-                    <p className="text-white/90">{kingdom.description}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-got-fire font-bold text-lg mb-2">⚔️ Правители:</h3>
-                    <p className="text-white/90">{kingdom.rulers}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-got-fire font-bold text-lg mb-2">🎭 Культура:</h3>
-                    <p className="text-white/90">{kingdom.culture}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-got-fire font-bold text-lg mb-2">🌡️ Климат:</h3>
-                    <p className="text-white/90">{kingdom.climate}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-got-fire font-bold text-lg mb-2">🏙️ Города:</h3>
-                    <p className="text-white/90">{kingdom.cities.join(', ')}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-got-fire font-bold text-lg mb-2">🗺️ Достопримечательности:</h3>
-                    <p className="text-white/90">{kingdom.landmarks.join(', ')}</p>
-                  </div>
-                </CardContent>
-              </Card>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
         </div>
