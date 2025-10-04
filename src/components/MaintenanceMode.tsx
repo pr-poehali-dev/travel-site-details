@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 
 const MAINTENANCE_END_TIME = Date.now() + 24 * 60 * 60 * 1000;
@@ -46,48 +47,67 @@ export default function MaintenanceMode() {
   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.15),transparent_70%)]" />
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.15),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTEsMTEzLDEzMywwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40" />
+
+      <Link 
+        to="/" 
+        className="absolute top-6 sm:top-8 left-4 sm:left-8 inline-flex items-center gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-slate-900/60 border-2 border-red-500/30 text-red-200 rounded-xl sm:rounded-2xl hover:border-red-400/60 hover:bg-slate-900/80 transition-all duration-300 group backdrop-blur-md z-10"
+      >
+        <Icon name="ArrowLeft" size={18} className="group-hover:-translate-x-1 transition-transform sm:w-5 sm:h-5" />
+        <span className="text-sm sm:text-base">Назад на главную</span>
+      </Link>
       
-      <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 text-center">
-        <div className="mb-8 sm:mb-12 animate-pulse">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-            <Icon name="Settings" size={40} className="text-white sm:w-12 sm:h-12 animate-spin" style={{ animationDuration: '3s' }} />
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center">
+        <div className="inline-block mb-8 sm:mb-12">
+          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-r from-red-500 via-orange-600 to-red-600 flex items-center justify-center shadow-2xl shadow-red-500/50 relative">
+            <Icon name="ShieldAlert" size={60} className="text-white sm:w-20 sm:h-20" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500 via-orange-600 to-red-600 animate-ping opacity-20"></div>
           </div>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4 sm:mb-6">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold bg-gradient-to-r from-red-400 via-orange-400 to-red-400 bg-clip-text text-transparent mb-4 sm:mb-6">
           Технические работы
         </h1>
 
-        <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 sm:mb-12 max-w-xl mx-auto px-4">
-          Мы проводим плановое обновление системы. 
-          Сайт скоро вернётся в работу с новыми возможностями!
-        </p>
+        <div className="bg-red-500/10 border border-red-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 backdrop-blur-sm">
+          <div className="flex items-start gap-3 sm:gap-4 text-left">
+            <Icon name="AlertTriangle" size={20} className="text-red-400 flex-shrink-0 mt-1 sm:w-6 sm:h-6" />
+            <div>
+              <h3 className="text-base sm:text-lg font-semibold text-red-300 mb-2">Хакерская атака</h3>
+              <p className="text-sm sm:text-base text-slate-300">
+                Технические работы ведутся из-за хакерской атаки. 
+                Приносим извинения за доставленные неудобства. 
+                Наша команда работает над восстановлением безопасности системы.
+              </p>
+            </div>
+          </div>
+        </div>
 
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/10 mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Icon name="Clock" size={20} className="text-blue-400 sm:w-6 sm:h-6" />
-            <h2 className="text-lg sm:text-xl font-semibold text-white">Время до запуска</h2>
+          <div className="flex items-center justify-center gap-2 mb-4 sm:mb-6">
+            <Icon name="Clock" size={20} className="text-orange-400 sm:w-6 sm:h-6" />
+            <h2 className="text-lg sm:text-xl font-semibold text-white">Время до восстановления</h2>
           </div>
           
           <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-md mx-auto">
-            <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
-              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-400 mb-1 sm:mb-2">
+            <div className="bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-red-500/20">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-400 mb-1 sm:mb-2">
                 {String(hours).padStart(2, '0')}
               </div>
               <div className="text-xs sm:text-sm text-slate-400">часов</div>
             </div>
             
-            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
-              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-purple-400 mb-1 sm:mb-2">
+            <div className="bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-orange-500/20">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-orange-400 mb-1 sm:mb-2">
                 {String(minutes).padStart(2, '0')}
               </div>
               <div className="text-xs sm:text-sm text-slate-400">минут</div>
             </div>
             
-            <div className="bg-gradient-to-br from-pink-500/20 to-cyan-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
-              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-cyan-400 mb-1 sm:mb-2">
+            <div className="bg-gradient-to-br from-yellow-500/20 to-red-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-yellow-500/20">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-400 mb-1 sm:mb-2">
                 {String(seconds).padStart(2, '0')}
               </div>
               <div className="text-xs sm:text-sm text-slate-400">секунд</div>
@@ -98,7 +118,7 @@ export default function MaintenanceMode() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-slate-400 text-sm sm:text-base">
           <div className="flex items-center gap-2">
             <Icon name="Mail" size={16} className="sm:w-5 sm:h-5" />
-            <span>support@strannik.ru</span>
+            <span>security@strannik.ru</span>
           </div>
           <div className="hidden sm:block w-1 h-1 bg-slate-600 rounded-full" />
           <div className="flex items-center gap-2">
