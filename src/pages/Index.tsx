@@ -146,27 +146,27 @@ export default function Index() {
   const [currentSeason, setCurrentSeason] = useState(1)
   const [currentEpisode, setCurrentEpisode] = useState(1)
   
-  const gotQuotes = [
-    { text: "Зима близко", author: "Дом Старков" },
-    { text: "Ланнистеры всегда платят свои долги", author: "Дом Ланнистеров" },
-    { text: "Огонь и кровь", author: "Дом Таргариенов" },
-    { text: "Что мертво, умереть не может", author: "Дом Грейджоев" },
-    { text: "Услышь мой рёв!", author: "Дом Ланнистеров" },
-    { text: "Наша ярость", author: "Дом Баратеонов" },
-    { text: "Вырастая крепнем", author: "Дом Тиреллов" },
-    { text: "Семья, долг, честь", author: "Дом Талли" },
-    { text: "Высок как честь", author: "Дом Арренов" },
-    { text: "Несгибаемые, непокорённые, несломленные", author: "Дом Мартеллов" },
-    { text: "Когда играешь в игру престолов, ты либо побеждаешь, либо умираешь", author: "Серсея Ланнистер" },
-    { text: "Хаос — это лестница", author: "Мизинец" },
-    { text: "Ночь темна и полна ужасов", author: "Мелисандра" },
-    { text: "Что знают живые о смерти?", author: "Иггритт" },
-    { text: "Любой человек, который должен говорить 'Я король', — не настоящий король", author: "Тайвин Ланнистер" },
-    { text: "Когда снега падут и ветры завоют, одинокий волк умрёт, но стая выживет", author: "Нед Старк" },
-    { text: "Драконы не понимают разницы между тем, что их и что не их", author: "Дейенерис Таргариен" },
-    { text: "Я пью вино и знаю вещи", author: "Тирион Ланнистер" },
-    { text: "Власть — это тень на стене", author: "Варис" },
-    { text: "Не будь дураком. Только дурак доверяет Ланнистеру", author: "Нед Старк" }
+  const travelQuotes = [
+    { text: "Мир - это книга, и те, кто не путешествует, читают только одну страницу", author: "Святой Августин" },
+    { text: "Путешествие - это награда само по себе", author: "Ибн Баттута" },
+    { text: "Не все те, кто странствует, потеряны", author: "Дж. Р. Р. Толкин" },
+    { text: "Жизнь - это либо отважное приключение, либо ничего", author: "Хелен Келлер" },
+    { text: "Путешествуй, пока молод и способен", author: "Будда" },
+    { text: "Приключение стоит того", author: "Амелия Эрхарт" },
+    { text: "Собирайте впечатления, а не вещи", author: "Народная мудрость" },
+    { text: "Лучшие виды открываются после самого трудного подъёма", author: "Народная мудрость" },
+    { text: "Путешествие делает человека скромным", author: "Гюстав Флобер" },
+    { text: "Мы путешествуем не для того, чтобы сбежать от жизни, а для того, чтобы жизнь не ускользнула от нас", author: "Аноним" },
+    { text: "Инвестируйте в путешествия - это единственное, что делает вас богаче", author: "Народная мудрость" },
+    { text: "Путешествие учит терпимости", author: "Бенджамин Дизраэли" },
+    { text: "Где бы ты ни был - будь там полностью", author: "Конфуций" },
+    { text: "Путешествие - это единственное, на что тратишь деньги и становишься богаче", author: "Аноним" },
+    { text: "Жизнь начинается там, где заканчивается зона комфорта", author: "Нил Дональд Уолш" },
+    { text: "Открывай новые места, создавай новые воспоминания", author: "Народная мудрость" },
+    { text: "Путешествие - это способ измерить жизнь", author: "Авиценна" },
+    { text: "Каждое путешествие начинается с первого шага", author: "Лао Цзы" },
+    { text: "Мир слишком велик, чтобы сидеть дома", author: "Народная мудрость" },
+    { text: "Лучшее образование - это путешествие", author: "Марк Твен" }
   ]
   
   const playQuoteSound = () => {
@@ -1216,14 +1216,14 @@ export default function Index() {
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black mb-6 md:mb-8 leading-none tracking-wider">
             <span className="bg-gradient-to-r from-got-gold via-got-fire to-got-gold bg-clip-text text-transparent drop-shadow-2xl">
-              СЕМЬ КОРОЛЕВСТВ
+              СЕМЬ РЕГИОНОВ
             </span><br />
-            <span className="text-got-gold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">⚔️ ВЕСТЕРОСА ⚔️</span>
+            <span className="text-got-gold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">✈️ МИРА ✈️</span>
           </h1>
           
           <p className="text-base md:text-xl lg:text-2xl mb-8 md:mb-12 text-got-gold/70 max-w-3xl mx-auto font-light italic px-4">
-            "Когда ты играешь в игру престолов, ты либо побеждаешь, либо умираешь. 
-            Третьего не дано." — Серсея Ланнистер
+            Откройте для себя самые захватывающие направления планеты. 
+            Каждое путешествие — это новая история в книге вашей жизни.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-4">
@@ -1234,7 +1234,7 @@ export default function Index() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-got-fire/20 to-orange-600/20 animate-pulse"></div>
               <Icon name="Map" size={24} className="mr-3 relative z-10" />
-              <span className="relative z-10">Карта Вестероса</span>
+              <span className="relative z-10">Карта направлений</span>
             </Button>
             <Button 
               size="lg" 
@@ -1242,16 +1242,16 @@ export default function Index() {
               className="border-2 border-got-gold/50 text-got-gold hover:bg-got-gold/20 hover:border-got-gold h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold bg-got-black/60 backdrop-blur-sm transition-all hover:scale-105 w-full sm:w-auto"
               onClick={changeQuote}
             >
-              <Icon name="Scroll" size={24} className="mr-3" />
-              Новая цитата
+              <Icon name="Sparkles" size={24} className="mr-3" />
+              Вдохновение
             </Button>
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-2 border-got-gold/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
-              onClick={() => setIsVideoPlayerOpen(true)}
+              onClick={() => setActiveSection('kingdoms')}
             >
-              <Icon name="Play" size={24} className="mr-3" />
-              Смотреть сериал
+              <Icon name="Compass" size={24} className="mr-3" />
+              Исследовать регионы
             </Button>
           </div>
         </div>
