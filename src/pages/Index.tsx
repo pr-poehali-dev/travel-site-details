@@ -1221,7 +1221,11 @@ export default function Index() {
             <span className="text-got-gold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">✈️ МИРА ✈️</span>
           </h1>
           
-          <p className="text-base md:text-xl lg:text-2xl mb-8 md:mb-12 text-got-gold/70 max-w-3xl mx-auto font-light italic px-4">
+          <p className="text-base md:text-xl lg:text-2xl mb-4 md:mb-6 text-got-gold/70 max-w-3xl mx-auto font-light italic px-4">
+            Это сайт для путешествий
+          </p>
+          
+          <p className="text-sm md:text-lg mb-8 md:mb-12 text-got-gold/60 max-w-3xl mx-auto font-light px-4">
             Откройте для себя самые захватывающие направления планеты. 
             Каждое путешествие — это новая история в книге вашей жизни.
           </p>
@@ -1230,11 +1234,19 @@ export default function Index() {
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white border-2 border-got-gold/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
-              onClick={() => setActiveSection('map')}
+              onClick={() => window.open('https://www.booking.com', '_blank')}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-got-fire/20 to-orange-600/20 animate-pulse"></div>
-              <Icon name="Map" size={24} className="mr-3 relative z-10" />
-              <span className="relative z-10">Карта направлений</span>
+              <Icon name="Hotel" size={24} className="mr-3 relative z-10" />
+              <span className="relative z-10">Забронировать отель</span>
+            </Button>
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-2 border-got-gold/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
+              onClick={() => setActiveSection('kingdoms')}
+            >
+              <Icon name="Compass" size={24} className="mr-3" />
+              Исследовать регионы
             </Button>
             <Button 
               size="lg" 
@@ -1244,14 +1256,6 @@ export default function Index() {
             >
               <Icon name="Sparkles" size={24} className="mr-3" />
               Вдохновение
-            </Button>
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-2 border-got-gold/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
-              onClick={() => setActiveSection('kingdoms')}
-            >
-              <Icon name="Compass" size={24} className="mr-3" />
-              Исследовать регионы
             </Button>
           </div>
         </div>
