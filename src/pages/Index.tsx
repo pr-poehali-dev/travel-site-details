@@ -177,7 +177,7 @@ export default function Index() {
 
   const changeQuote = () => {
     playQuoteSound()
-    setCurrentQuote((prev) => (prev + 1) % gotQuotes.length)
+    setCurrentQuote((prev) => (prev + 1) % travelQuotes.length)
     setQuoteKey(prev => prev + 1)
   }
 
@@ -223,7 +223,7 @@ export default function Index() {
   }, [])
 
   useEffect(() => {
-    setCurrentQuote(Math.floor(Math.random() * gotQuotes.length))
+    setCurrentQuote(Math.floor(Math.random() * travelQuotes.length))
   }, [])
   
   const playSwordSound = () => {
@@ -1207,10 +1207,10 @@ export default function Index() {
             <div key={quoteKey} className="inline-flex flex-col items-center space-y-2 bg-got-black/60 backdrop-blur-md rounded-lg px-4 md:px-8 py-3 md:py-4 mb-6 md:mb-8 border-2 border-got-gold/50 quote-fade-in">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
-                <span className="text-sm md:text-lg font-bold text-got-gold italic quote-glow">"{gotQuotes[currentQuote].text}"</span>
+                <span className="text-sm md:text-lg font-bold text-got-gold italic quote-glow">"{travelQuotes[currentQuote].text}"</span>
                 <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
               </div>
-              <span className="text-xs md:text-sm text-got-gold/70 quote-fade-in">— {gotQuotes[currentQuote].author}</span>
+              <span className="text-xs md:text-sm text-got-gold/70 quote-fade-in">— {travelQuotes[currentQuote].author}</span>
             </div>
           </div>
           
