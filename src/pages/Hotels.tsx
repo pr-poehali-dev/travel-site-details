@@ -247,7 +247,10 @@ export default function Hotels() {
                                 </div>
                                 <div className="text-[10px] sm:text-xs text-slate-400">за ночь</div>
                               </div>
-                              <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-xs sm:text-sm px-3 sm:px-4 py-2">
+                              <Button 
+                                onClick={() => window.open(hotel.bookingUrl, '_blank')}
+                                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-xs sm:text-sm px-3 sm:px-4 py-2"
+                              >
                                 <Icon name="ExternalLink" size={14} className="mr-1 sm:mr-2 w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                 <span className="hidden sm:inline">Забронировать</span>
                                 <span className="sm:hidden">Бронь</span>
