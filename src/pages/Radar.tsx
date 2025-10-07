@@ -52,7 +52,7 @@ export default function Radar() {
           </h1>
 
           <p className="text-xl sm:text-2xl text-purple-200/80 font-light leading-relaxed mb-8 max-w-3xl mx-auto">
-            Отслеживайте цены на авиабилеты в реальном времени и получайте уведомления о лучших предложениях
+            Отслеживайте все самолёты в небе в реальном времени. Смотрите маршруты, высоту, скорость и информацию о каждом рейсе
           </p>
 
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/40 rounded-full">
@@ -66,24 +66,24 @@ export default function Radar() {
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-blue-500/20 flex items-center justify-center">
               <Icon name="Bell" size={32} className="text-blue-400" />
             </div>
-            <h3 className="text-blue-300 font-bold text-xl mb-3 text-center">Умные уведомления</h3>
-            <p className="text-purple-300/70 text-center">Получайте мгновенные уведомления при снижении цен на интересующие вас направления</p>
+            <h3 className="text-blue-300 font-bold text-xl mb-3 text-center">Отслеживание в реальном времени</h3>
+            <p className="text-purple-300/70 text-center">Следите за любым рейсом в небе: актуальная позиция обновляется каждую секунду</p>
           </div>
 
           <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border-2 border-cyan-500/30 rounded-3xl p-8 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-cyan-500/20 flex items-center justify-center">
               <Icon name="TrendingDown" size={32} className="text-cyan-400" />
             </div>
-            <h3 className="text-cyan-300 font-bold text-xl mb-3 text-center">Анализ трендов</h3>
-            <p className="text-purple-300/70 text-center">Отслеживайте изменения цен и выбирайте оптимальное время для покупки билетов</p>
+            <h3 className="text-cyan-300 font-bold text-xl mb-3 text-center">Детальная информация</h3>
+            <p className="text-purple-300/70 text-center">Высота, скорость, курс, модель самолёта, аэропорты вылета и прилёта — всё в одном месте</p>
           </div>
 
           <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 rounded-3xl p-8 backdrop-blur-sm hover:border-purple-400/50 transition-all">
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-purple-500/20 flex items-center justify-center">
               <Icon name="Sparkles" size={32} className="text-purple-400" />
             </div>
-            <h3 className="text-purple-300 font-bold text-xl mb-3 text-center">Персональные рекомендации</h3>
-            <p className="text-purple-300/70 text-center">ИИ анализирует ваши предпочтения и предлагает лучшие варианты перелётов</p>
+            <h3 className="text-purple-300 font-bold text-xl mb-3 text-center">Интерактивная карта</h3>
+            <p className="text-purple-300/70 text-center">3D-карта мира с возможностью приближения и просмотра любого участка неба</p>
           </div>
         </div>
 
@@ -107,19 +107,19 @@ export default function Radar() {
                 <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
                   <Icon name="Check" size={20} className="text-cyan-400" />
                 </div>
-                <span className="text-purple-200">Безлимитное отслеживание направлений</span>
+                <span className="text-purple-200">Безлимитное отслеживание рейсов</span>
               </div>
               <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
                 <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
                   <Icon name="Check" size={20} className="text-cyan-400" />
                 </div>
-                <span className="text-purple-200">Push-уведомления 24/7</span>
+                <span className="text-purple-200">История полётов самолётов</span>
               </div>
               <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
                 <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
                   <Icon name="Check" size={20} className="text-cyan-400" />
                 </div>
-                <span className="text-purple-200">Исторические данные цен</span>
+                <span className="text-purple-200">3D-визуализация маршрутов</span>
               </div>
               <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
                 <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
@@ -187,15 +187,15 @@ export default function Radar() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-purple-200/70">
                 <Icon name="Check" size={16} className="text-cyan-400" />
-                <span>Безлимитное отслеживание</span>
+                <span>Отслеживание всех рейсов</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-purple-200/70">
                 <Icon name="Check" size={16} className="text-cyan-400" />
-                <span>Уведомления в реальном времени</span>
+                <span>Данные в реальном времени</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-purple-200/70">
                 <Icon name="Check" size={16} className="text-cyan-400" />
-                <span>Аналитика и рекомендации</span>
+                <span>Полная информация о рейсах</span>
               </div>
             </div>
           </div>
