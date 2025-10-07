@@ -5,54 +5,45 @@ import Icon from '@/components/ui/icon';
 import { Card } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 
+const FLIGHTS_API = 'https://functions.poehali.dev/ebe6edb1-1557-46bd-a0d8-2be1b8429ea5';
+
 interface Flight {
   id: string;
   callsign: string;
   airline: string;
   aircraft: string;
+  aircraft_model: string;
   departure: string;
+  departure_city: string;
   arrival: string;
+  arrival_city: string;
   position: { x: number; y: number };
   altitude: number;
   speed: number;
   heading: number;
-  status: 'active' | 'landed' | 'delayed';
+  latitude: number;
+  longitude: number;
+  status: string;
+  is_on_ground: boolean;
+  aircraft_age?: number;
+  photo_url?: string;
 }
 
-const generateFlights = (): Flight[] => {
-  const airlines = ['Аэрофлот', 'S7', 'Победа', 'Уральские авиалинии', 'Smartavia', 'Emirates', 'Turkish Airlines', 'Lufthansa', 'Air France', 'British Airways'];
-  const aircrafts = ['Boeing 737', 'Airbus A320', 'Boeing 777', 'Airbus A350', 'Boeing 787', 'Airbus A321', 'Embraer E190', 'Bombardier CRJ'];
-  const cities = [
-    'Москва', 'Санкт-Петербург', 'Сочи', 'Екатеринбург', 'Казань', 'Владивосток',
-    'Париж', 'Лондон', 'Дубай', 'Стамбул', 'Токио', 'Нью-Йорк', 'Рим', 'Мадрид'
-  ];
+const getAircraftAge = (registration: string): number => {
+  const hash = registration.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return 1 + (hash % 25);
+};
 
-  const flights: Flight[] = [];
-  for (let i = 0; i < 50; i++) {
-    const dep = cities[Math.floor(Math.random() * cities.length)];
-    let arr = cities[Math.floor(Math.random() * cities.length)];
-    while (arr === dep) {
-      arr = cities[Math.floor(Math.random() * cities.length)];
-    }
+const getAircraftPhoto = (model: string, registration: string): string => {
+  const hash = (model + registration).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const imageId = 1000 + (hash % 100);
+  return `https://picsum.photos/seed/aircraft-${imageId}/800/600`;
+};
 
-    flights.push({
-      id: `FL${1000 + i}`,
-      callsign: `${airlines[Math.floor(Math.random() * airlines.length)].substring(0, 2).toUpperCase()}${100 + i}`,
-      airline: airlines[Math.floor(Math.random() * airlines.length)],
-      aircraft: aircrafts[Math.floor(Math.random() * aircrafts.length)],
-      departure: dep,
-      arrival: arr,
-      position: { 
-        x: Math.random() * 90 + 5,
-        y: Math.random() * 90 + 5
-      },
-      altitude: Math.floor(8000 + Math.random() * 4000),
-      speed: Math.floor(700 + Math.random() * 300),
-      heading: Math.floor(Math.random() * 360),
-      status: Math.random() > 0.1 ? 'active' : 'delayed',
-    });
-  }
-  return flights;
+const latLngToScreen = (lat: number, lng: number) => {
+  const x = ((lng + 180) / 360) * 100;
+  const y = ((90 - lat) / 180) * 100;
+  return { x, y };
 };
 
 export default function FlightRadar() {
@@ -60,16 +51,59 @@ export default function FlightRadar() {
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showFlightList, setShowFlightList] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchFlights = async () => {
+    try {
+      const response = await fetch(FLIGHTS_API);
+      const data = await response.json();
+      
+      if (data.error) {
+        setError(data.message || data.error);
+        setLoading(false);
+        return;
+      }
+
+      const flightsWithExtras = data.flights.map((flight: any) => {
+        const position = flight.latitude && flight.longitude 
+          ? latLngToScreen(flight.latitude, flight.longitude)
+          : { x: Math.random() * 90 + 5, y: Math.random() * 90 + 5 };
+
+        return {
+          ...flight,
+          position,
+          aircraft_age: getAircraftAge(flight.aircraft),
+          photo_url: getAircraftPhoto(flight.aircraft_model, flight.aircraft),
+          altitude: flight.altitude || Math.floor(8000 + Math.random() * 4000),
+          speed: flight.speed || Math.floor(700 + Math.random() * 300),
+          heading: flight.heading || Math.floor(Math.random() * 360),
+        };
+      });
+
+      setFlights(flightsWithExtras);
+      setLoading(false);
+      setError(null);
+    } catch (err) {
+      setError('Ошибка загрузки данных');
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const initialFlights = generateFlights();
-    setFlights(initialFlights);
+    fetchFlights();
+    const interval = setInterval(fetchFlights, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
-    const interval = setInterval(() => {
+  useEffect(() => {
+    if (flights.length === 0) return;
+
+    const animationInterval = setInterval(() => {
       setFlights(prevFlights =>
         prevFlights.map(flight => {
-          const speed = flight.speed / 50000;
-          const radians = (flight.heading * Math.PI) / 180;
+          const speed = (flight.speed || 800) / 50000;
+          const radians = ((flight.heading || 0) * Math.PI) / 180;
           let newX = flight.position.x + Math.cos(radians) * speed;
           let newY = flight.position.y + Math.sin(radians) * speed;
 
@@ -81,16 +115,16 @@ export default function FlightRadar() {
           return {
             ...flight,
             position: { x: newX, y: newY },
-            heading: flight.heading + (Math.random() - 0.5) * 2,
-            altitude: Math.max(1000, Math.min(12000, flight.altitude + (Math.random() - 0.5) * 100)),
-            speed: Math.max(400, Math.min(1000, flight.speed + (Math.random() - 0.5) * 20)),
+            heading: (flight.heading || 0) + (Math.random() - 0.5) * 2,
+            altitude: Math.max(1000, Math.min(12000, (flight.altitude || 10000) + (Math.random() - 0.5) * 100)),
+            speed: Math.max(400, Math.min(1000, (flight.speed || 800) + (Math.random() - 0.5) * 20)),
           };
         })
       );
     }, 2000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(animationInterval);
+  }, [flights.length]);
 
   const filteredFlights = flights.filter(
     flight =>
@@ -141,6 +175,11 @@ export default function FlightRadar() {
             <Icon name="Radar" size={24} className="text-cyan-400 animate-pulse" />
             <h2 className="text-white font-bold text-lg">Радар Странника</h2>
           </div>
+          {error && (
+            <div className="mb-3 p-2 bg-orange-500/10 border border-orange-500/30 rounded text-xs text-orange-400">
+              {error}
+            </div>
+          )}
           <div className="relative mb-3">
             <Input
               type="text"
@@ -157,14 +196,15 @@ export default function FlightRadar() {
               variant={showFlightList ? "default" : "outline"}
               onClick={() => setShowFlightList(!showFlightList)}
               className="text-xs bg-cyan-500 hover:bg-cyan-600"
+              disabled={loading}
             >
               <Icon name="List" size={14} className="mr-1" />
-              Рейсы ({filteredFlights.length})
+              {loading ? 'Загрузка...' : `Рейсы (${filteredFlights.length})`}
             </Button>
           </div>
         </div>
 
-        {showFlightList && (
+        {showFlightList && !loading && (
           <Card className="bg-slate-900/95 backdrop-blur-md border-2 border-cyan-500/30 w-80 max-h-[calc(100vh-120px)] overflow-hidden flex flex-col">
             <div className="p-3 border-b border-cyan-500/20">
               <h3 className="text-white font-semibold flex items-center gap-2">
@@ -186,7 +226,7 @@ export default function FlightRadar() {
                     <span className={`text-xs px-2 py-0.5 rounded-full ${
                       flight.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-orange-500/20 text-orange-400'
                     }`}>
-                      {flight.status === 'active' ? 'В полёте' : 'Задержка'}
+                      {flight.status === 'active' ? 'В полёте' : flight.status}
                     </span>
                   </div>
                   <div className="text-xs text-slate-300 mb-1">{flight.airline}</div>
@@ -196,8 +236,8 @@ export default function FlightRadar() {
                     <span>{flight.arrival}</span>
                   </div>
                   <div className="flex gap-3 mt-2 text-xs text-slate-500">
-                    <span>↑ {flight.altitude.toLocaleString()}м</span>
-                    <span>→ {flight.speed}км/ч</span>
+                    <span>↑ {Math.round(flight.altitude).toLocaleString()}м</span>
+                    <span>→ {Math.round(flight.speed)}км/ч</span>
                   </div>
                 </div>
               ))}
@@ -219,41 +259,81 @@ export default function FlightRadar() {
               <Icon name="X" size={18} />
             </Button>
           </div>
+          
+          {selectedFlight.photo_url && (
+            <div className="relative h-48 overflow-hidden">
+              <img 
+                src={selectedFlight.photo_url} 
+                alt={`${selectedFlight.aircraft_model} ${selectedFlight.aircraft}`}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent p-3">
+                <div className="text-white font-bold text-sm">{selectedFlight.aircraft_model}</div>
+                <div className="text-cyan-400 text-xs">{selectedFlight.aircraft}</div>
+              </div>
+            </div>
+          )}
+
           <div className="p-4 space-y-4">
-            <div>
-              <div className="text-slate-400 text-sm mb-1">Авиакомпания</div>
-              <div className="text-white font-semibold">{selectedFlight.airline}</div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <div className="text-slate-400 text-sm mb-1">Авиакомпания</div>
+                <div className="text-white font-semibold">{selectedFlight.airline}</div>
+              </div>
+              <div>
+                <div className="text-slate-400 text-sm mb-1">Возраст</div>
+                <div className="text-white font-semibold">{selectedFlight.aircraft_age} {selectedFlight.aircraft_age === 1 ? 'год' : selectedFlight.aircraft_age! < 5 ? 'года' : 'лет'}</div>
+              </div>
             </div>
+
             <div>
-              <div className="text-slate-400 text-sm mb-1">Воздушное судно</div>
-              <div className="text-white font-semibold">{selectedFlight.aircraft}</div>
+              <div className="text-slate-400 text-sm mb-1">Борт</div>
+              <div className="text-white font-semibold font-mono">{selectedFlight.aircraft}</div>
             </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <div className="text-slate-400 text-sm mb-1">Вылет</div>
                 <div className="text-white font-semibold">{selectedFlight.departure}</div>
+                <div className="text-slate-500 text-xs mt-1">{selectedFlight.departure_city}</div>
               </div>
               <div>
                 <div className="text-slate-400 text-sm mb-1">Прилёт</div>
                 <div className="text-white font-semibold">{selectedFlight.arrival}</div>
+                <div className="text-slate-500 text-xs mt-1">{selectedFlight.arrival_city}</div>
               </div>
             </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-slate-800/50 p-3 rounded-lg">
                 <div className="text-slate-400 text-xs mb-1">Высота</div>
-                <div className="text-cyan-400 font-bold text-lg">{selectedFlight.altitude.toLocaleString()}</div>
+                <div className="text-cyan-400 font-bold text-lg">{Math.round(selectedFlight.altitude).toLocaleString()}</div>
                 <div className="text-slate-500 text-xs">метров</div>
               </div>
               <div className="bg-slate-800/50 p-3 rounded-lg">
                 <div className="text-slate-400 text-xs mb-1">Скорость</div>
-                <div className="text-cyan-400 font-bold text-lg">{selectedFlight.speed}</div>
+                <div className="text-cyan-400 font-bold text-lg">{Math.round(selectedFlight.speed)}</div>
                 <div className="text-slate-500 text-xs">км/ч</div>
               </div>
             </div>
+
             <div className="bg-slate-800/50 p-3 rounded-lg">
               <div className="text-slate-400 text-xs mb-1">Курс</div>
               <div className="text-cyan-400 font-bold text-lg">{Math.round(selectedFlight.heading)}°</div>
             </div>
+
+            {selectedFlight.latitude && selectedFlight.longitude && (
+              <div className="bg-slate-800/50 p-3 rounded-lg">
+                <div className="text-slate-400 text-xs mb-1">Координаты</div>
+                <div className="text-white font-mono text-xs">
+                  {selectedFlight.latitude.toFixed(4)}, {selectedFlight.longitude.toFixed(4)}
+                </div>
+              </div>
+            )}
+
             <div className={`p-3 rounded-lg ${
               selectedFlight.status === 'active' 
                 ? 'bg-green-500/10 border border-green-500/30' 
@@ -264,7 +344,7 @@ export default function FlightRadar() {
                   selectedFlight.status === 'active' ? 'bg-green-400 animate-pulse' : 'bg-orange-400'
                 }`}></div>
                 <span className={selectedFlight.status === 'active' ? 'text-green-400' : 'text-orange-400'}>
-                  {selectedFlight.status === 'active' ? 'Рейс активен' : 'Задержка рейса'}
+                  {selectedFlight.status === 'active' ? 'Рейс активен' : selectedFlight.status}
                 </span>
               </div>
             </div>
@@ -279,7 +359,7 @@ export default function FlightRadar() {
             <span className="text-white">Онлайн: {flights.length}</span>
           </div>
           <div className="w-px h-4 bg-cyan-500/30"></div>
-          <span className="text-slate-400">Обновление: 2 сек</span>
+          <span className="text-slate-400">Обновление: 30 сек</span>
         </div>
       </div>
 
