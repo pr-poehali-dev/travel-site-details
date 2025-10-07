@@ -125,7 +125,7 @@ export default function Radar() {
 
   if (isSubscribed) {
     return (
-      <div className="relative w-full h-screen bg-slate-950">
+      <div className="relative w-full h-screen bg-slate-950 overflow-hidden">
         <Link 
           to="/" 
           className="absolute top-4 right-4 z-[1001] inline-flex items-center gap-2 px-4 py-2 bg-slate-900/95 border-2 border-cyan-500/30 text-cyan-200 rounded-xl hover:border-cyan-400/60 hover:bg-slate-900 transition-all duration-300 backdrop-blur-md shadow-lg"
@@ -142,6 +142,15 @@ export default function Radar() {
             allow="geolocation"
           />
         </div>
+
+        <style>{`
+          iframe {
+            margin-top: -60px !important;
+            height: calc(100% + 60px) !important;
+            margin-left: -300px !important;
+            width: calc(100% + 300px) !important;
+          }
+        `}</style>
       </div>
     );
   }
