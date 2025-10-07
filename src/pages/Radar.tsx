@@ -23,6 +23,7 @@ export default function Radar() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -126,13 +127,23 @@ export default function Radar() {
   if (isSubscribed) {
     return (
       <div className="relative w-full h-screen bg-slate-950 overflow-hidden">
-        <Link 
-          to="/" 
-          className="absolute top-4 right-4 z-[1001] inline-flex items-center gap-2 px-4 py-2 bg-slate-900/95 border-2 border-cyan-500/30 text-cyan-200 rounded-xl hover:border-cyan-400/60 hover:bg-slate-900 transition-all duration-300 backdrop-blur-md shadow-lg"
-        >
-          <Icon name="Home" size={18} />
-          <span>На главную</span>
-        </Link>
+        <div className="absolute top-4 right-4 z-[1001] flex items-center gap-3">
+          <Button
+            onClick={() => setIsDarkTheme(!isDarkTheme)}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/95 border-2 border-purple-500/30 text-purple-200 rounded-xl hover:border-purple-400/60 hover:bg-slate-900 transition-all duration-300 backdrop-blur-md shadow-lg"
+          >
+            <Icon name={isDarkTheme ? "Sun" : "Moon"} size={18} />
+            <span>{isDarkTheme ? "Светлая" : "Тёмная"}</span>
+          </Button>
+          
+          <Link 
+            to="/" 
+            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/95 border-2 border-cyan-500/30 text-cyan-200 rounded-xl hover:border-cyan-400/60 hover:bg-slate-900 transition-all duration-300 backdrop-blur-md shadow-lg"
+          >
+            <Icon name="Home" size={18} />
+            <span>На главную</span>
+          </Link>
+        </div>
         
         <div className="w-full h-full">
           <iframe
@@ -149,7 +160,15 @@ export default function Radar() {
             height: calc(100% + 60px) !important;
             margin-left: -300px !important;
             width: calc(100% + 300px) !important;
+            ${isDarkTheme ? `
+              filter: invert(0.92) hue-rotate(180deg) brightness(0.9) contrast(1.1);
+            ` : ''}
           }
+          ${isDarkTheme ? `
+            iframe img {
+              filter: invert(1) hue-rotate(180deg);
+            }
+          ` : ''}
         `}</style>
       </div>
     );
