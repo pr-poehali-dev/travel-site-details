@@ -262,7 +262,7 @@ export default function Radar() {
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Доступно по подписке</h2>
               <p className="text-purple-200/80 text-lg max-w-2xl mx-auto">
-                Радар Странника — это премиум-функция. Оформите подписку, чтобы получить доступ ко всем возможностям
+                Радар Странника + Новости РБК — всё в одной подписке. Получите доступ к полётам в реальном времени и свежим новостям каждый день
               </p>
             </div>
 
@@ -271,7 +271,13 @@ export default function Radar() {
                 <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
                   <Icon name="Check" size={20} className="text-cyan-400" />
                 </div>
-                <span className="text-purple-200">Отслеживание всех рейсов онлайн</span>
+                <span className="text-purple-200">Радар самолётов в реальном времени</span>
+              </div>
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Свежие новости РБК каждый день</span>
               </div>
               <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
                 <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
@@ -283,13 +289,7 @@ export default function Radar() {
                 <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
                   <Icon name="Check" size={20} className="text-cyan-400" />
                 </div>
-                <span className="text-purple-200">Маршруты полётов</span>
-              </div>
-              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
-                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-                  <Icon name="Check" size={20} className="text-cyan-400" />
-                </div>
-                <span className="text-purple-200">Поиск по рейсам</span>
+                <span className="text-purple-200">Маршруты рейсов и детали полётов</span>
               </div>
             </div>
 
@@ -362,15 +362,15 @@ export default function Radar() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-purple-200/70">
                 <Icon name="Check" size={16} className="text-cyan-400" />
-                <span>Отслеживание всех рейсов</span>
+                <span>Радар самолётов онлайн</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-purple-200/70">
                 <Icon name="Check" size={16} className="text-cyan-400" />
-                <span>Данные в реальном времени</span>
+                <span>Новости РБК каждый день</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-purple-200/70">
                 <Icon name="Check" size={16} className="text-cyan-400" />
-                <span>Полная информация о рейсах</span>
+                <span>Все функции в одной подписке</span>
               </div>
             </div>
           </div>

@@ -26,6 +26,12 @@ export default function News() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'date' | 'relevance'>('date');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  useEffect(() => {
+    const subscribed = localStorage.getItem('radar_subscribed') === 'true';
+    setIsSubscribed(subscribed);
+  }, []);
 
   const categories = [
     { id: 'all', name: 'Все новости', icon: 'Globe' },
@@ -149,21 +155,42 @@ export default function News() {
             <p className="text-lg sm:text-2xl text-purple-200/80 max-w-4xl mx-auto font-light leading-relaxed mb-4">
               Актуальные новости о путешествиях, туризме, экономике и мире
             </p>
+            {!isSubscribed && (
+              <div className="max-w-2xl mx-auto mb-8 p-6 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border-2 border-yellow-500/30 rounded-2xl backdrop-blur-sm">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <Icon name="Lock" size={24} className="text-yellow-400" />
+                  <h3 className="text-xl font-bold text-white">Доступно по подписке</h3>
+                </div>
+                <p className="text-purple-200/80 text-center mb-4">
+                  Новости + Радар Странника — всего 350₽/месяц
+                </p>
+                <div className="flex justify-center">
+                  <Link to="/radar">
+                    <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white border-0">
+                      <Icon name="CreditCard" size={18} className="mr-2" />
+                      Оформить подписку
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            )}
             <div className="flex items-center justify-center gap-4 text-sm text-purple-300/70">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <span>Автообновление каждые 4 часа</span>
+                <span>Обновляется каждый день</span>
               </div>
-              <Button
-                onClick={fetchNews}
-                variant="ghost"
-                size="sm"
-                className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10 h-8"
-                disabled={loading}
-              >
-                <Icon name={loading ? "Loader2" : "RefreshCw"} size={14} className={`mr-1 ${loading ? 'animate-spin' : ''}`} />
-                Обновить
-              </Button>
+              {isSubscribed && (
+                <Button
+                  onClick={fetchNews}
+                  variant="ghost"
+                  size="sm"
+                  className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10 h-8"
+                  disabled={loading}
+                >
+                  <Icon name={loading ? "Loader2" : "RefreshCw"} size={14} className={`mr-1 ${loading ? 'animate-spin' : ''}`} />
+                  Обновить
+                </Button>
+              )}
             </div>
           </div>
 
@@ -191,53 +218,74 @@ export default function News() {
               )}
             </div>
 
-            <div className="flex flex-wrap gap-3 justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`group relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                    selectedCategory === category.id
-                      ? 'bg-gradient-to-r from-pink-500 to-cyan-500 text-white shadow-lg shadow-pink-500/50'
-                      : 'bg-slate-900/60 border-2 border-purple-500/30 text-purple-200 hover:border-cyan-400/60'
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <Icon name={category.icon as any} size={18} />
-                    {category.name}
-                  </span>
-                </button>
-              ))}
-            </div>
+            {isSubscribed && (
+              <>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`group relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                        selectedCategory === category.id
+                          ? 'bg-gradient-to-r from-pink-500 to-cyan-500 text-white shadow-lg shadow-pink-500/50'
+                          : 'bg-slate-900/60 border-2 border-purple-500/30 text-purple-200 hover:border-cyan-400/60'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <Icon name={category.icon as any} size={18} />
+                        {category.name}
+                      </span>
+                    </button>
+                  ))}
+                </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Badge variant="outline" className="border-purple-400/40 text-purple-200 text-base px-4 py-2">
-                Найдено новостей: {filteredNews.length}
-              </Badge>
+                <div className="flex flex-wrap items-center justify-center gap-4">
+                  <Badge variant="outline" className="border-purple-400/40 text-purple-200 text-base px-4 py-2">
+                    Найдено новостей: {filteredNews.length}
+                  </Badge>
 
-              <div className="flex items-center gap-2 bg-slate-900/60 border-2 border-purple-500/30 rounded-xl px-4 py-2">
-                <Icon name="ArrowUpDown" size={18} className="text-purple-300" />
-                <span className="text-purple-300 text-sm font-medium">Сортировка:</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as 'date' | 'relevance')}
-                  className="bg-transparent text-white font-semibold outline-none cursor-pointer"
-                >
-                  <option value="date" className="bg-slate-900">По дате</option>
-                  <option value="relevance" className="bg-slate-900">По релевантности</option>
-                </select>
-              </div>
-            </div>
+                  <div className="flex items-center gap-2 bg-slate-900/60 border-2 border-purple-500/30 rounded-xl px-4 py-2">
+                    <Icon name="ArrowUpDown" size={18} className="text-purple-300" />
+                    <span className="text-purple-300 text-sm font-medium">Сортировка:</span>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value as 'date' | 'relevance')}
+                      className="bg-transparent text-white font-semibold outline-none cursor-pointer"
+                    >
+                      <option value="date" className="bg-slate-900">По дате</option>
+                      <option value="relevance" className="bg-slate-900">По релевантности</option>
+                    </select>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
-          {loading && (
+          {!isSubscribed && !loading && (
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-40 pointer-events-none blur-sm">
+                {news.slice(0, 4).map((item, index) => (
+                  <div key={index} className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 border-2 border-purple-500/30 rounded-3xl overflow-hidden backdrop-blur-md">
+                    <div className="h-48 bg-gradient-to-br from-purple-500/20 to-pink-500/20"></div>
+                    <div className="p-6">
+                      <div className="h-6 bg-purple-500/20 rounded mb-3"></div>
+                      <div className="h-4 bg-purple-500/10 rounded mb-2"></div>
+                      <div className="h-4 bg-purple-500/10 rounded w-3/4"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {isSubscribed && loading && (
             <div className="flex flex-col justify-center items-center py-20">
               <div className="animate-spin rounded-full h-20 w-20 border-4 border-purple-500 border-t-cyan-400 mb-6"></div>
               <p className="text-cyan-300 text-xl">Загружаем свежие новости...</p>
             </div>
           )}
 
-          {error && (
+          {isSubscribed && error && (
             <div className="text-center py-20">
               <div className="inline-block p-6 bg-red-500/20 border-2 border-red-500/50 rounded-2xl mb-6">
                 <Icon name="AlertCircle" size={64} className="text-red-400 mx-auto" />
@@ -252,7 +300,7 @@ export default function News() {
             </div>
           )}
 
-          {!loading && !error && filteredNews.length > 0 && (
+          {isSubscribed && !loading && !error && filteredNews.length > 0 && (
             <div className="space-y-8">
               {filteredNews.map((item, index) => (
                 <a
@@ -315,7 +363,7 @@ export default function News() {
             </div>
           )}
 
-          {!loading && !error && filteredNews.length === 0 && news.length > 0 && (
+          {isSubscribed && !loading && !error && filteredNews.length === 0 && news.length > 0 && (
             <div className="text-center py-20">
               <Icon name="SearchX" size={80} className="text-purple-400/50 mx-auto mb-6" />
               <p className="text-purple-300 text-xl mb-4">Новости по вашему запросу не найдены</p>
@@ -331,7 +379,7 @@ export default function News() {
             </div>
           )}
 
-          {!loading && !error && news.length === 0 && (
+          {isSubscribed && !loading && !error && news.length === 0 && (
             <div className="text-center py-20">
               <Icon name="Inbox" size={80} className="text-purple-400/50 mx-auto mb-6" />
               <p className="text-purple-300 text-xl">Новости пока не загружены</p>
