@@ -1,4 +1,5 @@
 {
+  "auth": "https://functions.poehali.dev/55f4a97b-07ea-4b41-a680-f562b859f148",
   "payment": "https://functions.poehali.dev/ec989dc1-d07b-4723-9485-30e0299f7cfa",
   "check-payment": "https://functions.poehali.dev/5c0bdb08-caca-45a4-9c3a-95ab2e300df9",
   "flights": "https://functions.poehali.dev/ebe6edb1-1557-46bd-a0d8-2be1b8429ea5",

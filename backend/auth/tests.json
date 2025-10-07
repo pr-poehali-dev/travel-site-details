@@ -1,0 +1,26 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS request for CORS",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Register new user",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "test@example.com",
+        "name": "Test User",
+        "birth_date": "1990-01-01"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "email": "string",
+        "energy_balance": "number"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
