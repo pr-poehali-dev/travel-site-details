@@ -1,9 +1,21 @@
 import { useEffect, useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import { useToast } from '@/hooks/use-toast';
+import confetti from 'canvas-confetti';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+
+const PAYMENT_URL = 'https://functions.poehali.dev/ec989dc1-d07b-4723-9485-30e0299f7cfa';
+const CHECK_PAYMENT_URL = 'https://functions.poehali.dev/5c0bdb08-caca-45a4-9c3a-95ab2e300df9';
 
 interface NewsItem {
   title: string;
@@ -20,6 +32,7 @@ interface NewsResponse {
 }
 
 export default function News() {
+  const [searchParams] = useSearchParams();
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,11 +40,24 @@ export default function News() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'date' | 'relevance'>('date');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showSubscriptionDialog, setShowSubscriptionDialog] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isCheckingPayment, setIsCheckingPayment] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const subscribed = localStorage.getItem('radar_subscribed') === 'true';
     setIsSubscribed(subscribed);
-  }, []);
+
+    const paymentStatus = searchParams.get('payment');
+    const paymentId = searchParams.get('payment_id');
+    
+    if (paymentStatus === 'success' && paymentId && !isCheckingPayment) {
+      setIsCheckingPayment(true);
+      checkPaymentStatus(paymentId);
+    }
+  }, [searchParams]);
 
   const categories = [
     { id: 'all', name: 'Все новости', icon: 'Globe' },
@@ -41,6 +67,91 @@ export default function News() {
     { id: 'politics', name: 'Политика', icon: 'Users', keywords: ['политик', 'правительств', 'президент', 'министр', 'дума', 'закон'] },
     { id: 'tech', name: 'Технологии', icon: 'Laptop', keywords: ['технолог', 'it', 'интернет', 'приложени', 'софт', 'цифров', 'гаджет'] }
   ];
+
+  const checkPaymentStatus = async (paymentId: string) => {
+    try {
+      const response = await fetch(`${CHECK_PAYMENT_URL}?payment_id=${paymentId}`);
+      const data = await response.json();
+      
+      if (data.subscription_active) {
+        localStorage.setItem('radar_subscribed', 'true');
+        localStorage.setItem('radar_payment_id', paymentId);
+        setIsSubscribed(true);
+        
+        confetti({
+          particleCount: 150,
+          spread: 100,
+          origin: { y: 0.6 },
+          colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#10b981']
+        });
+        
+        toast({
+          title: "Оплата успешна! 🎉",
+          description: "Добро пожаловать! Доступ к новостям и радару открыт.",
+        });
+        
+        window.history.replaceState({}, '', '/news');
+      } else {
+        toast({
+          title: "Ожидание оплаты",
+          description: "Платёж ещё обрабатывается. Попробуйте обновить страницу через минуту.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Ошибка проверки платежа",
+        description: "Не удалось проверить статус оплаты",
+        variant: "destructive"
+      });
+    } finally {
+      setIsCheckingPayment(false);
+    }
+  };
+
+  const handleSubscribe = async () => {
+    if (!email || !email.includes('@')) {
+      toast({
+        title: "Некорректный email",
+        description: "Пожалуйста, введите правильный email",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const response = await fetch(PAYMENT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          amount: 350,
+          return_url: window.location.origin + '/news'
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.payment_url) {
+        localStorage.setItem('radar_pending_payment_id', data.payment_id);
+        window.location.href = `${data.payment_url}?payment_id=${data.payment_id}`;
+      } else {
+        throw new Error('No payment URL received');
+      }
+    } catch (error) {
+      toast({
+        title: "Ошибка создания платежа",
+        description: "Что-то пошло не так. Попробуйте позже.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   const fetchNews = async () => {
     try {
@@ -165,12 +276,13 @@ export default function News() {
                   Новости + Радар Странника — всего 350₽/месяц
                 </p>
                 <div className="flex justify-center">
-                  <Link to="/radar">
-                    <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white border-0">
-                      <Icon name="CreditCard" size={18} className="mr-2" />
-                      Оформить подписку
-                    </Button>
-                  </Link>
+                  <Button 
+                    onClick={() => setShowSubscriptionDialog(true)}
+                    className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white border-0"
+                  >
+                    <Icon name="CreditCard" size={18} className="mr-2" />
+                    Оформить подписку
+                  </Button>
                 </div>
               </div>
             )}
@@ -412,6 +524,83 @@ export default function News() {
           </div>
         </div>
       </footer>
+
+      <Dialog open={showSubscriptionDialog} onOpenChange={setShowSubscriptionDialog}>
+        <DialogContent className="bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-cyan-500/30 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center mb-2 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              Оформление подписки
+            </DialogTitle>
+            <DialogDescription className="text-purple-200/80 text-center">
+              Получите доступ к новостям и радару самолётов
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 my-6">
+            <div className="bg-slate-800/60 border border-cyan-500/20 rounded-xl p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-purple-200">Премиум подписка</span>
+                <span className="text-white font-bold">350₽</span>
+              </div>
+              <div className="text-purple-300/60 text-sm">Ежемесячное списание</div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-white font-medium block">Email для чека</label>
+              <Input
+                type="email"
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-slate-900/60 border-cyan-500/20 text-white"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm text-purple-200/70">
+                <Icon name="Check" size={16} className="text-cyan-400" />
+                <span>Новости РБК каждый день</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-purple-200/70">
+                <Icon name="Check" size={16} className="text-cyan-400" />
+                <span>Радар самолётов в реальном времени</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-purple-200/70">
+                <Icon name="Check" size={16} className="text-cyan-400" />
+                <span>Интерактивная карта мира</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <Button
+              onClick={() => setShowSubscriptionDialog(false)}
+              variant="outline"
+              className="flex-1 border-purple-500/30 text-purple-200 hover:bg-purple-500/10"
+              disabled={isProcessing}
+            >
+              Отмена
+            </Button>
+            <Button
+              onClick={handleSubscribe}
+              className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0"
+              disabled={isProcessing}
+            >
+              {isProcessing ? (
+                <>
+                  <Icon name="Loader2" size={18} className="mr-2 animate-spin" />
+                  Обработка...
+                </>
+              ) : (
+                <>
+                  <Icon name="CreditCard" size={18} className="mr-2" />
+                  Оплатить 350₽
+                </>
+              )}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -1150,6 +1150,29 @@ export default function Index() {
         )}
       </nav>
 
+      {/* Premium Banner */}
+      <div className="bg-gradient-to-r from-cyan-900/30 via-blue-900/30 to-purple-900/30 border-b-4 border-cyan-500/50 py-6">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center">
+                <Icon name="Sparkles" size={24} className="text-white" />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-lg">Премиум подписка — 350₽/месяц</h3>
+                <p className="text-cyan-300/80 text-sm">Новости РБК + Радар самолётов в реальном времени</p>
+              </div>
+            </div>
+            <Link to="/radar">
+              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 px-6 py-2 font-bold">
+                <Icon name="Zap" size={18} className="mr-2" />
+                Подключить
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* GOT Theme Timer */}
       <div className="bg-got-black border-b-4 border-got-gold/50 py-4">
         <div className="container mx-auto px-4 md:px-6">
