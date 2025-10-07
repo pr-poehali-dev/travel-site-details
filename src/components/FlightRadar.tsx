@@ -1,11 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 import { Card } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
 
 interface Flight {
   id: string;
@@ -14,49 +12,27 @@ interface Flight {
   aircraft: string;
   departure: string;
   arrival: string;
-  position: [number, number];
+  position: { x: number; y: number };
   altitude: number;
   speed: number;
   heading: number;
   status: 'active' | 'landed' | 'delayed';
-  route: [number, number][];
 }
 
 const generateFlights = (): Flight[] => {
   const airlines = ['Аэрофлот', 'S7', 'Победа', 'Уральские авиалинии', 'Smartavia', 'Emirates', 'Turkish Airlines', 'Lufthansa', 'Air France', 'British Airways'];
   const aircrafts = ['Boeing 737', 'Airbus A320', 'Boeing 777', 'Airbus A350', 'Boeing 787', 'Airbus A321', 'Embraer E190', 'Bombardier CRJ'];
   const cities = [
-    { name: 'Москва', coords: [55.7558, 37.6173] },
-    { name: 'Санкт-Петербург', coords: [59.9311, 30.3609] },
-    { name: 'Сочи', coords: [43.5855, 39.7231] },
-    { name: 'Екатеринбург', coords: [56.8389, 60.6057] },
-    { name: 'Казань', coords: [55.7887, 49.1221] },
-    { name: 'Владивосток', coords: [43.1056, 131.8735] },
-    { name: 'Париж', coords: [48.8566, 2.3522] },
-    { name: 'Лондон', coords: [51.5074, -0.1278] },
-    { name: 'Дубай', coords: [25.2048, 55.2708] },
-    { name: 'Стамбул', coords: [41.0082, 28.9784] },
-    { name: 'Токио', coords: [35.6762, 139.6503] },
-    { name: 'Нью-Йорк', coords: [40.7128, -74.0060] },
+    'Москва', 'Санкт-Петербург', 'Сочи', 'Екатеринбург', 'Казань', 'Владивосток',
+    'Париж', 'Лондон', 'Дубай', 'Стамбул', 'Токио', 'Нью-Йорк', 'Рим', 'Мадрид'
   ];
 
   const flights: Flight[] = [];
   for (let i = 0; i < 50; i++) {
     const dep = cities[Math.floor(Math.random() * cities.length)];
     let arr = cities[Math.floor(Math.random() * cities.length)];
-    while (arr.name === dep.name) {
+    while (arr === dep) {
       arr = cities[Math.floor(Math.random() * cities.length)];
-    }
-
-    const progress = Math.random();
-    const lat = dep.coords[0] + (arr.coords[0] - dep.coords[0]) * progress;
-    const lng = dep.coords[1] + (arr.coords[1] - dep.coords[1]) * progress;
-
-    const route: [number, number][] = [];
-    for (let j = 0; j <= 10; j++) {
-      const routeLat = dep.coords[0] + (arr.coords[0] - dep.coords[0]) * (j / 10);
-      const routeLng = dep.coords[1] + (arr.coords[1] - dep.coords[1]) * (j / 10);
-      route.push([routeLat, routeLng]);
     }
 
     flights.push({
@@ -64,46 +40,25 @@ const generateFlights = (): Flight[] => {
       callsign: `${airlines[Math.floor(Math.random() * airlines.length)].substring(0, 2).toUpperCase()}${100 + i}`,
       airline: airlines[Math.floor(Math.random() * airlines.length)],
       aircraft: aircrafts[Math.floor(Math.random() * aircrafts.length)],
-      departure: dep.name,
-      arrival: arr.name,
-      position: [lat, lng],
+      departure: dep,
+      arrival: arr,
+      position: { 
+        x: Math.random() * 90 + 5,
+        y: Math.random() * 90 + 5
+      },
       altitude: Math.floor(8000 + Math.random() * 4000),
       speed: Math.floor(700 + Math.random() * 300),
       heading: Math.floor(Math.random() * 360),
       status: Math.random() > 0.1 ? 'active' : 'delayed',
-      route,
     });
   }
   return flights;
 };
 
-const planeIcon = (rotation: number) => L.divIcon({
-  className: 'custom-plane-icon',
-  html: `
-    <div style="transform: rotate(${rotation}deg); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
-      </svg>
-    </div>
-  `,
-  iconSize: [24, 24],
-  iconAnchor: [12, 12],
-});
-
-function MapUpdater({ center, zoom }: { center: [number, number]; zoom: number }) {
-  const map = useMap();
-  useEffect(() => {
-    map.setView(center, zoom);
-  }, [center, zoom, map]);
-  return null;
-}
-
 export default function FlightRadar() {
   const [flights, setFlights] = useState<Flight[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [mapCenter, setMapCenter] = useState<[number, number]>([55.7558, 37.6173]);
-  const [mapZoom, setMapZoom] = useState(4);
   const [showFlightList, setShowFlightList] = useState(true);
 
   useEffect(() => {
@@ -113,17 +68,21 @@ export default function FlightRadar() {
     const interval = setInterval(() => {
       setFlights(prevFlights =>
         prevFlights.map(flight => {
-          const newHeading = flight.heading + (Math.random() - 0.5) * 5;
-          const speed = flight.speed / 111000;
-          const radians = (newHeading * Math.PI) / 180;
-          const newLat = flight.position[0] + Math.cos(radians) * speed * 0.1;
-          const newLng = flight.position[1] + Math.sin(radians) * speed * 0.1;
+          const speed = flight.speed / 50000;
+          const radians = (flight.heading * Math.PI) / 180;
+          let newX = flight.position.x + Math.cos(radians) * speed;
+          let newY = flight.position.y + Math.sin(radians) * speed;
+
+          if (newX < 0) newX = 95;
+          if (newX > 100) newX = 5;
+          if (newY < 0) newY = 95;
+          if (newY > 100) newY = 5;
 
           return {
             ...flight,
-            position: [newLat, newLng],
-            heading: newHeading,
-            altitude: Math.max(0, flight.altitude + (Math.random() - 0.5) * 100),
+            position: { x: newX, y: newY },
+            heading: flight.heading + (Math.random() - 0.5) * 2,
+            altitude: Math.max(1000, Math.min(12000, flight.altitude + (Math.random() - 0.5) * 100)),
             speed: Math.max(400, Math.min(1000, flight.speed + (Math.random() - 0.5) * 20)),
           };
         })
@@ -143,16 +102,43 @@ export default function FlightRadar() {
 
   const handleFlightClick = (flight: Flight) => {
     setSelectedFlight(flight);
-    setMapCenter(flight.position);
-    setMapZoom(8);
   };
 
   return (
-    <div className="relative w-full h-screen bg-slate-950">
+    <div className="relative w-full h-screen bg-slate-950 overflow-hidden">
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `
+            radial-gradient(circle at 20% 30%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.05) 0%, transparent 50%),
+            linear-gradient(to bottom, #020617 0%, #0f172a 100%)
+          `,
+        }}
+      >
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `
+              repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(6, 182, 212, 0.03) 50px, rgba(6, 182, 212, 0.03) 51px),
+              repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(6, 182, 212, 0.03) 50px, rgba(6, 182, 212, 0.03) 51px)
+            `
+          }}
+        />
+      </div>
+
+      <Link 
+        to="/" 
+        className="absolute top-4 right-4 z-[1001] inline-flex items-center gap-2 px-4 py-2 bg-slate-900/95 border-2 border-cyan-500/30 text-cyan-200 rounded-xl hover:border-cyan-400/60 hover:bg-slate-900 transition-all duration-300 backdrop-blur-md shadow-lg"
+      >
+        <Icon name="Home" size={18} />
+        <span>На главную</span>
+      </Link>
+
       <div className="absolute top-4 left-4 z-[1000] flex gap-2">
         <div className="bg-slate-900/95 backdrop-blur-md border-2 border-cyan-500/30 rounded-xl p-3 shadow-2xl">
           <div className="flex items-center gap-3 mb-3">
-            <Icon name="Radar" size={24} className="text-cyan-400" />
+            <Icon name="Radar" size={24} className="text-cyan-400 animate-pulse" />
             <h2 className="text-white font-bold text-lg">Радар Странника</h2>
           </div>
           <div className="relative mb-3">
@@ -170,7 +156,7 @@ export default function FlightRadar() {
               size="sm"
               variant={showFlightList ? "default" : "outline"}
               onClick={() => setShowFlightList(!showFlightList)}
-              className="text-xs"
+              className="text-xs bg-cyan-500 hover:bg-cyan-600"
             >
               <Icon name="List" size={14} className="mr-1" />
               Рейсы ({filteredFlights.length})
@@ -191,7 +177,9 @@ export default function FlightRadar() {
                 <div
                   key={flight.id}
                   onClick={() => handleFlightClick(flight)}
-                  className="p-3 border-b border-slate-700/50 hover:bg-cyan-500/10 cursor-pointer transition-colors"
+                  className={`p-3 border-b border-slate-700/50 hover:bg-cyan-500/10 cursor-pointer transition-colors ${
+                    selectedFlight?.id === flight.id ? 'bg-cyan-500/20' : ''
+                  }`}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-cyan-400 font-bold text-sm">{flight.callsign}</span>
@@ -219,7 +207,7 @@ export default function FlightRadar() {
       </div>
 
       {selectedFlight && (
-        <Card className="absolute top-4 right-4 z-[1000] bg-slate-900/95 backdrop-blur-md border-2 border-cyan-500/30 w-96 max-h-[calc(100vh-120px)] overflow-auto">
+        <Card className="absolute top-4 right-4 z-[1000] bg-slate-900/95 backdrop-blur-md border-2 border-cyan-500/30 w-96 max-h-[calc(100vh-120px)] overflow-auto mr-24">
           <div className="p-4 border-b border-cyan-500/20 flex items-center justify-between">
             <h3 className="text-white font-bold text-lg">{selectedFlight.callsign}</h3>
             <Button
@@ -266,13 +254,6 @@ export default function FlightRadar() {
               <div className="text-slate-400 text-xs mb-1">Курс</div>
               <div className="text-cyan-400 font-bold text-lg">{Math.round(selectedFlight.heading)}°</div>
             </div>
-            <div className="bg-slate-800/50 p-3 rounded-lg">
-              <div className="text-slate-400 text-xs mb-2">Координаты</div>
-              <div className="text-white text-sm font-mono">
-                {selectedFlight.position[0].toFixed(4)}°N,{' '}
-                {selectedFlight.position[1].toFixed(4)}°E
-              </div>
-            </div>
             <div className={`p-3 rounded-lg ${
               selectedFlight.status === 'active' 
                 ? 'bg-green-500/10 border border-green-500/30' 
@@ -302,65 +283,40 @@ export default function FlightRadar() {
         </div>
       </div>
 
-      <MapContainer
-        center={mapCenter}
-        zoom={mapZoom}
-        className="w-full h-full"
-        zoomControl={false}
-        attributionControl={false}
-      >
-        <MapUpdater center={mapCenter} zoom={mapZoom} />
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        />
+      <div className="absolute inset-0">
         {flights.map((flight) => (
-          <div key={flight.id}>
-            <Marker
-              position={flight.position}
-              icon={planeIcon(flight.heading)}
-              eventHandlers={{
-                click: () => handleFlightClick(flight),
-              }}
-            >
-              <Popup>
-                <div className="text-xs">
-                  <div className="font-bold text-cyan-600 mb-1">{flight.callsign}</div>
-                  <div className="text-slate-700">{flight.airline}</div>
-                  <div className="text-slate-600 mt-1">
-                    {flight.departure} → {flight.arrival}
-                  </div>
-                  <div className="text-slate-500 text-xs mt-1">
-                    ↑ {flight.altitude.toLocaleString()}м • → {flight.speed}км/ч
-                  </div>
-                </div>
-              </Popup>
-            </Marker>
-            {selectedFlight?.id === flight.id && (
-              <Polyline
-                positions={flight.route}
-                pathOptions={{ color: '#06b6d4', weight: 2, opacity: 0.6, dashArray: '5, 10' }}
+          <div
+            key={flight.id}
+            onClick={() => handleFlightClick(flight)}
+            className={`absolute cursor-pointer transition-all duration-500 group ${
+              selectedFlight?.id === flight.id ? 'scale-150 z-50' : 'z-10'
+            }`}
+            style={{
+              left: `${flight.position.x}%`,
+              top: `${flight.position.y}%`,
+              transform: `translate(-50%, -50%) rotate(${flight.heading}deg)`,
+            }}
+          >
+            <div className="relative">
+              <Icon 
+                name="Plane" 
+                size={selectedFlight?.id === flight.id ? 32 : 24} 
+                className={`${
+                  flight.status === 'active' ? 'text-cyan-400' : 'text-orange-400'
+                } drop-shadow-lg transition-all`}
               />
-            )}
+              {selectedFlight?.id === flight.id && (
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-cyan-500/50 rounded px-2 py-1 whitespace-nowrap text-xs text-cyan-300 font-semibold">
+                  {flight.callsign}
+                </div>
+              )}
+              <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-cyan-500/50 rounded px-2 py-1 whitespace-nowrap text-xs text-white transition-opacity">
+                {flight.callsign}
+              </div>
+            </div>
           </div>
         ))}
-      </MapContainer>
-
-      <style>{`
-        .leaflet-container {
-          background: #0f172a;
-        }
-        .custom-plane-icon {
-          background: transparent;
-          border: none;
-        }
-        .leaflet-popup-content-wrapper {
-          background: white;
-          border-radius: 8px;
-        }
-        .leaflet-popup-tip {
-          background: white;
-        }
-      `}</style>
+      </div>
     </div>
   );
 }
