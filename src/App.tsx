@@ -11,6 +11,7 @@ import Hotels from "./pages/Hotels";
 import DragonGame from "./pages/DragonGame";
 import NotFound from "./pages/NotFound";
 import MaintenanceMode from "./components/MaintenanceMode";
+import AuthGate from "./components/AuthGate";
 
 const queryClient = new QueryClient();
 
@@ -20,16 +21,18 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <MaintenanceMode />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/radar" element={<Radar />} />
-          <Route path="/hotels" element={<Hotels />} />
-          <Route path="/game" element={<DragonGame />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthGate>
+          <MaintenanceMode />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/radar" element={<Radar />} />
+            <Route path="/hotels" element={<Hotels />} />
+            <Route path="/game" element={<DragonGame />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthGate>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
