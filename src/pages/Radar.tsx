@@ -1,183 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
-import { useToast } from '@/hooks/use-toast';
-import confetti from 'canvas-confetti';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 export default function Radar() {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
-  const [email, setEmail] = useState('');
-  const [isSubscribing, setIsSubscribing] = useState(false);
-  const [subscribersCount, setSubscribersCount] = useState(0);
-  const [displayCount, setDisplayCount] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const { toast } = useToast();
+  const [showSubscriptionDialog, setShowSubscriptionDialog] = useState(false);
+  const [showPaymentErrorDialog, setShowPaymentErrorDialog] = useState(false);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  const handleRadarAccess = () => {
+    setShowSubscriptionDialog(true);
+  };
 
-    const savedTargetDate = localStorage.getItem('radar_target_date');
-    let targetDate: Date;
-
-    if (savedTargetDate) {
-      targetDate = new Date(parseInt(savedTargetDate, 10));
-    } else {
-      targetDate = new Date();
-      targetDate.setTime(targetDate.getTime() + 10 * 24 * 60 * 60 * 1000);
-      localStorage.setItem('radar_target_date', targetDate.getTime().toString());
-    }
-
-    const updateTimer = () => {
-      const now = new Date().getTime();
-      const distance = targetDate.getTime() - now;
-
-      if (distance > 0) {
-        setTimeLeft({
-          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((distance % (1000 * 60)) / 1000)
-        });
-      }
-    };
-
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-
-    const savedCount = localStorage.getItem('radar_subscribers_count');
-    if (savedCount) {
-      const count = parseInt(savedCount, 10);
-      setSubscribersCount(count);
-      setDisplayCount(count);
-    } else {
-      const initialCount = 1247 + Math.floor(Math.random() * 50);
-      setSubscribersCount(initialCount);
-      setDisplayCount(initialCount);
-      localStorage.setItem('radar_subscribers_count', initialCount.toString());
-    }
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (displayCount < subscribersCount) {
-      setIsAnimating(true);
-      const duration = 800;
-      const steps = 30;
-      const increment = (subscribersCount - displayCount) / steps;
-      const stepDuration = duration / steps;
-
-      let currentStep = 0;
-      const animationInterval = setInterval(() => {
-        currentStep++;
-        if (currentStep >= steps) {
-          setDisplayCount(subscribersCount);
-          setIsAnimating(false);
-          clearInterval(animationInterval);
-        } else {
-          setDisplayCount(prev => Math.min(prev + increment, subscribersCount));
-        }
-      }, stepDuration);
-
-      return () => clearInterval(animationInterval);
-    }
-  }, [subscribersCount, displayCount]);
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!email || !email.includes('@')) {
-      toast({
-        title: "Ошибка",
-        description: "Пожалуйста, введите корректный email",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsSubscribing(true);
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const newCount = subscribersCount + 1;
-      setSubscribersCount(newCount);
-      localStorage.setItem('radar_subscribers_count', newCount.toString());
-      
-      const playSound = () => {
-        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.1);
-        oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.2);
-        
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.3);
-      };
-      
-      playSound();
-      
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#10b981']
-      });
-      
-      setTimeout(() => {
-        confetti({
-          particleCount: 50,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-          colors: ['#3b82f6', '#8b5cf6', '#ec4899']
-        });
-      }, 200);
-      
-      setTimeout(() => {
-        confetti({
-          particleCount: 50,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-          colors: ['#06b6d4', '#10b981', '#fbbf24']
-        });
-      }, 400);
-      
-      toast({
-        title: "Вы подписаны! 🎉",
-        description: "Мы уведомим вас, когда запустим новую функцию!",
-      });
-      
-      setEmail('');
-    } catch (error) {
-      toast({
-        title: "Ошибка",
-        description: "Что-то пошло не так. Попробуйте позже.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubscribing(false);
-    }
+  const handleSubscribe = () => {
+    setShowSubscriptionDialog(false);
+    setTimeout(() => {
+      setShowPaymentErrorDialog(true);
+    }, 300);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.15),transparent_70%)]" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMTYsMTgwLDI1NCwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40" />
 
@@ -189,169 +38,222 @@ export default function Radar() {
         <span>Назад на главную</span>
       </Link>
 
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-8 text-center">
-        <div className="inline-block mb-8 animate-bounce">
-          <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center shadow-2xl shadow-blue-500/50 relative">
-            <Icon name="Plane" size={80} className="text-white" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 animate-ping opacity-20"></div>
-          </div>
-        </div>
-        
-        <div className="mb-6">
-          <div className="inline-block px-6 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/40 rounded-full mb-6">
-            <span className="text-yellow-300 font-semibold text-lg flex items-center gap-2">
-              <Icon name="Lock" size={20} />
-              СКОРО
-            </span>
-          </div>
-        </div>
-
-        <h1 className="text-6xl sm:text-8xl font-black mb-8 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight">
-          Интрига<br/>скоро раскроется
-        </h1>
-
-        <p className="text-xl sm:text-3xl text-purple-200/80 font-light leading-relaxed mb-12 max-w-2xl mx-auto">
-          Мы готовим что-то особенное для вас...
-        </p>
-
-        <div className="mb-12 bg-gradient-to-r from-slate-900/60 to-slate-800/60 border-2 border-purple-500/30 rounded-3xl p-8 backdrop-blur-md shadow-2xl">
-          <div className="mb-6">
-            <Icon name="Timer" size={32} className="text-cyan-400 mx-auto mb-3" />
-            <h3 className="text-2xl font-bold text-cyan-300 mb-2">До запуска осталось:</h3>
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20">
+        <div className="text-center mb-12">
+          <div className="inline-block mb-8">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center shadow-2xl shadow-blue-500/50 relative">
+              <Icon name="Radar" size={80} className="text-white animate-pulse" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 animate-ping opacity-20"></div>
+            </div>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-2xl p-6">
-              <div className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2 tabular-nums">
-                {timeLeft.days}
-              </div>
-              <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Дней</div>
-            </div>
+          <h1 className="text-5xl sm:text-7xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight">
+            Радар Странника
+          </h1>
 
-            <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-2xl p-6">
-              <div className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2 tabular-nums">
-                {timeLeft.hours}
-              </div>
-              <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Часов</div>
-            </div>
+          <p className="text-xl sm:text-2xl text-purple-200/80 font-light leading-relaxed mb-8 max-w-3xl mx-auto">
+            Отслеживайте цены на авиабилеты в реальном времени и получайте уведомления о лучших предложениях
+          </p>
 
-            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-6">
-              <div className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2 tabular-nums">
-                {timeLeft.minutes}
-              </div>
-              <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Минут</div>
-            </div>
-
-            <div className="bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/30 rounded-2xl p-6">
-              <div className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2 tabular-nums">
-                {timeLeft.seconds}
-              </div>
-              <div className="text-purple-300/80 text-sm font-semibold uppercase tracking-wider">Секунд</div>
-            </div>
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/40 rounded-full">
+            <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
+            <span className="text-green-300 font-semibold">Функция работает</span>
           </div>
         </div>
 
-        <div className="mb-12 max-w-2xl mx-auto">
-          <div className="bg-gradient-to-r from-slate-900/80 to-slate-800/80 border-2 border-cyan-500/30 rounded-3xl p-8 backdrop-blur-md shadow-2xl">
-            <div className="text-center mb-6">
-              <div className="inline-block p-4 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-2xl mb-4">
-                <Icon name="Bell" size={32} className="text-cyan-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Узнайте первыми о запуске!</h3>
-              <p className="text-purple-200/70">Введите email и мы пришлём уведомление</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2 border-blue-500/30 rounded-3xl p-8 backdrop-blur-sm hover:border-blue-400/50 transition-all">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-blue-500/20 flex items-center justify-center">
+              <Icon name="Bell" size={32} className="text-blue-400" />
             </div>
-
-            <form onSubmit={handleSubscribe} className="space-y-4">
-              <div className="relative">
-                <Input
-                  type="email"
-                  placeholder="ваш@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="h-14 pl-14 pr-4 text-lg bg-slate-900/60 border-2 border-purple-500/30 text-white placeholder:text-purple-300/50 focus:border-cyan-400/60 rounded-2xl"
-                  disabled={isSubscribing}
-                />
-                <Icon 
-                  name="Mail" 
-                  size={24} 
-                  className="absolute left-5 top-1/2 -translate-y-1/2 text-purple-400"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isSubscribing}
-                className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 rounded-2xl shadow-lg shadow-cyan-500/25"
-              >
-                {isSubscribing ? (
-                  <>
-                    <Icon name="Loader2" size={20} className="mr-2 animate-spin" />
-                    Подписываем...
-                  </>
-                ) : (
-                  <>
-                    <Icon name="BellRing" size={20} className="mr-2" />
-                    Уведомить меня о запуске
-                  </>
-                )}
-              </Button>
-            </form>
-
-            <div className="mt-6 pt-6 border-t border-purple-500/20">
-              <div className="flex items-center justify-center gap-6 flex-wrap">
-                <div className="flex items-center gap-2 text-purple-300/60 text-sm">
-                  <Icon name="Lock" size={14} />
-                  <span>Никакого спама</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className={`flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-full transition-all duration-300 ${isAnimating ? 'scale-110 shadow-lg shadow-green-500/30' : 'scale-100'}`}>
-                    <Icon name="Users" size={16} className="text-green-400" />
-                    <span className={`text-green-300 font-bold tabular-nums transition-all duration-300 ${isAnimating ? 'text-green-200' : ''}`}>
-                      {Math.floor(displayCount).toLocaleString()}
-                    </span>
-                    <span className="text-green-300/70 text-sm">подписчиков</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6 backdrop-blur-sm">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-blue-500/20 flex items-center justify-center">
-              <Icon name="Radar" size={32} className="text-blue-400" />
-            </div>
-            <div className="text-blue-300 font-bold text-lg mb-2">Отслеживание</div>
-            <div className="text-purple-300/70 text-sm">В реальном времени</div>
+            <h3 className="text-blue-300 font-bold text-xl mb-3 text-center">Умные уведомления</h3>
+            <p className="text-purple-300/70 text-center">Получайте мгновенные уведомления при снижении цен на интересующие вас направления</p>
           </div>
 
-          <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-2xl p-6 backdrop-blur-sm">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-cyan-500/20 flex items-center justify-center">
-              <Icon name="Globe" size={32} className="text-cyan-400" />
+          <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border-2 border-cyan-500/30 rounded-3xl p-8 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-cyan-500/20 flex items-center justify-center">
+              <Icon name="TrendingDown" size={32} className="text-cyan-400" />
             </div>
-            <div className="text-cyan-300 font-bold text-lg mb-2">Интерактивно</div>
-            <div className="text-purple-300/70 text-sm">Погружение в детали</div>
+            <h3 className="text-cyan-300 font-bold text-xl mb-3 text-center">Анализ трендов</h3>
+            <p className="text-purple-300/70 text-center">Отслеживайте изменения цен и выбирайте оптимальное время для покупки билетов</p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl p-6 backdrop-blur-sm">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-purple-500/20 flex items-center justify-center">
+          <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 rounded-3xl p-8 backdrop-blur-sm hover:border-purple-400/50 transition-all">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-purple-500/20 flex items-center justify-center">
               <Icon name="Sparkles" size={32} className="text-purple-400" />
             </div>
-            <div className="text-purple-300 font-bold text-lg mb-2">Уникально</div>
-            <div className="text-purple-300/70 text-sm">Нечто особенное</div>
+            <h3 className="text-purple-300 font-bold text-xl mb-3 text-center">Персональные рекомендации</h3>
+            <p className="text-purple-300/70 text-center">ИИ анализирует ваши предпочтения и предлагает лучшие варианты перелётов</p>
           </div>
         </div>
 
-        <div className="mt-12 flex items-center justify-center gap-2 text-purple-300/60">
-          <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
-          <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse delay-75"></div>
-          <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse delay-150"></div>
+        <div className="bg-gradient-to-r from-slate-900/80 to-slate-800/80 border-2 border-cyan-500/30 rounded-3xl p-10 backdrop-blur-md shadow-2xl mb-12 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/10 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full blur-3xl"></div>
+          
+          <div className="relative z-10">
+            <div className="text-center mb-8">
+              <div className="inline-block p-4 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-2xl mb-4">
+                <Icon name="Lock" size={40} className="text-yellow-400" />
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Доступно по подписке</h2>
+              <p className="text-purple-200/80 text-lg max-w-2xl mx-auto">
+                Радар Странника — это премиум-функция. Оформите подписку, чтобы получить доступ ко всем возможностям
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Безлимитное отслеживание направлений</span>
+              </div>
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Push-уведомления 24/7</span>
+              </div>
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Исторические данные цен</span>
+              </div>
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Приоритетная поддержка</span>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/40 rounded-2xl p-6 mb-6">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <div className="text-cyan-300/70 text-sm mb-1">Премиум подписка</div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-5xl font-black text-white">990₽</span>
+                    <span className="text-cyan-300/70">/месяц</span>
+                  </div>
+                </div>
+                <Button
+                  onClick={handleRadarAccess}
+                  size="lg"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 rounded-2xl shadow-lg shadow-cyan-500/25 text-lg font-semibold px-8 h-14"
+                >
+                  <Icon name="CreditCard" size={20} className="mr-2" />
+                  Оформить подписку
+                </Button>
+              </div>
+            </div>
+
+            <p className="text-center text-purple-300/60 text-sm">
+              Отменить подписку можно в любой момент • Безопасная оплата
+            </p>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 text-purple-300/60">
+            <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
+            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse delay-75"></div>
+            <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse delay-150"></div>
+          </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-md border-t-2 border-cyan-500/30 py-8">
+      <Dialog open={showSubscriptionDialog} onOpenChange={setShowSubscriptionDialog}>
+        <DialogContent className="bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-cyan-500/30 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center mb-2 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              Подтверждение подписки
+            </DialogTitle>
+            <DialogDescription className="text-purple-200/80 text-center">
+              Вы оформляете премиум-подписку на Радар Странника
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 my-6">
+            <div className="bg-slate-800/60 border border-cyan-500/20 rounded-xl p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-purple-200">Премиум подписка</span>
+                <span className="text-white font-bold">990₽</span>
+              </div>
+              <div className="text-purple-300/60 text-sm">Ежемесячное списание</div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm text-purple-200/70">
+                <Icon name="Check" size={16} className="text-cyan-400" />
+                <span>Безлимитное отслеживание</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-purple-200/70">
+                <Icon name="Check" size={16} className="text-cyan-400" />
+                <span>Уведомления в реальном времени</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-purple-200/70">
+                <Icon name="Check" size={16} className="text-cyan-400" />
+                <span>Аналитика и рекомендации</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <Button
+              onClick={() => setShowSubscriptionDialog(false)}
+              variant="outline"
+              className="flex-1 border-purple-500/30 text-purple-200 hover:bg-purple-500/10"
+            >
+              Отмена
+            </Button>
+            <Button
+              onClick={handleSubscribe}
+              className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0"
+            >
+              <Icon name="CreditCard" size={18} className="mr-2" />
+              Оплатить
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showPaymentErrorDialog} onOpenChange={setShowPaymentErrorDialog}>
+        <DialogContent className="bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-orange-500/30 text-white max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-orange-500/20 flex items-center justify-center">
+              <Icon name="AlertCircle" size={32} className="text-orange-400" />
+            </div>
+            <DialogTitle className="text-2xl font-bold text-center mb-2 text-white">
+              Оплата временно недоступна
+            </DialogTitle>
+            <DialogDescription className="text-purple-200/80 text-center">
+              К сожалению, в данный момент мы не можем обработать платёж. Пожалуйста, попробуйте позже.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="my-6">
+            <div className="bg-orange-500/10 border border-orange-500/30 rounded-xl p-4">
+              <div className="flex items-start gap-3">
+                <Icon name="Info" size={20} className="text-orange-400 flex-shrink-0 mt-0.5" />
+                <div className="text-sm text-purple-200/80">
+                  Мы работаем над восстановлением сервиса оплаты. Обычно это занимает несколько часов.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Button
+            onClick={() => setShowPaymentErrorDialog(false)}
+            className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0"
+          >
+            Понятно
+          </Button>
+        </DialogContent>
+      </Dialog>
+
+      <footer className="relative bg-black/40 backdrop-blur-md border-t-2 border-cyan-500/30 py-8 mt-12">
         <div className="container mx-auto px-6 text-center">
           <p className="text-cyan-300/60 text-sm mb-4">
             Откройте мир через интерактивные путешествия • 2024
