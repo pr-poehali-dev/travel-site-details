@@ -273,7 +273,7 @@ export default function News() {
                   <h3 className="text-xl font-bold text-white">Доступно по подписке</h3>
                 </div>
                 <p className="text-purple-200/80 text-center mb-4">
-                  Новости + Радар Странника — всего 350₽/месяц
+                  Новости + Радар Странника — всего ⚡ 100 энергии/месяц
                 </p>
                 <div className="flex justify-center">
                   <Button 
@@ -540,7 +540,7 @@ export default function News() {
             <div className="bg-slate-800/60 border border-cyan-500/20 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-purple-200">Премиум подписка</span>
-                <span className="text-white font-bold">350₽</span>
+                <span className="text-yellow-400 font-bold flex items-center gap-1">⚡ 100 энергии</span>
               </div>
               <div className="text-purple-300/60 text-sm">Ежемесячное списание</div>
             </div>
@@ -593,8 +593,8 @@ export default function News() {
                 </>
               ) : (
                 <>
-                  <Icon name="CreditCard" size={18} className="mr-2" />
-                  Оплатить 350₽
+                  <Icon name="Zap" size={18} className="mr-2" />
+                  Подписаться
                 </>
               )}
             </Button>

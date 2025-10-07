@@ -1159,7 +1159,7 @@ export default function Index() {
                 <Icon name="Sparkles" size={24} className="text-white" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg">Премиум подписка — 350₽/месяц</h3>
+                <h3 className="text-white font-bold text-lg">Премиум подписка — ⚡ 100 энергии/месяц</h3>
                 <p className="text-cyan-300/80 text-sm">Новости РБК + Радар самолётов в реальном времени</p>
               </div>
             </div>

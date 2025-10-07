@@ -242,10 +242,10 @@ export default function Hotels() {
                             <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-white/10">
                               <div>
                                 <div className="text-xs sm:text-sm text-slate-400">от</div>
-                                <div className="text-xl sm:text-2xl font-bold text-blue-400">
-                                  {hotel.price.toLocaleString()} ₽
+                                <div className="text-xl sm:text-2xl font-bold text-yellow-400 flex items-center gap-1">
+                                  ⚡ {Math.ceil(hotel.price / 10)}
                                 </div>
-                                <div className="text-[10px] sm:text-xs text-slate-400">за ночь</div>
+                                <div className="text-[10px] sm:text-xs text-slate-400">энергии/ночь</div>
                               </div>
                               <Button 
                                 onClick={() => window.open(hotel.bookingUrl, '_blank')}
