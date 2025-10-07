@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -11,6 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+
+const FlightRadar = lazy(() => import('@/components/FlightRadar'));
 
 export default function Radar() {
   const [showSubscriptionDialog, setShowSubscriptionDialog] = useState(false);
@@ -94,6 +96,30 @@ export default function Radar() {
     }
   };
 
+  if (isSubscribed) {
+    return (
+      <div className="relative w-full h-screen">
+        <Link 
+          to="/" 
+          className="absolute top-4 right-4 z-[1001] inline-flex items-center gap-2 px-4 py-2 bg-slate-900/95 border-2 border-cyan-500/30 text-cyan-200 rounded-xl hover:border-cyan-400/60 hover:bg-slate-900 transition-all duration-300 backdrop-blur-md shadow-lg"
+        >
+          <Icon name="Home" size={18} />
+          <span>На главную</span>
+        </Link>
+        <Suspense fallback={
+          <div className="w-full h-screen bg-slate-950 flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-cyan-400 text-lg">Загрузка радара...</p>
+            </div>
+          </div>
+        }>
+          <FlightRadar />
+        </Suspense>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.15),transparent_70%)]" />
@@ -139,31 +165,24 @@ export default function Radar() {
             Отслеживайте все самолёты в небе в реальном времени. Смотрите маршруты, высоту, скорость и информацию о каждом рейсе
           </p>
 
-          {isSubscribed ? (
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/40 rounded-full">
-              <Icon name="CheckCircle" size={20} className="text-green-400" />
-              <span className="text-green-300 font-semibold">У вас есть подписка</span>
-            </div>
-          ) : (
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/40 rounded-full">
-              <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
-              <span className="text-green-300 font-semibold">Функция работает</span>
-            </div>
-          )}
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/40 rounded-full">
+            <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
+            <span className="text-green-300 font-semibold">Функция работает</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2 border-blue-500/30 rounded-3xl p-8 backdrop-blur-sm hover:border-blue-400/50 transition-all">
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-blue-500/20 flex items-center justify-center">
-              <Icon name="Bell" size={32} className="text-blue-400" />
+              <Icon name="MapPin" size={32} className="text-blue-400" />
             </div>
             <h3 className="text-blue-300 font-bold text-xl mb-3 text-center">Отслеживание в реальном времени</h3>
-            <p className="text-purple-300/70 text-center">Следите за любым рейсом в небе: актуальная позиция обновляется каждую секунду</p>
+            <p className="text-purple-300/70 text-center">Следите за любым рейсом в небе: актуальная позиция обновляется каждые 2 секунды</p>
           </div>
 
           <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border-2 border-cyan-500/30 rounded-3xl p-8 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-cyan-500/20 flex items-center justify-center">
-              <Icon name="TrendingDown" size={32} className="text-cyan-400" />
+              <Icon name="Info" size={32} className="text-cyan-400" />
             </div>
             <h3 className="text-cyan-300 font-bold text-xl mb-3 text-center">Детальная информация</h3>
             <p className="text-purple-300/70 text-center">Высота, скорость, курс, модель самолёта, аэропорты вылета и прилёта — всё в одном месте</p>
@@ -171,82 +190,80 @@ export default function Radar() {
 
           <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 rounded-3xl p-8 backdrop-blur-sm hover:border-purple-400/50 transition-all">
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-purple-500/20 flex items-center justify-center">
-              <Icon name="Sparkles" size={32} className="text-purple-400" />
+              <Icon name="Globe" size={32} className="text-purple-400" />
             </div>
             <h3 className="text-purple-300 font-bold text-xl mb-3 text-center">Интерактивная карта</h3>
-            <p className="text-purple-300/70 text-center">3D-карта мира с возможностью приближения и просмотра любого участка неба</p>
+            <p className="text-purple-300/70 text-center">Тёмная карта мира с возможностью приближения и просмотра любого участка неба</p>
           </div>
         </div>
 
-        {!isSubscribed && (
-          <div className="bg-gradient-to-r from-slate-900/80 to-slate-800/80 border-2 border-cyan-500/30 rounded-3xl p-10 backdrop-blur-md shadow-2xl mb-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/10 to-transparent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full blur-3xl"></div>
-            
-            <div className="relative z-10">
-              <div className="text-center mb-8">
-                <div className="inline-block p-4 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-2xl mb-4">
-                  <Icon name="Lock" size={40} className="text-yellow-400" />
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Доступно по подписке</h2>
-                <p className="text-purple-200/80 text-lg max-w-2xl mx-auto">
-                  Радар Странника — это премиум-функция. Оформите подписку, чтобы получить доступ ко всем возможностям
-                </p>
+        <div className="bg-gradient-to-r from-slate-900/80 to-slate-800/80 border-2 border-cyan-500/30 rounded-3xl p-10 backdrop-blur-md shadow-2xl mb-12 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/10 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full blur-3xl"></div>
+          
+          <div className="relative z-10">
+            <div className="text-center mb-8">
+              <div className="inline-block p-4 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-2xl mb-4">
+                <Icon name="Lock" size={40} className="text-yellow-400" />
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
-                  <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-                    <Icon name="Check" size={20} className="text-cyan-400" />
-                  </div>
-                  <span className="text-purple-200">Безлимитное отслеживание рейсов</span>
-                </div>
-                <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
-                  <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-                    <Icon name="Check" size={20} className="text-cyan-400" />
-                  </div>
-                  <span className="text-purple-200">История полётов самолётов</span>
-                </div>
-                <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
-                  <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-                    <Icon name="Check" size={20} className="text-cyan-400" />
-                  </div>
-                  <span className="text-purple-200">3D-визуализация маршрутов</span>
-                </div>
-                <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
-                  <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-                    <Icon name="Check" size={20} className="text-cyan-400" />
-                  </div>
-                  <span className="text-purple-200">Приоритетная поддержка</span>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/40 rounded-2xl p-6 mb-6">
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <div>
-                    <div className="text-cyan-300/70 text-sm mb-1">Премиум подписка</div>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-5xl font-black text-white">990₽</span>
-                      <span className="text-cyan-300/70">/месяц</span>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={handleRadarAccess}
-                    size="lg"
-                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 rounded-2xl shadow-lg shadow-cyan-500/25 text-lg font-semibold px-8 h-14"
-                  >
-                    <Icon name="CreditCard" size={20} className="mr-2" />
-                    Оформить подписку
-                  </Button>
-                </div>
-              </div>
-
-              <p className="text-center text-purple-300/60 text-sm">
-                Отменить подписку можно в любой момент • Безопасная оплата
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Доступно по подписке</h2>
+              <p className="text-purple-200/80 text-lg max-w-2xl mx-auto">
+                Радар Странника — это премиум-функция. Оформите подписку, чтобы получить доступ ко всем возможностям
               </p>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Отслеживание 50+ рейсов онлайн</span>
+              </div>
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Интерактивная карта мира</span>
+              </div>
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Маршруты полётов</span>
+              </div>
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-cyan-500/20 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Check" size={20} className="text-cyan-400" />
+                </div>
+                <span className="text-purple-200">Поиск по рейсам</span>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/40 rounded-2xl p-6 mb-6">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <div className="text-cyan-300/70 text-sm mb-1">Премиум подписка</div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-5xl font-black text-white">990₽</span>
+                    <span className="text-cyan-300/70">/месяц</span>
+                  </div>
+                </div>
+                <Button
+                  onClick={handleRadarAccess}
+                  size="lg"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 rounded-2xl shadow-lg shadow-cyan-500/25 text-lg font-semibold px-8 h-14"
+                >
+                  <Icon name="CreditCard" size={20} className="mr-2" />
+                  Оформить подписку
+                </Button>
+              </div>
+            </div>
+
+            <p className="text-center text-purple-300/60 text-sm">
+              Отменить подписку можно в любой момент • Безопасная оплата
+            </p>
           </div>
-        )}
+        </div>
 
         <div className="text-center">
           <div className="inline-flex items-center gap-2 text-purple-300/60">
