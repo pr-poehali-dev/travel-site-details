@@ -100,7 +100,7 @@ export default function Radar() {
         },
         body: JSON.stringify({
           email,
-          amount: 990,
+          amount: 350,
           return_url: window.location.origin
         })
       });
@@ -298,7 +298,7 @@ export default function Radar() {
                 <div>
                   <div className="text-cyan-300/70 text-sm mb-1">Премиум подписка</div>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-black text-white">990₽</span>
+                    <span className="text-5xl font-black text-white">350₽</span>
                     <span className="text-cyan-300/70">/месяц</span>
                   </div>
                 </div>
@@ -343,7 +343,7 @@ export default function Radar() {
             <div className="bg-slate-800/60 border border-cyan-500/20 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-purple-200">Премиум подписка</span>
-                <span className="text-white font-bold">990₽</span>
+                <span className="text-white font-bold">350₽</span>
               </div>
               <div className="text-purple-300/60 text-sm">Ежемесячное списание</div>
             </div>
@@ -397,7 +397,7 @@ export default function Radar() {
               ) : (
                 <>
                   <Icon name="CreditCard" size={18} className="mr-2" />
-                  Оплатить 990₽
+                  Оплатить 350₽
                 </>
               )}
             </Button>
