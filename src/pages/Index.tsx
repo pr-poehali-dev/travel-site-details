@@ -920,7 +920,7 @@ export default function Index() {
     >
       <EnergySystem />
 
-      {/* Swipe Indicator */
+      {/* Swipe Indicator */}
       {showSwipeHint && (
         <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 lg:hidden pointer-events-none animate-bounce">
           <div className="bg-black/80 backdrop-blur-md border-2 border-max-pink/50 rounded-full px-6 py-3 flex items-center gap-3 shadow-lg shadow-max-pink/30">
