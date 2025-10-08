@@ -45,18 +45,20 @@ export default function About() {
   ]
 
   return (
-    <div className="bg-background">
+    <div className="bg-gradient-to-br from-slate-950 via-max-violet to-slate-900">
       {/* Hero Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-parchment/30 to-background">
+      <section className="py-16 px-4 bg-gradient-to-b from-max-purple/30 to-transparent">
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center mb-6">
-            <Icon name="Compass" size={48} className="text-vintage-gold mr-4" />
-            <h1 className="text-5xl font-bold">О проекте Странник</h1>
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-max-pink to-max-purple flex items-center justify-center mr-4 shadow-lg shadow-max-pink/50">
+              <Icon name="Plane" size={36} className="text-white" />
+            </div>
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">О проекте Странник</h1>
           </div>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Мы создали этот сайт, чтобы превратить планирование путешествий в увлекательное приключение. 
-            Наша миссия — дать каждому путешественнику доступ к подробной, проверенной информации о любой 
-            точке планеты и помочь создать незабываемые маршруты.
+          <p className="text-xl text-max-pink/80 max-w-3xl mx-auto leading-relaxed">
+            Мы создали современную платформу для путешественников, которая превращает планирование поездок 
+            в увлекательный и простой процесс. Наша миссия — дать каждому путешественнику доступ к проверенной 
+            информации о любой точке планеты и помочь создать незабываемые маршруты.
           </p>
         </div>
       </section>
@@ -66,43 +68,43 @@ export default function About() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">Зачем мы это делаем?</h2>
-              <div className="space-y-4 text-lg">
+              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">Зачем мы это делаем?</h2>
+              <div className="space-y-4 text-lg text-white">
                 <p>
-                  <span className="text-primary font-semibold">Каждое путешествие</span> начинается с мечты и вопросов: 
+                  <span className="text-max-pink font-semibold">Каждое путешествие</span> начинается с мечты и вопросов: 
                   "Куда поехать?", "Что там посмотреть?", "Когда лучше ехать?"
                 </p>
                 <p>
-                  Мы собрали информацию о <span className="text-vintage-gold font-semibold">всех странах мира</span> 
+                  Мы собрали информацию о <span className="text-max-purple font-semibold">всех странах мира</span> 
                   в одном месте, чтобы вы могли:
                 </p>
                 <ul className="space-y-2 ml-6">
                   <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle" size={20} className="text-green-500 mt-1 flex-shrink-0" />
+                    <Icon name="CheckCircle" size={20} className="text-max-pink mt-1 flex-shrink-0" />
                     <span>Быстро найти идеальное направление для своих интересов</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle" size={20} className="text-green-500 mt-1 flex-shrink-0" />
+                    <Icon name="CheckCircle" size={20} className="text-max-pink mt-1 flex-shrink-0" />
                     <span>Узнать все необходимое о стране до поездки</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle" size={20} className="text-green-500 mt-1 flex-shrink-0" />
+                    <Icon name="CheckCircle" size={20} className="text-max-pink mt-1 flex-shrink-0" />
                     <span>Спланировать маршрут с учетом всех деталей</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle" size={20} className="text-green-500 mt-1 flex-shrink-0" />
+                    <Icon name="CheckCircle" size={20} className="text-max-pink mt-1 flex-shrink-0" />
                     <span>Путешествовать осознанно и безопасно</span>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="relative">
-              <div className="bg-gradient-to-br from-vintage-gold/20 to-adventure-teal/20 rounded-2xl p-8 border-2 border-vintage-gold/30">
+              <div className="bg-gradient-to-br from-max-pink/20 to-max-purple/20 rounded-2xl p-8 border-2 border-max-pink/30 backdrop-blur-sm shadow-lg shadow-max-pink/20">
                 <div className="grid grid-cols-2 gap-6">
                   {stats.map((stat, index) => (
                     <div key={index} className="text-center">
-                      <div className="text-3xl font-bold text-primary mb-2">{stat.number}</div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
+                      <div className="text-3xl font-bold text-max-pink mb-2">{stat.number}</div>
+                      <div className="text-sm text-max-purple/70">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -113,26 +115,26 @@ export default function About() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-background to-parchment/20">
+      <section className="py-16 px-4 bg-gradient-to-b from-transparent to-max-purple/20">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Что делает наш сайт особенным</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">Что делает наш сайт особенным</h2>
+            <p className="text-xl text-max-pink/80 max-w-2xl mx-auto">
               Мы создали комплексный инструмент для современных путешественников
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="border-2 border-vintage-gold/20 hover:border-vintage-gold/40 transition-colors">
+              <Card key={index} className="bg-white/5 backdrop-blur-sm border-2 border-max-pink/20 hover:border-max-pink/40 transition-all hover:shadow-lg hover:shadow-max-pink/20">
                 <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-vintage-gold/20 flex items-center justify-center mb-4">
-                    <Icon name={feature.icon as any} size={24} className="text-vintage-gold" />
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-max-pink/20 to-max-purple/20 flex items-center justify-center mb-4 border border-max-pink/30">
+                    <Icon name={feature.icon as any} size={24} className="text-max-pink" />
                   </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  <CardTitle className="text-xl text-white">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <p className="text-max-pink/70">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -144,42 +146,48 @@ export default function About() {
       <section className="py-16 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Наши принципы</h2>
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">Наши принципы</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center">
+            <Card className="bg-white/5 backdrop-blur-sm border-2 border-max-pink/20 text-center hover:border-max-pink/40 transition-all">
               <CardHeader>
-                <Icon name="Target" size={32} className="text-adventure-teal mx-auto mb-4" />
-                <CardTitle>Точность информации</CardTitle>
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-max-pink to-max-purple flex items-center justify-center mx-auto mb-4 shadow-lg shadow-max-pink/50">
+                  <Icon name="Target" size={32} className="text-white" />
+                </div>
+                <CardTitle className="text-white">Точность информации</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
+                <p className="text-max-pink/70">
                   Вся информация проверяется и обновляется. Мы используем официальные источники 
                   и данные от путешественников.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center">
+            <Card className="bg-white/5 backdrop-blur-sm border-2 border-max-purple/20 text-center hover:border-max-purple/40 transition-all">
               <CardHeader>
-                <Icon name="Heart" size={32} className="text-vintage-gold mx-auto mb-4" />
-                <CardTitle>Любовь к путешествиям</CardTitle>
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-max-purple to-max-violet flex items-center justify-center mx-auto mb-4 shadow-lg shadow-max-purple/50">
+                  <Icon name="Heart" size={32} className="text-white" />
+                </div>
+                <CardTitle className="text-white">Любовь к путешествиям</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
+                <p className="text-max-purple/70">
                   Мы сами страстные путешественники и понимаем, что нужно для идеальной поездки.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center">
+            <Card className="bg-white/5 backdrop-blur-sm border-2 border-max-violet/20 text-center hover:border-max-violet/40 transition-all">
               <CardHeader>
-                <Icon name="Users" size={32} className="text-map-brown mx-auto mb-4" />
-                <CardTitle>Сообщество</CardTitle>
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-max-violet to-max-pink flex items-center justify-center mx-auto mb-4 shadow-lg shadow-max-violet/50">
+                  <Icon name="Users" size={32} className="text-white" />
+                </div>
+                <CardTitle className="text-white">Сообщество</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
+                <p className="text-max-violet/70">
                   Мы строим сообщество путешественников, где каждый может поделиться опытом и советами.
                 </p>
               </CardContent>
@@ -189,18 +197,19 @@ export default function About() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-gradient-to-r from-adventure-teal to-map-brown text-white">
-        <div className="container mx-auto text-center">
+      <section className="py-16 px-4 bg-gradient-to-r from-max-pink via-max-purple to-max-violet text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="container mx-auto text-center relative z-10">
           <h2 className="text-4xl font-bold mb-4">Начните своё путешествие</h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
             Откройте для себя мир с помощью нашей интерактивной карты и детальных гидов по странам
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-vintage-gold hover:bg-vintage-gold/90 text-charcoal">
+            <Button size="lg" className="bg-white hover:bg-white/90 text-max-purple shadow-lg shadow-white/20">
               <Icon name="Map" size={20} className="mr-2" />
               Исследовать карту
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-charcoal">
+            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-max-purple">
               <Icon name="Bookmark" size={20} className="mr-2" />
               Сохранить в избранное
             </Button>
@@ -211,19 +220,19 @@ export default function About() {
       {/* Team Section */}
       <section className="py-16 px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">Создано с любовью к путешествиям</h2>
+          <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">Создано с любовью к путешествиям</h2>
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-max-pink/80 mb-8">
               Наша команда состоит из опытных путешественников, географов и разработчиков, 
               которые объединили свои знания, чтобы создать лучший ресурс для планирования путешествий.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Badge variant="outline" className="text-sm">География</Badge>
-              <Badge variant="outline" className="text-sm">Культурология</Badge>
-              <Badge variant="outline" className="text-sm">IT-разработка</Badge>
-              <Badge variant="outline" className="text-sm">Дизайн</Badge>
-              <Badge variant="outline" className="text-sm">Туризм</Badge>
-              <Badge variant="outline" className="text-sm">Переводы</Badge>
+              <Badge variant="outline" className="text-sm border-max-pink/30 text-max-pink hover:bg-max-pink/10">География</Badge>
+              <Badge variant="outline" className="text-sm border-max-purple/30 text-max-purple hover:bg-max-purple/10">Культурология</Badge>
+              <Badge variant="outline" className="text-sm border-max-violet/30 text-max-violet hover:bg-max-violet/10">IT-разработка</Badge>
+              <Badge variant="outline" className="text-sm border-max-pink/30 text-max-pink hover:bg-max-pink/10">Дизайн</Badge>
+              <Badge variant="outline" className="text-sm border-max-purple/30 text-max-purple hover:bg-max-purple/10">Туризм</Badge>
+              <Badge variant="outline" className="text-sm border-max-violet/30 text-max-violet hover:bg-max-violet/10">Переводы</Badge>
             </div>
           </div>
         </div>

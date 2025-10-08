@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { hotels } from '@/data/hotels';
 import { allCountries } from '@/data/countries';
+import EnergySystem from '@/components/EnergySystem';
 
 export default function Hotels() {
   const [selectedCountry, setSelectedCountry] = useState<string>('all');
@@ -33,27 +34,28 @@ export default function Hotels() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-max-violet to-slate-900 text-white">
+      <EnergySystem />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.15),transparent_70%)]" />
       
       <div className="relative z-10">
         <section className="py-16 px-6">
           <div className="container mx-auto">
             <Link 
               to="/" 
-              className="inline-flex items-center gap-2 mb-8 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all"
+              className="inline-flex items-center gap-2 mb-8 px-4 py-2 bg-white/10 backdrop-blur-sm border border-max-pink/20 rounded-xl hover:bg-white/20 transition-all"
             >
               <Icon name="ArrowLeft" size={20} />
               <span>На главную</span>
             </Link>
 
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 px-4 sm:px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
-                <Icon name="Hotel" size={20} className="text-blue-400 sm:w-6 sm:h-6" />
+              <div className="inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 px-4 sm:px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-max-pink/20">
+                <Icon name="Hotel" size={20} className="text-max-pink sm:w-6 sm:h-6" />
                 <span className="text-xs sm:text-sm font-medium">Лучшие отели мира</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4 sm:mb-6 px-4">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold bg-gradient-to-r from-max-pink via-max-purple to-max-violet bg-clip-text text-transparent mb-4 sm:mb-6 px-4">
                 Отели Премиум-класса
               </h1>
               
@@ -63,20 +65,20 @@ export default function Hotels() {
               </p>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mb-6 sm:mb-8 px-4">
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
-                  <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">{stats.total}</div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-max-pink/10 shadow-lg shadow-max-pink/10">
+                  <div className="text-2xl sm:text-3xl font-bold text-max-pink mb-1 sm:mb-2">{stats.total}</div>
                   <div className="text-slate-300 text-xs sm:text-sm">Отелей</div>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
-                  <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2">{stats.countries}</div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-max-purple/10 shadow-lg shadow-max-purple/10">
+                  <div className="text-2xl sm:text-3xl font-bold text-max-purple mb-1 sm:mb-2">{stats.countries}</div>
                   <div className="text-slate-300 text-xs sm:text-sm">Стран</div>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-yellow-400/10 shadow-lg shadow-yellow-400/10">
                   <div className="text-2xl sm:text-3xl font-bold text-yellow-400 mb-1 sm:mb-2">{stats.fiveStars}</div>
                   <div className="text-slate-300 text-xs sm:text-sm">5★ отелей</div>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
-                  <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1 sm:mb-2">{stats.fourStars}</div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-max-violet/10 shadow-lg shadow-max-violet/10">
+                  <div className="text-2xl sm:text-3xl font-bold text-max-violet mb-1 sm:mb-2">{stats.fourStars}</div>
                   <div className="text-slate-300 text-xs sm:text-sm">4★ отелей</div>
                 </div>
               </div>
@@ -88,14 +90,14 @@ export default function Hotels() {
                     placeholder="Поиск отелей..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 sm:pl-12 pr-4 py-3 sm:py-4 text-base sm:text-lg bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-slate-400 rounded-xl sm:rounded-2xl"
+                    className="pl-10 sm:pl-12 pr-4 py-3 sm:py-4 text-base sm:text-lg bg-white/10 backdrop-blur-sm border-max-pink/20 text-white placeholder:text-slate-400 rounded-xl sm:rounded-2xl focus:border-max-pink/50"
                   />
                 </div>
               </div>
             </div>
 
             <div className="max-w-7xl mx-auto mb-6 sm:mb-8 px-4">
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-max-pink/10">
                 <div className="mb-4 sm:mb-6">
                   <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
                     <Icon name="Star" size={18} className="text-yellow-400 sm:w-5 sm:h-5" />
@@ -106,8 +108,8 @@ export default function Hotels() {
                       onClick={() => setSelectedStars('all')}
                       variant={selectedStars === 'all' ? 'default' : 'outline'}
                       className={selectedStars === 'all' 
-                        ? 'bg-blue-500 hover:bg-blue-600 border-0' 
-                        : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                        ? 'bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink border-0 shadow-lg shadow-max-pink/50' 
+                        : 'bg-white/10 border-max-pink/20 text-white hover:bg-white/20'
                       }
                     >
                       Все отели
@@ -116,8 +118,8 @@ export default function Hotels() {
                       onClick={() => setSelectedStars(5)}
                       variant={selectedStars === 5 ? 'default' : 'outline'}
                       className={selectedStars === 5 
-                        ? 'bg-yellow-500 hover:bg-yellow-600 border-0 text-black' 
-                        : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                        ? 'bg-yellow-500 hover:bg-yellow-600 border-0 text-black shadow-lg shadow-yellow-500/50' 
+                        : 'bg-white/10 border-max-pink/20 text-white hover:bg-white/20'
                       }
                     >
                       <Icon name="Star" size={16} className="mr-1" />
@@ -127,8 +129,8 @@ export default function Hotels() {
                       onClick={() => setSelectedStars(4)}
                       variant={selectedStars === 4 ? 'default' : 'outline'}
                       className={selectedStars === 4 
-                        ? 'bg-cyan-500 hover:bg-cyan-600 border-0' 
-                        : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                        ? 'bg-gradient-to-r from-max-purple to-max-violet hover:from-max-violet hover:to-max-purple border-0 shadow-lg shadow-max-purple/50' 
+                        : 'bg-white/10 border-max-pink/20 text-white hover:bg-white/20'
                       }
                     >
                       <Icon name="Star" size={16} className="mr-1" />
@@ -139,7 +141,7 @@ export default function Hotels() {
 
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
-                    <Icon name="Globe" size={18} className="text-blue-400 sm:w-5 sm:h-5" />
+                    <Icon name="Globe" size={18} className="text-max-pink sm:w-5 sm:h-5" />
                     Выберите страну
                   </h3>
                   <div className="flex gap-2 sm:gap-3 flex-wrap">
@@ -147,8 +149,8 @@ export default function Hotels() {
                       onClick={() => setSelectedCountry('all')}
                       variant={selectedCountry === 'all' ? 'default' : 'outline'}
                       className={selectedCountry === 'all' 
-                        ? 'bg-purple-500 hover:bg-purple-600 border-0' 
-                        : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                        ? 'bg-gradient-to-r from-max-purple to-max-violet hover:from-max-violet hover:to-max-purple border-0 shadow-lg shadow-max-purple/50' 
+                        : 'bg-white/10 border-max-pink/20 text-white hover:bg-white/20'
                       }
                     >
                       Все страны
@@ -159,8 +161,8 @@ export default function Hotels() {
                         onClick={() => setSelectedCountry(country.id)}
                         variant={selectedCountry === country.id ? 'default' : 'outline'}
                         className={selectedCountry === country.id 
-                          ? 'bg-blue-500 hover:bg-blue-600 border-0' 
-                          : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                          ? 'bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink border-0 shadow-lg shadow-max-pink/50' 
+                          : 'bg-white/10 border-max-pink/20 text-white hover:bg-white/20'
                         }
                       >
                         <span className="mr-2">{country.flag}</span>
@@ -182,20 +184,20 @@ export default function Hotels() {
               ) : (
                 <>
                   <div className="mb-4 sm:mb-6 text-sm sm:text-base text-slate-300">
-                    Найдено отелей: <span className="font-bold text-white">{filteredHotels.length}</span>
+                    Найдено отелей: <span className="font-bold text-max-pink">{filteredHotels.length}</span>
                   </div>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {filteredHotels.map(hotel => {
                       const country = allCountries.find(c => c.id === hotel.countryId);
                       return (
-                        <Card key={hotel.id} className="bg-white/5 backdrop-blur-sm border-white/10 text-white hover:bg-white/10 transition-all sm:hover:scale-105">
+                        <Card key={hotel.id} className="bg-white/5 backdrop-blur-sm border-max-pink/10 text-white hover:bg-white/10 transition-all sm:hover:scale-105 hover:border-max-pink/30 hover:shadow-lg hover:shadow-max-pink/20">
                           <div className="relative h-44 sm:h-48 overflow-hidden rounded-t-lg">
                             <img 
                               src={hotel.image} 
                               alt={hotel.name}
                               className="w-full h-full object-cover"
                             />
-                            <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-yellow-500 text-black px-2 sm:px-3 py-1 rounded-full font-bold text-xs sm:text-sm flex items-center gap-1">
+                            <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-yellow-500 text-black px-2 sm:px-3 py-1 rounded-full font-bold text-xs sm:text-sm flex items-center gap-1 shadow-lg shadow-yellow-500/50">
                               <Icon name="Star" size={12} className="sm:w-3.5 sm:h-3.5" />
                               {hotel.stars}★
                             </div>
@@ -228,7 +230,7 @@ export default function Hotels() {
 
                             <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
                               {hotel.amenities.slice(0, 3).map((amenity, i) => (
-                                <Badge key={i} variant="outline" className="border-blue-500/30 text-blue-300 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5">
+                                <Badge key={i} variant="outline" className="border-max-pink/30 text-max-pink text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5">
                                   {amenity}
                                 </Badge>
                               ))}
@@ -249,7 +251,7 @@ export default function Hotels() {
                               </div>
                               <Button 
                                 onClick={() => window.open(hotel.bookingUrl, '_blank')}
-                                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0 text-xs sm:text-sm px-3 sm:px-4 py-2"
+                                className="bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink border-0 text-xs sm:text-sm px-3 sm:px-4 py-2 shadow-lg shadow-max-pink/50"
                               >
                                 <Icon name="ExternalLink" size={14} className="mr-1 sm:mr-2 w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                 <span className="hidden sm:inline">Забронировать</span>
@@ -269,12 +271,12 @@ export default function Hotels() {
 
         <section className="py-12 px-6">
           <div className="container mx-auto text-center max-w-4xl">
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-max-pink/10">
               <h3 className="text-2xl font-bold mb-4">Не нашли подходящий отель?</h3>
               <p className="text-slate-300 mb-6">
                 Свяжитесь с нами, и мы поможем подобрать идеальный вариант для вашего путешествия
               </p>
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0">
+              <Button size="lg" className="bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink border-0 shadow-lg shadow-max-pink/50">
                 <Icon name="MessageCircle" size={20} className="mr-2" />
                 Связаться с нами
               </Button>
@@ -283,26 +285,35 @@ export default function Hotels() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-black/40 backdrop-blur-md border-t-2 border-cyan-500/30 py-12">
+        <footer className="bg-black/40 backdrop-blur-md border-t-2 border-max-pink/30 py-12">
           <div className="container mx-auto px-6 text-center">
             <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 flex items-center justify-center neon-border-blue">
-                <Icon name="Compass" size={24} className="text-white" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-max-pink to-max-purple flex items-center justify-center shadow-lg shadow-max-pink/50">
+                <Icon name="Plane" size={24} className="text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent neon-text-blue">Странник</span>
+              <span className="text-2xl font-bold bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">Странник</span>
             </div>
-            <p className="text-cyan-300/60 text-lg mb-6">
+            <p className="text-max-pink/60 text-lg mb-6">
               Откройте мир через интерактивные путешествия • 2024
             </p>
             <div className="flex flex-col items-center gap-4">
               <p className="text-white/70 text-sm">Мы в соцсетях</p>
-              <Button
-                onClick={() => window.open('https://t.me/Strannik_com', '_blank')}
-                className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0 px-6 py-2 flex items-center gap-2"
-              >
-                <Icon name="Send" size={20} />
-                Смотреть
-              </Button>
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => window.open('https://t.me/Strannik_com', '_blank')}
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 px-4 py-1.5 text-sm flex items-center gap-2"
+                >
+                  <Icon name="Send" size={16} />
+                  Telegram
+                </Button>
+                <Button
+                  onClick={() => window.open('https://max.ru/join/XXufWuRT_4_-U687UWq2zVs905JbNy7FjvfipRLO9ao', '_blank')}
+                  className="bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink text-white border-0 px-4 py-1.5 text-sm flex items-center gap-2 shadow-lg shadow-max-pink/50"
+                >
+                  <Icon name="Tv" size={16} />
+                  MAX
+                </Button>
+              </div>
             </div>
           </div>
         </footer>

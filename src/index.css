@@ -52,20 +52,20 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 280 60% 8%;
+    --foreground: 280 10% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 280 50% 12%;
+    --card-foreground: 280 10% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 280 50% 12%;
+    --popover-foreground: 280 10% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 320 100% 60%;
+    --primary-foreground: 280 10% 98%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 270 80% 50%;
+    --secondary-foreground: 280 10% 98%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -101,12 +101,12 @@
 }
 
 @layer utilities {
-  .neon-text-blue {
+  .neon-text-max {
     text-shadow:
-      0 0 10px rgba(59, 130, 246, 0.8),
-      0 0 20px rgba(59, 130, 246, 0.6),
-      0 0 30px rgba(59, 130, 246, 0.4),
-      0 0 40px rgba(59, 130, 246, 0.2);
+      0 0 15px rgba(236, 72, 153, 1),
+      0 0 30px rgba(168, 85, 247, 0.8),
+      0 0 45px rgba(139, 92, 246, 0.6),
+      0 0 60px rgba(236, 72, 153, 0.4);
   }
 
   .neon-text-purple {

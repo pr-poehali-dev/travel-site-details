@@ -21,7 +21,7 @@ const airlines: Airline[] = [
     name: 'Yamal Airlines',
     url: 'https://www.yamal.aero/',
     tagline: 'Северные маршруты',
-    color: 'from-cyan-500 via-blue-500 to-purple-500',
+    color: 'from-max-pink via-max-purple to-max-violet',
     icon: 'PlaneTakeoff'
   }
 ];

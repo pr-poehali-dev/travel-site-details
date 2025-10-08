@@ -11,6 +11,8 @@ import Icon from '@/components/ui/icon'
 import ModernWorldMap from '@/components/ModernWorldMap'
 import About from '@/components/About'
 import AirlineAds from '@/components/AirlineAds'
+import MaxEventBanner from '@/components/MaxEventBanner'
+import EnergySystem from '@/components/EnergySystem'
 import { Link } from 'react-router-dom'
 
 interface Destination {
@@ -39,47 +41,47 @@ interface Destination {
 const destinations: Destination[] = [
   {
     id: '1',
-    name: 'Стена и Земли За Стеной',
-    country: 'Север Вестероса',
-    description: 'Величественная Ледяная Стена высотой 700 футов, защищающая королевства от одичалых и Белых Ходоков',
+    name: 'Бали - Остров Богов',
+    country: 'Индонезия',
+    description: 'Тропический рай с древними храмами, рисовыми террасами и живописными пляжами',
     image: '/img/6930efc9-60b7-4e40-8cef-0658723a667f.jpg',
-    category: 'Крепость',
-    highlights: ['Чёрный Замок', 'Ледяная Стена', 'Башня Призраков', 'Лес Призраков'],
-    climate: 'Суровый северный климат с долгими зимами и коротким летом',
-    bestTime: 'Лето для путешествий, но помните: Зима близко!',
-    activities: ['Дозор на Стене', 'Охота на одичалых', 'Изучение древних рун', 'Тренировки с мечом'],
-    culture: 'Суровая культура Ночного Дозора, присяга на всю жизнь',
-    history: 'Построена 8000 лет назад для защиты от Белых Ходоков',
-    cuisine: ['Солёная говядина', 'Чёрный хлеб', 'Луковый суп', 'Эль Ночного Дозора'],
-    transportation: 'Верхом на конях, пешие походы вдоль Стены',
-    accommodation: ['Чёрный Замок', 'Сторожевые башни', 'Военные бараки'],
-    budget: 'Бесплатно для братьев Ночного Дозора',
-    language: 'Общий язык Вестероса',
-    currency: 'Золотые драконы',
-    safety: 'Опасно! Белые Ходоки и одичалые!',
-    tips: ['Носите тёплую одежду', 'Не ходите за Стену в одиночку', 'Всегда держите валирийскую сталь наготове']
+    category: 'Тропический курорт',
+    highlights: ['Храм Танах Лот', 'Рисовые террасы Тегаллаланг', 'Вулкан Батур', 'Убуд'],
+    climate: 'Тропический климат с сухим и влажным сезонами',
+    bestTime: 'Апрель-октябрь (сухой сезон)',
+    activities: ['Серфинг', 'Дайвинг', 'Йога-ретриты', 'Посещение храмов'],
+    culture: 'Балийская культура с уникальными традициями и церемониями',
+    history: 'Древние индуистские традиции на мусульманском острове',
+    cuisine: ['Наси горенг', 'Сатай', 'Бабигулинг', 'Тропические фрукты'],
+    transportation: 'Скутеры, такси, трансфер',
+    accommodation: ['Виллы', 'Бунгало', 'Отели'],
+    budget: '1000-3000₽ в день',
+    language: 'Индонезийский, английский',
+    currency: 'Индонезийская рупия',
+    safety: 'Безопасно для туристов',
+    tips: ['Уважайте местные традиции', 'Торгуйтесь на рынках', 'Арендуйте скутер']
   },
   {
     id: '2',
-    name: 'Дорн - Королевство Солнца',
-    country: 'Южный Вестерос',
-    description: 'Жаркое королевство с золотыми дворцами, экзотической культурой и непокорённым духом',
+    name: 'Исландия - Земля огня и льда',
+    country: 'Исландия',
+    description: 'Удивительная страна с ледниками, вулканами, гейзерами и северным сиянием',
     image: '/img/5a0ae15a-245d-4579-a7d0-347604412c6e.jpg',
-    category: 'Королевство',
-    highlights: ['Солнечное Копьё', 'Водные Сады', 'Песчаные дюны', 'Дворец Мартеллов'],
-    climate: 'Жаркий пустынный климат круглый год',
-    bestTime: 'Весна и осень, когда жара терпима',
-    activities: ['Поединки на копьях', 'Изучение ядов', 'Танцы змей', 'Пиры во дворце'],
-    culture: 'Свободолюбивая культура с равноправием полов',
-    history: 'Единственное королевство, не покорённое драконами Таргариенов',
-    cuisine: ['Пряное мясо', 'Экзотические фрукты', 'Дорнийское вино', 'Змеиное мясо'],
-    transportation: 'Верблюды, лошади, паланкины',
-    accommodation: ['Дворцы знати', 'Песчаные замки', 'Караван-сараи'],
-    budget: '100-500 золотых драконов',
-    language: 'Общий язык с дорнийским акцентом',
-    currency: 'Золотые драконы',
-    safety: 'Берегитесь ядов и песчаных змей!',
-    tips: ['Уважайте законы Дорна', 'Пейте много воды', 'Не оскорбляйте Мартеллов']
+    category: 'Природное чудо',
+    highlights: ['Голубая лагуна', 'Водопад Гюдльфосс', 'Гейзер Строккюр', 'Ледниковая лагуна Йокульсарлон'],
+    climate: 'Субарктический климат с прохладным летом и мягкой зимой',
+    bestTime: 'Июнь-август (летний сезон), сентябрь-март (северное сияние)',
+    activities: ['Наблюдение за северным сиянием', 'Купание в горячих источниках', 'Треккинг по ледникам', 'Китовое сафари'],
+    culture: 'Скандинавские традиции с уникальным фольклором и эльфами',
+    history: 'Заселена викингами в 9 веке, старейший парламент в мире',
+    cuisine: ['Скир', 'Хотдог по-исландски', 'Ферментированная акула', 'Свежая рыба'],
+    transportation: 'Аренда автомобиля, экскурсионные автобусы',
+    accommodation: ['Отели', 'Гостевые дома', 'Кемпинги'],
+    budget: '5000-10000₽ в день',
+    language: 'Исландский, английский',
+    currency: 'Исландская крона',
+    safety: 'Очень безопасно для путешественников',
+    tips: ['Бронируйте жильё заранее', 'Берегите природу', 'Готовьтесь к переменчивой погоде']
   }
 ]
 
@@ -134,7 +136,7 @@ export default function Index() {
   const [returnDate, setReturnDate] = useState('')
   const [isRoundTrip, setIsRoundTrip] = useState(false)
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false)
+
   const [currentQuote, setCurrentQuote] = useState(0)
   const [quoteKey, setQuoteKey] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -226,33 +228,7 @@ export default function Index() {
     setCurrentQuote(Math.floor(Math.random() * travelQuotes.length))
   }, [])
   
-  const playSwordSound = () => {
-    const audio = new Audio('https://www.soundjay.com/misc/sounds/sword-unsheathe-1.mp3')
-    audio.volume = 0.3
-    audio.play().catch(() => {})
-  }
-  
-  const toggleMusic = () => {
-    const music = document.getElementById('background-music') as HTMLAudioElement
-    if (music) {
-      if (isMusicPlaying) {
-        music.pause()
-      } else {
-        music.volume = 0.2
-        music.play().catch(() => {})
-      }
-      setIsMusicPlaying(!isMusicPlaying)
-    }
-  }
-  
-  useEffect(() => {
-    const music = document.getElementById('background-music') as HTMLAudioElement
-    if (music) {
-      music.volume = 0.2
-      music.play().catch(() => {})
-      setIsMusicPlaying(true)
-    }
-  }, [])
+
   
   useEffect(() => {
     const today = new Date()
@@ -294,69 +270,66 @@ export default function Index() {
 
   if (activeSection === 'map') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black">
-        <audio id="background-music" loop>
-          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
-        </audio>
+      <div className="min-h-screen bg-gradient-to-br from-max-violet via-max-purple to-black">
         {/* Navigation */}
-        <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
+        <nav className="border-b-2 border-max-pink/30 bg-black/90 backdrop-blur-md sticky top-0 z-50">
           <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
             <div className="flex items-center justify-between">
               <button 
                 onClick={() => setActiveSection('home')} 
                 className="flex items-center space-x-2 sm:space-x-3"
               >
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-r from-got-fire to-orange-600 flex items-center justify-center border-2 border-got-gold/50">
-                  <Icon name="Crown" size={20} className="text-got-gold sm:w-6 sm:h-6" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-r from-max-pink to-max-purple flex items-center justify-center shadow-lg shadow-max-pink/50">
+                  <Icon name="Plane" size={20} className="text-white sm:w-6 sm:h-6" />
                 </div>
-                <h1 className="text-xl sm:text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
+                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">СТРАННИК</h1>
               </button>
               <div className="hidden md:flex items-center space-x-8">
                 <button 
                   onClick={() => setActiveSection('home')} 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
                 >
                   Главная
                 </button>
                 <button 
                   onClick={() => setActiveSection('map')} 
-                  className="text-got-fire transition-colors font-bold"
+                  className="text-max-pink transition-colors font-bold"
                 >
-                  Карта Вестероса
+                  Карта
                 </button>
                 <Link 
                   to="/hotels" 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-1"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold flex items-center gap-1"
                 >
-                  <Icon name="Castle" size={16} />
-                  Замки
+                  <Icon name="Hotel" size={16} />
+                  Отели
                 </Link>
                 <button 
                   onClick={() => setActiveSection('kingdoms')} 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
                 >
-                  Королевства
+                  Направления
                 </button>
                 <Link 
                   to="/news" 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
                 >
-                  Летописи
+                  Новости
                 </Link>
                 <Link 
                   to="/radar" 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-1"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold flex items-center gap-1"
                 >
-                  <Icon name="Swords" size={16} />
-                  Поле Битвы
+                  <Icon name="Plane" size={16} />
+                  Радар
                 </Link>
               </div>
               <div className="md:hidden">
                 <Link 
                   to="/hotels" 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors flex items-center gap-1 text-sm"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors flex items-center gap-1 text-sm"
                 >
-                  <Icon name="Castle" size={18} />
+                  <Icon name="Hotel" size={18} />
                 </Link>
               </div>
               <Dialog open={isRouteModalOpen} onOpenChange={setIsRouteModalOpen}>
@@ -495,14 +468,6 @@ export default function Index() {
   }
 
   if (activeSection === 'kingdoms') {
-    useEffect(() => {
-      const music = document.getElementById('background-music') as HTMLAudioElement
-      if (music && !isMusicPlaying) {
-        music.volume = 0.2
-        music.play().catch(() => {})
-        setIsMusicPlaying(true)
-      }
-    }, [])
 
     const kingdoms = [
       {
@@ -613,25 +578,22 @@ export default function Index() {
     ]
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black text-white">
-        <audio id="background-music" loop>
-          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
-        </audio>
-        <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
+      <div className="min-h-screen bg-gradient-to-br from-max-violet via-max-purple to-black text-white">
+        <nav className="border-b-2 border-max-pink/30 bg-black/90 backdrop-blur-md sticky top-0 z-50">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <button 
                 onClick={() => setActiveSection('home')} 
                 className="flex items-center space-x-3"
               >
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-got-fire to-orange-600 flex items-center justify-center border-2 border-got-gold/50">
-                  <Icon name="Crown" size={28} className="text-got-gold" />
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-max-pink to-max-purple flex items-center justify-center shadow-lg shadow-max-pink/50">
+                  <Icon name="Plane" size={28} className="text-white" />
                 </div>
-                <h1 className="text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">СТРАННИК</h1>
               </button>
               <Button 
                 onClick={() => setActiveSection('home')}
-                className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-orange-600 hover:to-got-fire border-2 border-got-gold/50 text-white font-bold"
+                className="bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink shadow-lg shadow-max-pink/50 text-white font-bold"
               >
                 Назад
               </Button>
@@ -641,112 +603,112 @@ export default function Index() {
         
         <div className="container mx-auto px-6 py-12">
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-bold text-got-gold mb-4">🌍 Семь Регионов Мира</h2>
-            <p className="text-xl text-got-gold/80">Откройте для себя уникальные направления для путешествий</p>
-            <p className="text-sm text-got-gold/60 mt-2">✈️ Туристический сайт с тематическим дизайном • Найдите своё следующее приключение</p>
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent mb-4">🌍 Семь Регионов Мира</h2>
+            <p className="text-xl text-max-pink/80">Откройте для себя уникальные направления для путешествий</p>
+            <p className="text-sm text-max-pink/60 mt-2">✈️ Туристический сайт • Найдите своё следующее приключение</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {kingdoms.map((kingdom) => (
               <Dialog key={kingdom.id}>
                 <DialogTrigger asChild>
-                  <div className="relative bg-got-black/80 border-3 border-got-gold/40 hover:border-got-fire rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 cursor-pointer group">
+                  <div className="relative bg-black/80 border-2 border-max-pink/40 hover:border-max-pink rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 cursor-pointer group shadow-lg hover:shadow-max-pink/50">
                     <div 
                       className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition-opacity"
                       style={{ backgroundImage: `url(${kingdom.image})` }}
                     />
-                    <div className="relative z-10 p-6 bg-gradient-to-t from-got-black/90 via-got-black/70 to-transparent">
+                    <div className="relative z-10 p-6 bg-gradient-to-t from-black/90 via-black/70 to-transparent">
                       <div className="text-7xl mb-4 text-center transform group-hover:scale-110 transition-transform">{kingdom.sigil}</div>
-                      <h3 className="text-2xl font-bold text-got-gold text-center mb-2">{kingdom.name}</h3>
-                      <p className="text-got-gold/70 text-center italic text-sm mb-3">"{kingdom.words}"</p>
+                      <h3 className="text-2xl font-bold text-max-pink text-center mb-2">{kingdom.name}</h3>
+                      <p className="text-max-pink/70 text-center italic text-sm mb-3">"{kingdom.words}"</p>
                       <div className="space-y-2 text-sm">
                         <div className="flex items-center justify-between">
-                          <span className="text-got-fire font-bold">📍 Город:</span>
+                          <span className="text-max-pink font-bold">📍 Город:</span>
                           <span className="text-white">{kingdom.seat}</span>
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-got-fire font-bold">🌍 Регион:</span>
+                          <span className="text-max-pink font-bold">🌍 Регион:</span>
                           <span className="text-white text-xs">{kingdom.house}</span>
                         </div>
                       </div>
                       <div className="mt-4 text-center">
-                        <span className="text-got-gold/60 text-xs">✈️ Узнать больше →</span>
+                        <span className="text-max-pink/60 text-xs">✈️ Узнать больше →</span>
                       </div>
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="bg-got-black/95 border-4 border-got-gold/50 text-white max-w-2xl max-h-[80vh] overflow-y-auto">
+                <DialogContent className="bg-black/95 border-2 border-max-pink/50 text-white max-w-2xl max-h-[80vh] overflow-y-auto">
                   <DialogHeader>
                     <div className="text-7xl mb-4 text-center">{kingdom.sigil}</div>
-                    <DialogTitle className="text-4xl text-got-gold text-center">{kingdom.name}</DialogTitle>
-                    <DialogDescription className="text-got-gold/70 text-center italic text-xl">
+                    <DialogTitle className="text-4xl text-max-pink text-center">{kingdom.name}</DialogTitle>
+                    <DialogDescription className="text-max-pink/70 text-center italic text-xl">
                       "{kingdom.words}"
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4 mt-6">
-                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
-                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                    <div className="bg-black/60 border-2 border-max-pink/30 rounded-lg p-4">
+                      <h3 className="text-max-pink font-bold text-lg mb-2 flex items-center gap-2">
                         <Icon name="MapPin" size={20} />
                         Главный город
                       </h3>
                       <p className="text-white">{kingdom.seat}</p>
                     </div>
-                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
-                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                    <div className="bg-black/60 border-2 border-max-pink/30 rounded-lg p-4">
+                      <h3 className="text-max-pink font-bold text-lg mb-2 flex items-center gap-2">
                         <Icon name="Globe" size={20} />
                         Туристический регион
                       </h3>
                       <p className="text-white">{kingdom.house}</p>
                     </div>
-                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
-                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                    <div className="bg-black/60 border-2 border-max-pink/30 rounded-lg p-4">
+                      <h3 className="text-max-pink font-bold text-lg mb-2 flex items-center gap-2">
                         <Icon name="BookOpen" size={20} />
                         Описание
                       </h3>
                       <p className="text-white/90">{kingdom.description}</p>
                     </div>
-                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
-                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                    <div className="bg-black/60 border-2 border-max-pink/30 rounded-lg p-4">
+                      <h3 className="text-max-pink font-bold text-lg mb-2 flex items-center gap-2">
                         <Icon name="Plane" size={20} />
                         Популярные направления
                       </h3>
                       <p className="text-white/90">{kingdom.rulers}</p>
                     </div>
-                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
-                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                    <div className="bg-black/60 border-2 border-max-pink/30 rounded-lg p-4">
+                      <h3 className="text-max-pink font-bold text-lg mb-2 flex items-center gap-2">
                         <Icon name="Heart" size={20} />
                         Что посмотреть
                       </h3>
                       <p className="text-white/90">{kingdom.culture}</p>
                     </div>
-                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
-                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                    <div className="bg-black/60 border-2 border-max-pink/30 rounded-lg p-4">
+                      <h3 className="text-max-pink font-bold text-lg mb-2 flex items-center gap-2">
                         <Icon name="Sun" size={20} />
                         Климат и погода
                       </h3>
                       <p className="text-white/90">{kingdom.climate}</p>
                     </div>
-                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
-                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                    <div className="bg-black/60 border-2 border-max-pink/30 rounded-lg p-4">
+                      <h3 className="text-max-pink font-bold text-lg mb-2 flex items-center gap-2">
                         <Icon name="Building2" size={20} />
                         Популярные города
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {kingdom.cities.map((city, idx) => (
-                          <span key={idx} className="bg-got-gold/20 text-got-gold px-3 py-1 rounded-full text-sm border border-got-gold/40">
+                          <span key={idx} className="bg-max-pink/20 text-max-pink px-3 py-1 rounded-full text-sm border border-max-pink/40">
                             {city}
                           </span>
                         ))}
                       </div>
                     </div>
-                    <div className="bg-got-black/60 border-2 border-got-gold/30 rounded-lg p-4">
-                      <h3 className="text-got-fire font-bold text-lg mb-2 flex items-center gap-2">
+                    <div className="bg-black/60 border-2 border-max-pink/30 rounded-lg p-4">
+                      <h3 className="text-max-pink font-bold text-lg mb-2 flex items-center gap-2">
                         <Icon name="Map" size={20} />
                         Достопримечательности
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {kingdom.landmarks.map((landmark, idx) => (
-                          <span key={idx} className="bg-got-fire/20 text-got-gold px-3 py-1 rounded-full text-sm border border-got-fire/40">
+                          <span key={idx} className="bg-max-purple/20 text-max-pink px-3 py-1 rounded-full text-sm border border-max-purple/40">
                             {landmark}
                           </span>
                         ))}
@@ -764,62 +726,52 @@ export default function Index() {
 
   if (activeSection === 'about') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black">
-        <audio id="background-music" loop>
-          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
-        </audio>
+      <div className="min-h-screen bg-gradient-to-br from-max-violet via-max-purple to-black">
         {/* Navigation */}
-        <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
+        <nav className="border-b-2 border-max-pink/30 bg-black/90 backdrop-blur-md sticky top-0 z-50">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-got-fire to-orange-600 flex items-center justify-center border-2 border-got-gold/50">
-                  <Icon name="Crown" size={28} className="text-got-gold" />
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-max-pink to-max-purple flex items-center justify-center shadow-lg shadow-max-pink/50">
+                  <Icon name="Plane" size={28} className="text-white" />
                 </div>
-                <h1 className="text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">СТРАННИК</h1>
               </div>
               <div className="hidden md:flex items-center space-x-6">
-                <button
-                  onClick={toggleMusic}
-                  className="p-2 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
-                  title={isMusicPlaying ? 'Остановить музыку' : 'Играть музыку'}
-                >
-                  <Icon name={isMusicPlaying ? 'Volume2' : 'VolumeX'} size={20} className="text-got-gold" />
-                </button>
                 <button 
                   onClick={() => setActiveSection('home')} 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
                 >
                   Главная
                 </button>
                 <button 
                   onClick={() => setActiveSection('map')} 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
                 >
                   Карта
                 </button>
                 <button 
                   onClick={() => setActiveSection('kingdoms')} 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
                 >
-                  Королевства
+                  Направления
                 </button>
                 <Link 
                   to="/news" 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
                 >
-                  Летописи
+                  Новости
                 </Link>
                 <Link 
                   to="/radar" 
-                  className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-1"
+                  className="text-max-pink/80 hover:text-max-pink transition-colors font-bold flex items-center gap-1"
                 >
-                  <Icon name="Swords" size={16} />
-                  Поле Битвы
+                  <Icon name="Plane" size={16} />
+                  Радар
                 </Link>
                 <button 
                   onClick={() => setActiveSection('about')} 
-                  className="text-got-fire transition-colors font-bold"
+                  className="text-max-pink transition-colors font-bold"
                 >
                   О проекте
                 </button>
@@ -961,22 +913,20 @@ export default function Index() {
 
   return (
     <div 
-      className="min-h-screen bg-gradient-to-br from-got-black via-got-iron to-got-black text-white"
+      className="min-h-screen bg-gradient-to-br from-max-violet via-max-purple to-black text-white"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      <audio id="background-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
-      </audio>
+      <EnergySystem />
 
-      {/* Swipe Indicator */}
+      {/* Swipe Indicator */
       {showSwipeHint && (
         <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 lg:hidden pointer-events-none animate-bounce">
-          <div className="bg-got-black/80 backdrop-blur-md border-2 border-got-gold/50 rounded-full px-6 py-3 flex items-center gap-3">
-            <Icon name="ChevronLeft" size={20} className="text-got-gold/50" />
-            <span className="text-got-gold/70 text-sm font-bold">👈 Свайп для навигации 👉</span>
-            <Icon name="ChevronRight" size={20} className="text-got-gold/50" />
+          <div className="bg-black/80 backdrop-blur-md border-2 border-max-pink/50 rounded-full px-6 py-3 flex items-center gap-3 shadow-lg shadow-max-pink/30">
+            <Icon name="ChevronLeft" size={20} className="text-max-pink/50" />
+            <span className="text-max-pink/70 text-sm font-bold">👈 Свайп для навигации 👉</span>
+            <Icon name="ChevronRight" size={20} className="text-max-pink/50" />
           </div>
         </div>
       )}
@@ -987,7 +937,7 @@ export default function Index() {
           const sectionNames: Record<string, string> = {
             home: 'Главная',
             map: 'Карта',
-            kingdoms: 'Королевства',
+            kingdoms: 'Направления',
             about: 'О нас'
           }
           return (
@@ -997,16 +947,16 @@ export default function Index() {
             >
               <span className={`text-xs font-bold transition-all ${
                 activeSection === section 
-                  ? 'text-got-fire' 
-                  : 'text-got-gold/40'
+                  ? 'text-max-pink' 
+                  : 'text-max-pink/40'
               }`}>
                 {activeSection === section && sectionNames[section]}
               </span>
               <div
                 className={`rounded-full transition-all ${
                   activeSection === section 
-                    ? 'bg-got-fire w-3 h-3 shadow-lg shadow-got-fire/50' 
-                    : 'bg-got-gold/30 w-2 h-2'
+                    ? 'bg-max-pink w-3 h-3 shadow-lg shadow-max-pink/50' 
+                    : 'bg-max-pink/30 w-2 h-2'
                 }`}
               />
             </div>
@@ -1016,90 +966,76 @@ export default function Index() {
 
       <AirlineAds />
       {/* Navigation */}
-      <nav className="border-b-4 border-got-gold/50 bg-got-black/90 backdrop-blur-md sticky top-0 z-50">
+      <nav className="border-b-2 border-max-pink/30 bg-black/90 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-got-fire to-orange-600 flex items-center justify-center border-2 border-got-gold/50">
-                <Icon name="Crown" size={28} className="text-got-gold" />
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-max-pink to-max-purple flex items-center justify-center shadow-lg shadow-max-pink/50">
+                <Icon name="Plane" size={28} className="text-white" />
               </div>
-              <h1 className="text-2xl font-bold text-got-gold">⚔️ Железный Трон</h1>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">СТРАННИК</h1>
             </div>
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6">
-              <button
-                onClick={toggleMusic}
-                className="p-2 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
-                title={isMusicPlaying ? 'Остановить музыку' : 'Играть музыку'}
-              >
-                <Icon name={isMusicPlaying ? 'Volume2' : 'VolumeX'} size={20} className="text-got-gold" />
-              </button>
               <button 
                 onClick={() => setActiveSection('home')} 
-                className="text-got-fire transition-colors font-bold"
+                className="text-max-pink transition-colors font-bold"
               >
                 Главная
               </button>
               <button 
                 onClick={() => setActiveSection('map')} 
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
               >
                 Карта
               </button>
               <button 
                 onClick={() => setActiveSection('kingdoms')} 
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
               >
-                Королевства
+                Направления
               </button>
               <button 
                 onClick={() => setActiveSection('about')} 
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
               >
                 О проекте
               </button>
               <Link 
                 to="/news" 
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold"
               >
-                Летописи
+                Новости
               </Link>
               <Link 
                 to="/radar" 
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-1"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold flex items-center gap-1"
               >
-                <Icon name="Swords" size={16} />
-                Поле Битвы
+                <Icon name="Plane" size={16} />
+                Радар
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
+              className="lg:hidden p-2 rounded-lg bg-max-pink/20 hover:bg-max-pink/30 transition-colors border border-max-pink/50"
             >
-              <Icon name={isMobileMenuOpen ? 'X' : 'Menu'} size={24} className="text-got-gold" />
+              <Icon name={isMobileMenuOpen ? 'X' : 'Menu'} size={24} className="text-max-pink" />
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-got-black/95 border-t-2 border-got-gold/30 backdrop-blur-md">
+          <div className="lg:hidden bg-black/95 border-t-2 border-max-pink/30 backdrop-blur-md">
             <div className="container mx-auto px-6 py-4 flex flex-col space-y-4">
-              <button
-                onClick={toggleMusic}
-                className="flex items-center gap-3 p-3 rounded-lg bg-got-gold/20 hover:bg-got-gold/30 transition-colors border border-got-gold/50"
-              >
-                <Icon name={isMusicPlaying ? 'Volume2' : 'VolumeX'} size={20} className="text-got-gold" />
-                <span className="text-got-gold font-bold">{isMusicPlaying ? 'Остановить музыку' : 'Играть музыку'}</span>
-              </button>
               <button 
                 onClick={() => {
                   setActiveSection('home')
                   setIsMobileMenuOpen(false)
                 }} 
-                className="text-got-fire transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+                className="text-max-pink transition-colors font-bold text-left p-3 hover:bg-max-pink/10 rounded-lg"
               >
                 Главная
               </button>
@@ -1108,7 +1044,7 @@ export default function Index() {
                   setActiveSection('map')
                   setIsMobileMenuOpen(false)
                 }} 
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold text-left p-3 hover:bg-max-pink/10 rounded-lg"
               >
                 Карта
               </button>
@@ -1117,90 +1053,69 @@ export default function Index() {
                   setActiveSection('kingdoms')
                   setIsMobileMenuOpen(false)
                 }} 
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold text-left p-3 hover:bg-max-pink/10 rounded-lg"
               >
-                Королевства
+                Направления
               </button>
               <button 
                 onClick={() => {
                   setActiveSection('about')
                   setIsMobileMenuOpen(false)
                 }} 
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold text-left p-3 hover:bg-max-pink/10 rounded-lg"
               >
                 О проекте
               </button>
               <Link 
                 to="/news" 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold text-left p-3 hover:bg-got-gold/10 rounded-lg"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold text-left p-3 hover:bg-max-pink/10 rounded-lg"
               >
-                Летописи
+                Новости
               </Link>
               <Link 
                 to="/radar" 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-got-gold/80 hover:text-got-gold transition-colors font-bold flex items-center gap-2 p-3 hover:bg-got-gold/10 rounded-lg"
+                className="text-max-pink/80 hover:text-max-pink transition-colors font-bold flex items-center gap-2 p-3 hover:bg-max-pink/10 rounded-lg"
               >
-                <Icon name="Swords" size={16} />
-                Поле Битвы
+                <Icon name="Plane" size={16} />
+                Радар
               </Link>
             </div>
           </div>
         )}
       </nav>
 
-      {/* Premium Banner */}
-      <div className="bg-gradient-to-r from-cyan-900/30 via-blue-900/30 to-purple-900/30 border-b-4 border-cyan-500/50 py-6">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center">
-                <Icon name="Sparkles" size={24} className="text-white" />
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-lg">Премиум подписка — ⚡ 100 энергии/месяц</h3>
-                <p className="text-cyan-300/80 text-sm">Новости РБК + Радар самолётов в реальном времени</p>
-              </div>
-            </div>
-            <Link to="/radar">
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 px-6 py-2 font-bold">
-                <Icon name="Zap" size={18} className="mr-2" />
-                Подключить
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+      <MaxEventBanner />
 
-      {/* GOT Theme Timer */}
-      <div className="bg-got-black border-b-4 border-got-gold/50 py-4">
+      {/* Theme Timer */}
+      <div className="bg-black border-b-2 border-max-pink/30 py-4">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
-            <div className="text-got-gold font-bold text-sm md:text-lg text-center">⚔️ До конца тематики осталось:</div>
+            <div className="text-max-pink font-bold text-sm md:text-lg text-center">✈️ До конца тематики осталось:</div>
             <div className="flex gap-2 md:gap-4">
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-3 md:px-4 py-2">
-                <div className="text-xl md:text-2xl font-bold text-got-fire">{timeLeft.days}</div>
-                <div className="text-xs text-got-gold/70">дней</div>
+              <div className="bg-black/80 border-2 border-max-pink/50 rounded-lg px-3 md:px-4 py-2 shadow-lg shadow-max-pink/20">
+                <div className="text-xl md:text-2xl font-bold text-max-pink">{timeLeft.days}</div>
+                <div className="text-xs text-max-pink/70">дней</div>
               </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-3 md:px-4 py-2">
-                <div className="text-xl md:text-2xl font-bold text-got-fire">{timeLeft.hours}</div>
-                <div className="text-xs text-got-gold/70">часов</div>
+              <div className="bg-black/80 border-2 border-max-pink/50 rounded-lg px-3 md:px-4 py-2 shadow-lg shadow-max-pink/20">
+                <div className="text-xl md:text-2xl font-bold text-max-pink">{timeLeft.hours}</div>
+                <div className="text-xs text-max-pink/70">часов</div>
               </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-3 md:px-4 py-2">
-                <div className="text-xl md:text-2xl font-bold text-got-fire">{timeLeft.minutes}</div>
-                <div className="text-xs text-got-gold/70">минут</div>
+              <div className="bg-black/80 border-2 border-max-pink/50 rounded-lg px-3 md:px-4 py-2 shadow-lg shadow-max-pink/20">
+                <div className="text-xl md:text-2xl font-bold text-max-pink">{timeLeft.minutes}</div>
+                <div className="text-xs text-max-pink/70">минут</div>
               </div>
-              <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg px-3 md:px-4 py-2">
-                <div className="text-xl md:text-2xl font-bold text-got-fire">{timeLeft.seconds}</div>
-                <div className="text-xs text-got-gold/70">секунд</div>
+              <div className="bg-black/80 border-2 border-max-pink/50 rounded-lg px-3 md:px-4 py-2 shadow-lg shadow-max-pink/20">
+                <div className="text-xl md:text-2xl font-bold text-max-pink">{timeLeft.seconds}</div>
+                <div className="text-xs text-max-pink/70">секунд</div>
               </div>
             </div>
             <Link 
               to="/game" 
-              className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white px-4 md:px-6 py-2 rounded-lg border-2 border-got-gold/50 font-bold transition-all"
+              className="bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink text-white px-4 md:px-6 py-2 rounded-lg shadow-lg shadow-max-pink/50 font-bold transition-all"
             >
-              🐉 Играть
+              🎮 Играть
             </Link>
           </div>
         </div>
@@ -1214,41 +1129,41 @@ export default function Index() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
           style={{ backgroundImage: 'url(/img/6547af4c-41dd-4a04-b44f-1947903c0fe1.jpg)' }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-got-black/80 via-got-iron/60 to-got-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-max-purple/40 to-black/80" />
         </div>
         
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-3 h-3 bg-got-fire rounded-full animate-pulse"></div>
-          <div className="absolute top-40 right-20 w-4 h-4 bg-got-gold rounded-full animate-pulse"></div>
-          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-got-gold rounded-full animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
+          <div className="absolute top-20 left-10 w-3 h-3 bg-max-pink rounded-full animate-pulse shadow-lg shadow-max-pink/50"></div>
+          <div className="absolute top-40 right-20 w-4 h-4 bg-max-purple rounded-full animate-pulse shadow-lg shadow-max-purple/50"></div>
+          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-max-pink rounded-full animate-pulse shadow-lg shadow-max-pink/50"></div>
+          <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-max-purple rounded-full animate-pulse shadow-lg shadow-max-purple/50"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-max-pink rounded-full animate-pulse shadow-lg shadow-max-pink/50"></div>
         </div>
         
         <div className="relative z-10 text-center max-w-6xl mx-auto px-4 md:px-6">
           <div className="mb-6 md:mb-8 animate-fade-in">
-            <div key={quoteKey} className="inline-flex flex-col items-center space-y-2 bg-got-black/60 backdrop-blur-md rounded-lg px-4 md:px-8 py-3 md:py-4 mb-6 md:mb-8 border-2 border-got-gold/50 quote-fade-in">
+            <div key={quoteKey} className="inline-flex flex-col items-center space-y-2 bg-black/60 backdrop-blur-md rounded-lg px-4 md:px-8 py-3 md:py-4 mb-6 md:mb-8 border-2 border-max-pink/50 quote-fade-in shadow-lg shadow-max-pink/30">
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
-                <span className="text-sm md:text-lg font-bold text-got-gold italic quote-glow">"{travelQuotes[currentQuote].text}"</span>
-                <div className="w-2 h-2 bg-got-fire rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-max-pink rounded-full animate-pulse"></div>
+                <span className="text-sm md:text-lg font-bold text-max-pink italic quote-glow">"{travelQuotes[currentQuote].text}"</span>
+                <div className="w-2 h-2 bg-max-pink rounded-full animate-pulse"></div>
               </div>
-              <span className="text-xs md:text-sm text-got-gold/70 quote-fade-in">— {travelQuotes[currentQuote].author}</span>
+              <span className="text-xs md:text-sm text-max-pink/70 quote-fade-in">— {travelQuotes[currentQuote].author}</span>
             </div>
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black mb-6 md:mb-8 leading-none tracking-wider">
-            <span className="bg-gradient-to-r from-got-gold via-got-fire to-got-gold bg-clip-text text-transparent drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-max-pink via-max-purple to-max-pink bg-clip-text text-transparent drop-shadow-2xl">
               СЕМЬ РЕГИОНОВ
             </span><br />
-            <span className="text-got-gold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">✈️ МИРА ✈️</span>
+            <span className="text-max-pink text-3xl sm:text-4xl md:text-5xl lg:text-6xl">✈️ МИРА ✈️</span>
           </h1>
           
-          <p className="text-base md:text-xl lg:text-2xl mb-4 md:mb-6 text-got-gold/70 max-w-3xl mx-auto font-light italic px-4">
+          <p className="text-base md:text-xl lg:text-2xl mb-4 md:mb-6 text-max-pink/70 max-w-3xl mx-auto font-light italic px-4">
             Это сайт для путешествий
           </p>
           
-          <p className="text-sm md:text-lg mb-8 md:mb-12 text-got-gold/60 max-w-3xl mx-auto font-light px-4">
+          <p className="text-sm md:text-lg mb-8 md:mb-12 text-max-pink/60 max-w-3xl mx-auto font-light px-4">
             Откройте для себя самые захватывающие направления планеты. 
             Каждое путешествие — это новая история в книге вашей жизни.
           </p>
@@ -1256,16 +1171,16 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center px-4">
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-got-fire to-orange-600 hover:from-got-fire/90 hover:to-orange-700 text-white border-2 border-got-gold/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
+              className="bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink text-white shadow-lg shadow-max-pink/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
               onClick={() => window.open('https://www.booking.com', '_blank')}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-got-fire/20 to-orange-600/20 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-max-pink/20 to-max-purple/20 animate-pulse"></div>
               <Icon name="Hotel" size={24} className="mr-3 relative z-10" />
               <span className="relative z-10">Забронировать отель</span>
             </Button>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-2 border-got-gold/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
+              className="bg-gradient-to-r from-max-purple to-fuchsia-600 hover:from-max-purple/90 hover:to-fuchsia-700 text-white shadow-lg shadow-max-purple/50 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold relative overflow-hidden group w-full sm:w-auto"
               onClick={() => setActiveSection('kingdoms')}
             >
               <Icon name="Compass" size={24} className="mr-3" />
@@ -1274,7 +1189,7 @@ export default function Index() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-got-gold/50 text-got-gold hover:bg-got-gold/20 hover:border-got-gold h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold bg-got-black/60 backdrop-blur-sm transition-all hover:scale-105 w-full sm:w-auto"
+              className="border-2 border-max-pink/50 text-max-pink hover:bg-max-pink/20 hover:border-max-pink h-12 md:h-14 px-6 md:px-8 text-base md:text-lg font-bold bg-black/60 backdrop-blur-sm transition-all hover:scale-105 w-full sm:w-auto"
               onClick={changeQuote}
             >
               <Icon name="Sparkles" size={24} className="mr-3" />
@@ -1293,42 +1208,42 @@ export default function Index() {
               : 'inset-4 md:inset-8'
           }`}
         >
-          <div className="bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50 rounded-lg overflow-hidden h-full flex flex-col shadow-2xl">
-            <div className="bg-gradient-to-r from-got-fire to-orange-600 px-4 py-3 flex items-center justify-between">
-              <h3 className="text-got-gold font-bold text-lg flex items-center gap-2">
+          <div className="bg-black/95 backdrop-blur-xl border-2 border-max-pink/50 rounded-lg overflow-hidden h-full flex flex-col shadow-2xl">
+            <div className="bg-gradient-to-r from-max-pink to-max-purple px-4 py-3 flex items-center justify-between">
+              <h3 className="text-white font-bold text-lg flex items-center gap-2">
                 <Icon name="Play" size={20} />
-                🐉 Игра Престолов - Сезон {currentSeason}, Серия {currentEpisode}
+                🎥 Видео - Сезон {currentSeason}, Серия {currentEpisode}
               </h3>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setIsVideoMinimized(!isVideoMinimized)}
-                  className="p-2 hover:bg-got-gold/20 rounded transition-colors"
+                  className="p-2 hover:bg-white/20 rounded transition-colors"
                   title={isVideoMinimized ? "Развернуть" : "Свернуть"}
                 >
-                  <Icon name={isVideoMinimized ? "Maximize2" : "Minimize2"} size={20} className="text-got-gold" />
+                  <Icon name={isVideoMinimized ? "Maximize2" : "Minimize2"} size={20} className="text-white" />
                 </button>
                 <button
                   onClick={() => setIsVideoPlayerOpen(false)}
-                  className="p-2 hover:bg-got-gold/20 rounded transition-colors"
+                  className="p-2 hover:bg-white/20 rounded transition-colors"
                   title="Закрыть"
                 >
-                  <Icon name="X" size={20} className="text-got-gold" />
+                  <Icon name="X" size={20} className="text-white" />
                 </button>
               </div>
             </div>
             
             {!isVideoMinimized && (
-              <div className="bg-got-black/80 px-4 py-3 border-b-2 border-got-gold/30">
+              <div className="bg-black/80 px-4 py-3 border-b-2 border-max-pink/30">
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="flex-1">
-                    <label className="text-got-gold text-sm font-bold mb-2 block">Сезон:</label>
+                    <label className="text-max-pink text-sm font-bold mb-2 block">Сезон:</label>
                     <Select value={currentSeason.toString()} onValueChange={(val) => setCurrentSeason(Number(val))}>
-                      <SelectTrigger className="bg-got-black/60 border-got-gold/50 text-got-gold">
+                      <SelectTrigger className="bg-black/60 border-max-pink/50 text-max-pink">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-got-black/95 border-got-gold/50">
+                      <SelectContent className="bg-black/95 border-max-pink/50">
                         {[1, 2, 3, 4, 5, 6, 7, 8].map((season) => (
-                          <SelectItem key={season} value={season.toString()} className="text-got-gold hover:bg-got-gold/20">
+                          <SelectItem key={season} value={season.toString()} className="text-max-pink hover:bg-max-pink/20">
                             Сезон {season}
                           </SelectItem>
                         ))}
@@ -1336,14 +1251,14 @@ export default function Index() {
                     </Select>
                   </div>
                   <div className="flex-1">
-                    <label className="text-got-gold text-sm font-bold mb-2 block">Серия:</label>
+                    <label className="text-max-pink text-sm font-bold mb-2 block">Серия:</label>
                     <Select value={currentEpisode.toString()} onValueChange={(val) => setCurrentEpisode(Number(val))}>
-                      <SelectTrigger className="bg-got-black/60 border-got-gold/50 text-got-gold">
+                      <SelectTrigger className="bg-black/60 border-max-pink/50 text-max-pink">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-got-black/95 border-got-gold/50">
+                      <SelectContent className="bg-black/95 border-max-pink/50">
                         {Array.from({ length: 10 }, (_, i) => i + 1).map((episode) => (
-                          <SelectItem key={episode} value={episode.toString()} className="text-got-gold hover:bg-got-gold/20">
+                          <SelectItem key={episode} value={episode.toString()} className="text-max-pink hover:bg-max-pink/20">
                             Серия {episode}
                           </SelectItem>
                         ))}
@@ -1363,14 +1278,14 @@ export default function Index() {
                       }
                     }}
                     disabled={currentSeason === 1 && currentEpisode === 1}
-                    className="flex-1 bg-got-black/60 border-2 border-got-gold/50 text-got-gold py-2 px-4 rounded-lg hover:bg-got-gold/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed font-bold flex items-center justify-center gap-2"
+                    className="flex-1 bg-black/60 border-2 border-max-pink/50 text-max-pink py-2 px-4 rounded-lg hover:bg-max-pink/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed font-bold flex items-center justify-center gap-2"
                   >
                     <Icon name="ChevronLeft" size={20} />
                     <span className="hidden md:inline">Предыдущая</span>
                     <span className="md:hidden">Пред.</span>
                   </button>
                   
-                  <div className="text-got-gold/70 text-sm text-center px-2">
+                  <div className="text-max-pink/70 text-sm text-center px-2">
                     🇷🇺 VK Video
                   </div>
                   
@@ -1384,7 +1299,7 @@ export default function Index() {
                       }
                     }}
                     disabled={currentSeason === 8 && currentEpisode === 10}
-                    className="flex-1 bg-got-black/60 border-2 border-got-gold/50 text-got-gold py-2 px-4 rounded-lg hover:bg-got-gold/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed font-bold flex items-center justify-center gap-2"
+                    className="flex-1 bg-black/60 border-2 border-max-pink/50 text-max-pink py-2 px-4 rounded-lg hover:bg-max-pink/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed font-bold flex items-center justify-center gap-2"
                   >
                     <span className="hidden md:inline">Следующая</span>
                     <span className="md:hidden">След.</span>
@@ -1404,7 +1319,7 @@ export default function Index() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                 allowFullScreen
               />
-              <div className="absolute bottom-4 left-4 bg-got-black/80 backdrop-blur-md border-2 border-got-gold/50 rounded-lg px-4 py-2 text-got-gold text-sm font-bold">
+              <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md border-2 border-max-pink/50 rounded-lg px-4 py-2 text-max-pink text-sm font-bold">
                 📺 VK Video • RU
               </div>
             </div>
@@ -1412,46 +1327,46 @@ export default function Index() {
         </div>
       )}
 
-      {/* Great Houses Section */}
-      <section className="py-8 md:py-16 px-4 md:px-6 relative bg-gradient-to-r from-got-black via-got-iron/20 to-got-black backdrop-blur-sm border-y-4 border-got-gold/30">
+      {/* Popular Categories Section */}
+      <section className="py-8 md:py-16 px-4 md:px-6 relative bg-gradient-to-r from-max-violet via-max-purple/20 to-max-violet backdrop-blur-sm border-y-2 border-max-pink/30">
         <div className="container mx-auto">
           <div className="text-center mb-8 md:mb-12">
-            <h3 className="text-2xl md:text-4xl font-bold mb-6 md:mb-8 text-got-gold">
-              ⚔️ Великие Дома Вестероса ⚔️
+            <h3 className="text-2xl md:text-4xl font-bold mb-6 md:mb-8 bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">
+              ✈️ Популярные категории путешествий ✈️
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                  <div className="bg-black/80 border-2 border-max-pink/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-max-pink hover:scale-105 transition-all cursor-pointer shadow-lg hover:shadow-max-pink/50">
                     <div className="text-3xl md:text-5xl mb-2 md:mb-3">🐺</div>
-                    <h4 className="text-got-gold font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Старков</h4>
-                    <p className="text-got-gold/60 text-xs md:text-sm italic">"Зима близко"</p>
+                    <h4 className="text-max-pink font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Старков</h4>
+                    <p className="text-max-pink/60 text-xs md:text-sm italic">"Зима близко"</p>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
+                <DialogContent className="max-w-3xl bg-black/95 backdrop-blur-xl border-2 border-max-pink/50">
                   <DialogHeader>
-                    <DialogTitle className="text-3xl text-got-gold mb-4">🐺 Дом Старков из Винтерфелла</DialogTitle>
+                    <DialogTitle className="text-3xl text-max-pink mb-4">🐺 Дом Старков из Винтерфелла</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4 text-white max-h-[60vh] overflow-y-auto">
-                    <p className="text-xl italic text-got-gold/80">"Зима близко"</p>
+                    <p className="text-xl italic text-max-pink/80">"Зима близко"</p>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">📜 История:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">📜 История:</h4>
                       <p>Старки правят Севером уже тысячи лет, со времён Эпохи Героев. Они произошли от Брандона Строителя, который возвёл Стену и основал дом Старков в Винтерфелле.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">👑 Правители:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">👑 Правители:</h4>
                       <p>Эддард "Нед" Старк, Лорд Винтерфелла и Хранитель Севера. После его смерти - Робб Старк, Король Севера.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">🏰 Резиденция:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">🏰 Резиденция:</h4>
                       <p>Винтерфелл - древний замок на Севере с горячими источниками под стенами и криптами, где покоятся все Старки.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">⚔️ Характеристики:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">⚔️ Характеристики:</h4>
                       <p>Честь, справедливость, верность. Старки почитают Старых Богов и славятся своей неподкупностью и благородством.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">👥 Известные члены:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">👥 Известные члены:</h4>
                       <p>Эддард Старк, Кейтилин Старк, Робб Старк, Санса Старк, Арья Старк, Бран Старк, Рикон Старк, Джон Сноу (бастард)</p>
                     </div>
                   </div>
@@ -1460,36 +1375,36 @@ export default function Index() {
 
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                  <div className="bg-black/80 border-2 border-max-pink/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-max-pink hover:scale-105 transition-all cursor-pointer shadow-lg hover:shadow-max-pink/50">
                     <div className="text-3xl md:text-5xl mb-2 md:mb-3">🦁</div>
-                    <h4 className="text-got-gold font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Ланнистеров</h4>
-                    <p className="text-got-gold/60 text-xs md:text-sm italic">"Услышь мой рёв!"</p>
+                    <h4 className="text-max-pink font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Ланнистеров</h4>
+                    <p className="text-max-pink/60 text-xs md:text-sm italic">"Услышь мой рёв!"</p>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
+                <DialogContent className="max-w-3xl bg-black/95 backdrop-blur-xl border-2 border-max-pink/50">
                   <DialogHeader>
-                    <DialogTitle className="text-3xl text-got-gold mb-4">🦁 Дом Ланнистеров из Бобрового Утёса</DialogTitle>
+                    <DialogTitle className="text-3xl text-max-pink mb-4">🦁 Дом Ланнистеров из Бобрового Утёса</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4 text-white max-h-[60vh] overflow-y-auto">
-                    <p className="text-xl italic text-got-gold/80">"Услышь мой рёв!" (неофициальный девиз: "Ланнистеры всегда платят свои долги")</p>
+                    <p className="text-xl italic text-max-pink/80">"Услышь мой рёв!" (неофициальный девиз: "Ланнистеры всегда платят свои долги")</p>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">📜 История:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">📜 История:</h4>
                       <p>Богатейший дом Вестероса, происходящий от Ланна Умного. Их богатство происходит из золотых рудников под Бобровым Утёсом.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">👑 Правители:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">👑 Правители:</h4>
                       <p>Тайвин Ланнистер - Лорд Бобрового Утёса, Хранитель Запада и Десница Короля при нескольких правителях.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">🏰 Резиденция:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">🏰 Резиденция:</h4>
                       <p>Бобровый Утёс - огромная крепость, вырезанная из скалы над морем, с золотыми рудниками в глубинах.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">⚔️ Характеристики:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">⚔️ Характеристики:</h4>
                       <p>Богатство, власть, амбиции, хитрость. Ланнистеры славятся своей гордостью и стремлением к власти.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">👥 Известные члены:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">👥 Известные члены:</h4>
                       <p>Тайвин Ланнистер, Серсея Ланнистер, Джейме Ланнистер, Тирион Ланнистер</p>
                     </div>
                   </div>
@@ -1498,36 +1413,36 @@ export default function Index() {
 
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                  <div className="bg-black/80 border-2 border-max-pink/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-max-pink hover:scale-105 transition-all cursor-pointer shadow-lg hover:shadow-max-pink/50">
                     <div className="text-3xl md:text-5xl mb-2 md:mb-3">🐉</div>
-                    <h4 className="text-got-gold font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Таргариенов</h4>
-                    <p className="text-got-gold/60 text-xs md:text-sm italic">"Огонь и кровь"</p>
+                    <h4 className="text-max-pink font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Таргариенов</h4>
+                    <p className="text-max-pink/60 text-xs md:text-sm italic">"Огонь и кровь"</p>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
+                <DialogContent className="max-w-3xl bg-black/95 backdrop-blur-xl border-2 border-max-pink/50">
                   <DialogHeader>
-                    <DialogTitle className="text-3xl text-got-gold mb-4">🐉 Дом Таргариенов из Драконьего Камня</DialogTitle>
+                    <DialogTitle className="text-3xl text-max-pink mb-4">🐉 Дом Таргариенов из Драконьего Камня</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4 text-white max-h-[60vh] overflow-y-auto">
-                    <p className="text-xl italic text-got-gold/80">"Огонь и кровь"</p>
+                    <p className="text-xl italic text-max-pink/80">"Огонь и кровь"</p>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">📜 История:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">📜 История:</h4>
                       <p>Древний валирийский дом, единственный выживший после Рока Валирии. Эйгон Завоеватель на драконах объединил Семь Королевств 300 лет назад.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">👑 Правители:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">👑 Правители:</h4>
                       <p>Правили Железным Троном почти 300 лет, пока их не свергли во время восстания Роберта Баратеона.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">🏰 Резиденция:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">🏰 Резиденция:</h4>
                       <p>Драконий Камень - мрачная крепость на острове, построенная с помощью валирийской магии в форме драконов.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">⚔️ Характеристики:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">⚔️ Характеристики:</h4>
                       <p>Драконья кровь, огнестойкость, склонность к безумию. "Когда рождается Таргариен, боги подбрасывают монетку".</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">👥 Известные члены:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">👥 Известные члены:</h4>
                       <p>Эйгон Завоеватель, Безумный Король Эйрис II, Рейгар Таргариен, Визерис Таргариен, Дейнерис Таргариен</p>
                     </div>
                   </div>
@@ -1536,36 +1451,36 @@ export default function Index() {
 
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-got-black/80 border-2 border-got-gold/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-got-fire hover:scale-105 transition-all cursor-pointer">
+                  <div className="bg-black/80 border-2 border-max-pink/50 rounded-lg p-4 md:p-6 backdrop-blur-md hover:border-max-pink hover:scale-105 transition-all cursor-pointer shadow-lg hover:shadow-max-pink/50">
                     <div className="text-3xl md:text-5xl mb-2 md:mb-3">🦌</div>
-                    <h4 className="text-got-gold font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Баратеонов</h4>
-                    <p className="text-got-gold/60 text-xs md:text-sm italic">"Наша ярость"</p>
+                    <h4 className="text-max-pink font-bold text-sm md:text-lg mb-1 md:mb-2">Дом Баратеонов</h4>
+                    <p className="text-max-pink/60 text-xs md:text-sm italic">"Наша ярость"</p>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl bg-got-black/95 backdrop-blur-xl border-4 border-got-gold/50">
+                <DialogContent className="max-w-3xl bg-black/95 backdrop-blur-xl border-2 border-max-pink/50">
                   <DialogHeader>
-                    <DialogTitle className="text-3xl text-got-gold mb-4">🦌 Дом Баратеонов из Штормового Предела</DialogTitle>
+                    <DialogTitle className="text-3xl text-max-pink mb-4">🦌 Дом Баратеонов из Штормового Предела</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4 text-white max-h-[60vh] overflow-y-auto">
-                    <p className="text-xl italic text-got-gold/80">"Наша ярость"</p>
+                    <p className="text-xl italic text-max-pink/80">"Наша ярость"</p>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">📜 История:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">📜 История:</h4>
                       <p>Относительно молодой дом, основанный бастардом Таргариенов. Роберт Баратеон возглавил восстание и сверг Таргариенов, став королём.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">👑 Правители:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">👑 Правители:</h4>
                       <p>Роберт Баратеон - Король Семи Королевств после свержения Таргариенов. Его братья: Станнис и Ренли.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">🏰 Резиденция:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">🏰 Резиденция:</h4>
                       <p>Штормовой Предел - неприступная крепость, построенная с использованием магии, способная выдержать любой шторм.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">⚔️ Характеристики:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">⚔️ Характеристики:</h4>
                       <p>Сила, ярость, воинственность. Баратеоны известны своим боевым духом и мощью в бою.</p>
                     </div>
                     <div>
-                      <h4 className="text-got-fire font-bold text-lg mb-2">👥 Известные члены:</h4>
+                      <h4 className="text-max-pink font-bold text-lg mb-2">👥 Известные члены:</h4>
                       <p>Роберт Баратеон, Станнис Баратеон, Ренли Баратеон, Джоффри (официально Баратеон)</p>
                     </div>
                   </div>
@@ -1576,16 +1491,16 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Features Section - Neon Style */}
+      {/* Features Section - MAX Style */}
       <section className="py-24 px-6 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-950/10 via-black/0 to-cyan-950/10 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-max-purple/10 via-black/0 to-max-violet/10 pointer-events-none"></div>
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 text-got-gold">
-              ⚔️ Великие Земли Вестероса ⚔️
+            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">
+              ✈️ Избранные направления ✈️
             </h2>
-            <p className="text-xl text-got-gold/60 max-w-3xl mx-auto font-light italic">
-              "Когда идёт снег и воют северные ветра, одинокий волк умирает, но стая выживает"
+            <p className="text-xl text-max-pink/60 max-w-3xl mx-auto font-light italic">
+              "Мир слишком велик, чтобы сидеть дома"
             </p>
           </div>
 
@@ -1593,16 +1508,16 @@ export default function Index() {
             {destinations.map((destination) => (
               <Dialog key={destination.id}>
                 <DialogTrigger asChild>
-                  <Card className="group cursor-pointer bg-got-black/80 backdrop-blur-md border-2 border-got-gold/40 hover:border-got-fire transition-all duration-500 hover:scale-105 overflow-hidden">
+                  <Card className="group cursor-pointer bg-black/80 backdrop-blur-md border-2 border-max-pink/40 hover:border-max-pink transition-all duration-500 hover:scale-105 overflow-hidden shadow-lg hover:shadow-max-pink/50">
                     <div className="relative overflow-hidden">
                       <img 
                         src={destination.image} 
                         alt={destination.name}
                         className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-got-black via-got-iron/30 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-max-purple/30 to-transparent" />
                       <div className="absolute top-6 right-6">
-                        <Badge className="bg-gradient-to-r from-got-fire to-orange-600 text-white border-2 border-got-gold/50 font-bold">
+                        <Badge className="bg-gradient-to-r from-max-pink to-max-purple text-white shadow-lg shadow-max-pink/50 font-bold">
                           {destination.category}
                         </Badge>
                       </div>
@@ -1616,7 +1531,7 @@ export default function Index() {
                     </div>
                     <CardContent className="p-6">
                       <p className="text-white/70 mb-4 line-clamp-2">{destination.description}</p>
-                      <div className="flex items-center text-blue-400 group-hover:text-blue-300 transition-colors">
+                      <div className="flex items-center text-max-pink group-hover:text-max-purple transition-colors">
                         <Icon name="ArrowRight" size={20} className="mr-2" />
                         <span className="font-medium">Узнать подробности</span>
                       </div>
@@ -1820,9 +1735,9 @@ export default function Index() {
 
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-max-pink/20 via-max-purple/20 to-max-violet/20" />
         <div className="container mx-auto px-6 text-center relative z-10">
-          <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">
             Создайте свой маршрут
           </h2>
           <p className="text-xl mb-12 text-white/70 max-w-3xl mx-auto font-light">
@@ -1831,7 +1746,7 @@ export default function Index() {
           </p>
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 h-14 px-8 text-lg font-semibold"
+            className="bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink text-white shadow-lg shadow-max-pink/50 h-14 px-8 text-lg font-semibold"
             onClick={() => window.open('https://www.utair.ru', '_blank')}
           >
             <Icon name="MapPin" size={24} className="mr-3" />
@@ -1840,27 +1755,36 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Footer - Neon Style */}
-      <footer className="bg-black/40 backdrop-blur-md border-t-2 border-cyan-500/30 py-12">
+      {/* Footer - MAX Style */}
+      <footer className="bg-black/40 backdrop-blur-md border-t-2 border-max-pink/30 py-12">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center space-x-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 flex items-center justify-center neon-border-blue">
-              <Icon name="Compass" size={24} className="text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-max-pink to-max-purple flex items-center justify-center shadow-lg shadow-max-pink/50">
+              <Icon name="Plane" size={24} className="text-white" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent neon-text-blue">Странник</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-max-pink to-max-purple bg-clip-text text-transparent">Странник</span>
           </div>
-          <p className="text-cyan-300/60 text-lg mb-6">
+          <p className="text-max-pink/60 text-lg mb-6">
             Откройте мир через интерактивные путешествия • 2024
           </p>
-          <div className="flex flex-col items-center gap-4">
-            <p className="text-white/70 text-sm">Мы в соцсетях</p>
-            <Button
-              onClick={() => window.open('https://t.me/Strannik_com', '_blank')}
-              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0 px-6 py-2 flex items-center gap-2"
-            >
-              <Icon name="Send" size={20} />
-              Смотреть
-            </Button>
+          <div className="flex flex-col items-center gap-6">
+            <p className="text-white/70 text-sm font-medium">Мы в соцсетях и на платформах</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Button
+                onClick={() => window.open('https://t.me/Strannik_com', '_blank')}
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg shadow-blue-500/50 px-6 py-2 flex items-center gap-2"
+              >
+                <Icon name="Send" size={20} />
+                Telegram
+              </Button>
+              <Button
+                onClick={() => window.open('https://max.ru/join/XXufWuRT_4_-U687UWq2zVs905JbNy7FjvfipRLO9ao', '_blank')}
+                className="bg-gradient-to-r from-max-pink to-max-purple hover:from-max-purple hover:to-max-pink text-white shadow-lg shadow-max-pink/50 px-6 py-2 flex items-center gap-2"
+              >
+                <Icon name="Tv" size={20} />
+                MAX
+              </Button>
+            </div>
           </div>
         </div>
       </footer>

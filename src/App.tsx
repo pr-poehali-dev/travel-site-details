@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import News from "./pages/News";
 import Radar from "./pages/Radar";
 import Hotels from "./pages/Hotels";
-import DragonGame from "./pages/DragonGame";
 import NotFound from "./pages/NotFound";
 import MaintenanceMode from "./components/MaintenanceMode";
 import AuthGate from "./components/AuthGate";
@@ -28,7 +27,6 @@ const App = () => (
             <Route path="/news" element={<News />} />
             <Route path="/radar" element={<Radar />} />
             <Route path="/hotels" element={<Hotels />} />
-            <Route path="/game" element={<DragonGame />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
