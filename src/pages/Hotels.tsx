@@ -8,6 +8,7 @@ import Icon from '@/components/ui/icon';
 import { hotels } from '@/data/hotels';
 import { allCountries } from '@/data/countries';
 import EnergySystem from '@/components/EnergySystem';
+import MaxMessenger from '@/components/MaxMessenger';
 
 export default function Hotels() {
   const [selectedCountry, setSelectedCountry] = useState<string>('all');
@@ -36,6 +37,7 @@ export default function Hotels() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-max-violet to-slate-900 text-white">
       <EnergySystem />
+      <MaxMessenger />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.15),transparent_70%)]" />
       
       <div className="relative z-10">

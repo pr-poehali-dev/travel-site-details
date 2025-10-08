@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import EnergySystem from '@/components/EnergySystem';
+import MaxMessenger from '@/components/MaxMessenger';
 
 export default function Radar() {
   const [showSubscriptionDialog, setShowSubscriptionDialog] = useState(false);
@@ -82,6 +83,7 @@ export default function Radar() {
     return (
       <div className="relative w-full h-screen bg-slate-950 overflow-hidden">
         <EnergySystem />
+        <MaxMessenger />
         <div className="absolute top-4 right-4 z-[1001] flex items-center gap-3">
           <Button
             onClick={() => setIsDarkTheme(!isDarkTheme)}
@@ -132,6 +134,7 @@ export default function Radar() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-max-violet to-slate-950 relative overflow-hidden">
       <EnergySystem />
+      <MaxMessenger />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.15),transparent_70%)]" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMzYsMTI1LDI0OSwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40" />
 
